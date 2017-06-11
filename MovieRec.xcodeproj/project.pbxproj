@@ -161,6 +161,7 @@
 				TargetAttributes = {
 					6A3483991EDA291F00852249 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = S2W38DQ33W;
 						ProvisioningStyle = Automatic;
 					};
 					6A3483AD1EDA291F00852249 = {
@@ -361,6 +362,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = S2W38DQ33W;
 				INFOPLIST_FILE = MovieRec/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MovieRec;
@@ -373,6 +375,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = S2W38DQ33W;
 				INFOPLIST_FILE = MovieRec/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MovieRec;
@@ -428,6 +431,7 @@
 				6A3483B91EDA291F00852249 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6A3483BA1EDA291F00852249 /* Build configuration list for PBXNativeTarget "MovieRecTests" */ = {
 			isa = XCConfigurationList;
@@ -436,6 +440,7 @@
 				6A3483BC1EDA291F00852249 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

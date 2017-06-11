@@ -14,10 +14,18 @@ class Movie {
     
     var title: String
     var photoUrl: String
+    var movieImage: UIImage
     
     init(title: String, photoUrl: String) {
         self.title = title
         self.photoUrl = photoUrl
+        
+        let url = URL(string: self.photoUrl)
+        let data = try? Data(contentsOf: url!)
+        movieImage = UIImage(data: data!)!
+        
+       
+        
     }
     
 }
