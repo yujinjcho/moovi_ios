@@ -8,18 +8,16 @@
 
 import UIKit
 
-class Rating {
+class Rating: NSObject {
     
     //MARK: Properties
 
-    var title: String
+    var movieId: String
     var rating: String
-    var deviceId: String
     
-    init(title: String, rating: String, deviceId: String) {
-        self.title = title
+    init(movieId: String, rating: String) {
+        self.movieId = movieId
         self.rating = rating
-        self.deviceId = deviceId
     }
     
 }

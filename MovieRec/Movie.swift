@@ -14,10 +14,13 @@ class Movie {
     
     var title: String
     var photoUrl: String
+    var movieId: String
     
-    init(title: String, photoUrl: String) {
+    init(title: String, movieId: String, photoUrl: String) {
         self.title = title
         self.photoUrl = photoUrl
+        self.movieId = movieId
+        
     }
     
 }

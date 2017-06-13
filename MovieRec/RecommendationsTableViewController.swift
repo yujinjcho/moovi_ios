@@ -11,15 +11,19 @@ import UIKit
 class RecommendationsTableViewController: UITableViewController {
 
     //MARK: Properties 
-    
+    var ratings = [Rating]()
     var recommendations = [Recommendation]()
+    var userId = "test_user_03"
+
+    @IBAction func refreshBarButton(_ sender: Any) {
+        updateRecommendations()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Load sample recommendations
         loadSampleRecommendations()
-
     }
 
 
@@ -47,50 +51,7 @@ class RecommendationsTableViewController: UITableViewController {
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
     
     //MARK: Private Methods
     
@@ -105,4 +66,58 @@ class RecommendationsTableViewController: UITableViewController {
 
     }
 
+    private func updateRecommendations() {
+        
+        // update recommendations
+        uploadAndUpdateRecommendations()
+    }
+    
+    private func uploadAndUpdateRecommendations() {
+        makeAPICall()
+    }
+    
+    
+    private func makeAPICall() {
+        var uploadRatings: [[String:String]] = []
+        for rating in ratings {
+            uploadRatings.append([
+                "movie_id": rating.value(forKey: "movieId") as! String,
+                "rating": rating.value(forKey: "rating") as! String
+            ])
+        }
+
+        let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings]
+        let jsonData = try? JSONSerialization.data(withJSONObject: postData)
+        let url = URL(string: "https://movie-rec-project.herokuapp.com/api/refresh")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+//            let string = String(data: data, encoding: String.Encoding.utf8)
+//            print(string!)
+            
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            self.recommendations.removeAll()
+            if let responseJSON = responseJSON as? [String: [String]] {
+                for recommendation in responseJSON["recommendations"]! {
+                    self.recommendations += [Recommendation(title: recommendation)]
+                }
+
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+        task.resume()
+    }
+
+    
 }
