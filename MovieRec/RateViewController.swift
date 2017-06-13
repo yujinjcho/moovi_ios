@@ -63,6 +63,8 @@ class RateViewController: UIViewController {
         titleNameLabel.text = currentMovie.title
         
         // set photo to be movie
+        titleImage.contentMode = .scaleAspectFill
+        titleImage.clipsToBounds = true
         titleImage.image = currentMovie.movieImage
     }
     
