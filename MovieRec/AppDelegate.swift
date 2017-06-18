@@ -35,12 +35,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // makeAPICall()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    private func makeAPICall() {
+        
+        let postData: [String: Any] = [
+            "user_id": "test_user_02",
+            "ratings": [
+                ["movie_id":"test_1", "rating":"1"],
+                ["movie_id":"test_2", "rating":"-1"]
+            ]
+        ] // as Dictionary<String, Any>
+        let jsonData = try? JSONSerialization.data(withJSONObject: postData)
+        let url = URL(string: "https://movie-rec-project.herokuapp.com/test")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
+        
+        // insert json data to the request
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let string = String(data: data, encoding: String.Encoding.utf8)
+            print(string!)
+//            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+//            if let responseJSON = responseJSON as? [String: Any] {
+//                print("EXPECTING SOMETHING")
+//                print(responseJSON)
+//            }
+        }
+        
+        task.resume()
+        }
+    
+    
 }
 

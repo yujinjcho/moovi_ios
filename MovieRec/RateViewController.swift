@@ -18,7 +18,7 @@ class RateViewController: UIViewController {
     @IBOutlet weak var titleImage: UIImageView!
     @IBAction func rateLikeButton(_ sender: UIButton) {
         print("Like Pressed")
-        processRating(ratingType: "Like")
+        processRating(ratingType: "1")
     }
     
     @IBAction func rateSkipButton(_ sender: UIButton) {
@@ -28,7 +28,7 @@ class RateViewController: UIViewController {
     }
     @IBAction func rateDislikeButton(_ sender: UIButton) {
         print("Dislike Pressed")
-        processRating(ratingType: "Dislike")
+        processRating(ratingType: "-1")
 
     }
     
@@ -39,20 +39,22 @@ class RateViewController: UIViewController {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let recommendationsTableViewController = segue.destination as? RecommendationsTableViewController {
+            recommendationsTableViewController.ratings = ratings
+        }
+    }
+    
     //MARK: Private Methods
     private func loadSampleMovies() {
 
         
-        let movie1 = Movie(title: "The Mummy", photoUrl: "https://resizing.flixster.com/cF2J3F5DC4EpeAU17YPsymcsoPY=/758x1200/v1.bTsxMjQwNTk1MDtqOzE3NDEzOzIwNDg7NzkwOzEyNTE")
-        let movie2 = Movie(title: "Wonder Woman", photoUrl: "https://resizing.flixster.com/KoHf19nmZ0qWgVnGPgVCW6TrSD4=/800x1185/v1.bTsxMjQxMTMzMTtqOzE3Mzk0OzIwNDg7NDA1MDs2MDAw")
-        let movie3 = Movie(title: "Pirates of the Caribbean: Dead Men Tell No Tales", photoUrl: "https://resizing.flixster.com/eBYoZ0u2rTERYSPchsAmZFLXVmQ=/360x536/v1.bTsxMjMyMzIyNztwOzE3Mzk5OzIwNDg7MzYwOzUzNg")
-        let movie4 = Movie(title: "Guardians of the Galaxy Vol. 2", photoUrl: "https://resizing.flixster.com/3mlqhwwH5MMp10l-Ue427fedkR0=/591x876/v1.bTsxMjMyMzE1NjtwOzE3NDE4OzIwNDg7NTkxOzg3Ng")
-        let movie5 = Movie(title: "Baywatch", photoUrl: "https://resizing.flixster.com/PszYjP8rzP0GIlh0pEM47l1BH_E=/800x1185/v1.bTsxMjQwMTA1OTtqOzE3MzgyOzIwNDg7MTczMDsyNTYz")
-        let movie6 = Movie(title: "Alien: Covenant", photoUrl: "https://resizing.flixster.com/jvTC-M74iG4O8UX9V3kvDVlEEZg=/539x800/v1.bTsxMjM0NTY3NjtqOzE3MzkzOzIwNDg7NTM5OzgwMA")
-
-
-
-        movies += [movie1, movie2, movie3, movie4, movie5, movie6]
+        let movie1 = Movie(title: "Eye of the Beast", movieId: "770674011", photoUrl: "https://resizing.flixster.com/l33YTQ7OQjckGzyjz4Or2B5M7IY=/322x462/v1.bTsxMDgzOTc5MDtqOzE3NDE1OzIwNDg7MzIyOzQ2Mg")
+        let movie2 = Movie(title: "Befikre", movieId: "771455920", photoUrl: "https://resizing.flixster.com/LFD-HnXFLYFpvihrAJdNF9XkG3s=/799x1066/v1.bTsxMjI0ODk3MztqOzE3Mzk0OzIwNDg7MjE4NzsyOTE2")
+        let movie3 = Movie(title: "Hotel Reserve", movieId: "771046771", photoUrl: "https://resizing.flixster.com/1yzqLJeMc-OFV-_XiyLoIt0l_GI=/400x611/v1.bTsxMjA4ODk2NDtqOzE3NDAzOzIwNDg7NDAwOzYxMQ")
+        let movie4 = Movie(title: "Nostradamus", movieId: "770680114", photoUrl: "https://resizing.flixster.com/C8R3lhW9v_Ec4RFn5BClTIoOZ5Q=/597x796/v1.bTsxMTU0NDIxNztqOzE3NDIwOzIwNDg7NTk3Ozc5Ng")
+        movies += [movie1, movie2, movie3, movie4]
+        
     }
     
     private func loadMovie() {
@@ -71,9 +73,8 @@ class RateViewController: UIViewController {
     private func processRating(ratingType: String) {
         // create rating
         let currentMovie = movies[0]
-        let deviceId = UIDevice.current.identifierForVendor!.uuidString
 
-        let rating = Rating(title: currentMovie.title, rating: ratingType, deviceId: deviceId)
+        let rating = Rating(movieId: currentMovie.movieId, rating: ratingType)
         ratings += [rating]
         
         movies.remove(at: 0)
@@ -81,10 +82,7 @@ class RateViewController: UIViewController {
             loadSampleMovies()
         }
         loadMovie()
-
     }
-
-
 
 }
 

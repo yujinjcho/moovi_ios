@@ -15,10 +15,12 @@ class Movie {
     var title: String
     var photoUrl: String
     var movieImage: UIImage
+    var movieId: String
     
-    init(title: String, photoUrl: String) {
+    init(title: String, movieId: String, photoUrl: String) {
         self.title = title
         self.photoUrl = photoUrl
+        self.movieId = movieId
         
         let url = URL(string: self.photoUrl)
         let data = try? Data(contentsOf: url!)
