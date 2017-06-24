@@ -6,35 +6,34 @@
 //  Copyright © 2017 Yujin Cho. All rights reserved.
 //
 
+import os.log
 import UIKit
 
-class RateViewController: UIViewController {
+class RateViewController: UIViewController, Delegate {
 
     //MARK: Properties
     var ratings = [Rating]()
     var movies = [Movie]()
+    var userId = "test_user_03"
+    let reloadThreshold = 25
     
     @IBOutlet weak var titleNameLabel: UILabel!
     @IBOutlet weak var titleImage: UIImageView!
     @IBAction func rateLikeButton(_ sender: UIButton) {
-        print("Like Pressed")
         processRating(ratingType: "1")
+        print("movie count: \(movies.count)")
+        print("ratings count: \(ratings.count)")
+
     }
     
     @IBAction func rateSkipButton(_ sender: UIButton) {
-        print("Skip Pressed")
-        print(ratings.count)
-        movies.remove(at: 0)
-        if movies.count == 0 {
-            loadSampleMovies()
-        }
-        loadMovie()
-
+        processRating(ratingType: "0")
     }
+    
     @IBAction func rateDislikeButton(_ sender: UIButton) {
-        print("Dislike Pressed")
         processRating(ratingType: "-1")
-
+        print("movie count: \(movies.count)")
+        print("ratings count: \(ratings.count)")
     }
     
     override func viewDidLoad() {
@@ -42,100 +41,117 @@ class RateViewController: UIViewController {
         checkFirstLaunch()        
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // pass ratings from RateViewController to RecommendationsViewController
-        if let recommendationsTableViewController = segue.destination as? RecommendationsTableViewController {
-            recommendationsTableViewController.ratings = ratings
-        }
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // pass ratings from RateViewController to RecommendationsViewController
         if let recommendationsTableViewController = segue.destination as? RecommendationsTableViewController {
             recommendationsTableViewController.ratings = ratings
+            recommendationsTableViewController.delegate = self
         }
-    }
-    
-    //MARK: Private Methods
-    private func loadSampleMovies() {
-
-        
-        let movie1 = Movie(title: "Eye of the Beast", movieId: "770674011", photoUrl: "https://resizing.flixster.com/l33YTQ7OQjckGzyjz4Or2B5M7IY=/322x462/v1.bTsxMDgzOTc5MDtqOzE3NDE1OzIwNDg7MzIyOzQ2Mg")
-        let movie2 = Movie(title: "Befikre", movieId: "771455920", photoUrl: "https://resizing.flixster.com/LFD-HnXFLYFpvihrAJdNF9XkG3s=/799x1066/v1.bTsxMjI0ODk3MztqOzE3Mzk0OzIwNDg7MjE4NzsyOTE2")
-        let movie3 = Movie(title: "Hotel Reserve", movieId: "771046771", photoUrl: "https://resizing.flixster.com/1yzqLJeMc-OFV-_XiyLoIt0l_GI=/400x611/v1.bTsxMjA4ODk2NDtqOzE3NDAzOzIwNDg7NDAwOzYxMQ")
-        let movie4 = Movie(title: "Nostradamus", movieId: "770680114", photoUrl: "https://resizing.flixster.com/C8R3lhW9v_Ec4RFn5BClTIoOZ5Q=/597x796/v1.bTsxMTU0NDIxNztqOzE3NDIwOzIwNDg7NTk3Ozc5Ng")
-        movies += [movie1, movie2, movie3, movie4]
         
     }
     
-    private func loadMovie() {
-        // get first item on the list
+    func clearRatings() {
+        ratings.removeAll()
+    }
+    
+    
+    //MARK: Private Methods    
+    private func loadNextMovieToRate() {
         let currentMovie = movies[0]
-        
-        // set photo to be movie
         titleImage.clipsToBounds = true
         titleImage.downloadedFrom(link: currentMovie.photoUrl, title: currentMovie.title, completion: changeTitle)
-        
+    }
+    
+    private func addRating(rating: String) {
+        let currentMovie = movies[0]
+        let rating = Rating(movieId: currentMovie.movieId, rating: rating)
+        ratings += [rating]
+        movies.remove(at: 0)
     }
     
     private func processRating(ratingType: String) {
-        // create rating
-        let currentMovie = movies[0]
-
-        let rating = Rating(movieId: currentMovie.movieId, rating: ratingType)
-        ratings += [rating]
-        
-        movies.remove(at: 0)
-        if movies.count == 0 {
-            loadSampleMovies()
+        addRating(rating: ratingType)
+        loadNextMovieToRate()
+        if (movies.count == reloadThreshold) {
+            
+            downloadMoviesToRate()
         }
-        loadMovie()
+        saveMovies()
     }
     
     private func loadFirstMoviesToRate() {
-        let url = URL(string: "https://movie-rec-project.herokuapp.com/api/start")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        NetworkController.getRequest(endPoint: "api/start", completionHandler: updateMovies, user: nil)
+    }
+
+    private func downloadMoviesToRate() {
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
+        let uploadRatings = ratings.map({
+            (rating:Rating) -> [String:String] in
+            [
+                "movie_id": rating.value(forKey: "movieId") as! String,
+                "rating": rating.value(forKey: "rating") as! String
+            ]
+        })
+
+        let unratedMovies = movies.map({
+            (movie:Movie) -> String in
+            movie.value(forKey: "movieId") as! String
+        })
+        
+        let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings, "not_rated_movies": unratedMovies]
+        NetworkController.postRequest(endPoint: "api/refresh", postData: postData, completionHandler: updateMovies)
+    }
+    
+    private func updateMovies(data: Data) -> Void {
+        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+        if let responseJSON = responseJSON as? [[String: String]] {
+            for movieToRate in responseJSON {
+                let movieTitle = movieToRate["title"]!
+                let movieId = movieToRate["movieId"]!
+                let photoUrl = movieToRate["photoUrl"]!
+                self.movies += [Movie(title: movieTitle, movieId: movieId, photoUrl: photoUrl)]
             }
-            // let string = String(data: data, encoding: String.Encoding.utf8)
-            // print(string!)
-            
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [[String: String]] {
-                for movieToRate in responseJSON {
-                    let movieTitle = movieToRate["title"]!
-                    let movieId = movieToRate["movieId"]!
-                    let photoUrl = movieToRate["photoUrl"]!
-                    self.movies += [Movie(title: movieTitle, movieId: movieId, photoUrl: photoUrl)]
-                    
-                }
-            }
-            self.loadMovie()
+            self.saveMovies()
+            self.loadNextMovieToRate()
+            self.ratings.removeAll()
         }
-        task.resume()
     }
 
     private func checkFirstLaunch() {
+        UserDefaults.standard.set(false, forKey: "launchedBefore")
+
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        
         if launchedBefore  {
             print("Not first launch.")
+            if let savedMovies = loadMovies() {
+                movies += savedMovies
+            }
+            loadNextMovieToRate()
+            print(movies.count)
         } else {
             print("First launch, setting UserDefault.")
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             loadFirstMoviesToRate()
         }
-        UserDefaults.standard.set(false, forKey: "launchedBefore")
+
     }
     
     func changeTitle(title: String){
         titleNameLabel.text = title
-        
+    }
+    
+    private func saveMovies() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(movies, toFile: Movie.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Movies successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save movies...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadMovies() -> [Movie]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Movie.ArchiveURL.path) as? [Movie]
     }
 
 }
