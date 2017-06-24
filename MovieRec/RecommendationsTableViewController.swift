@@ -70,10 +70,33 @@ class RecommendationsTableViewController: UITableViewController {
         
         // update recommendations
         uploadAndUpdateRecommendations()
+<<<<<<< HEAD
     }
     
     private func uploadAndUpdateRecommendations() {
         makeAPICall()
+=======
+        
+        // TODO:
+        // clear ratings in RateViewController
+        
+    }
+    
+    private func uploadAndUpdateRecommendations() {
+        // TODO:
+        makeAPICall()
+        
+        
+        // TODO:
+        // update recommendations
+        let rec10 = Recommendation(title: "New Rec1")
+        let rec11 = Recommendation(title: "New Rec2")
+        recommendations = [rec10, rec11]
+        
+        
+        self.tableView.reloadData()
+        
+>>>>>>> develop
     }
     
     
@@ -93,7 +116,6 @@ class RecommendationsTableViewController: UITableViewController {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
-        
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {

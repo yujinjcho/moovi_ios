@@ -49,6 +49,13 @@ class RateViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // pass ratings from RateViewController to RecommendationsViewController
+        if let recommendationsTableViewController = segue.destination as? RecommendationsTableViewController {
+            recommendationsTableViewController.ratings = ratings
+        }
+    }
+    
     //MARK: Private Methods
     private func loadSampleMovies() {
 
