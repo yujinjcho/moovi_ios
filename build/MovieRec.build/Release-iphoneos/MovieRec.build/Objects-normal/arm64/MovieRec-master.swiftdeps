@@ -1,0 +1,11 @@
+version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
+options: "3ae35c9b190036bb8abefe51f818f1fb"
+build_time: [551160036, 231115000]
+inputs:
+  "/Users/yujin/projects/movie_recommendations/ios_ui/MovieRec/Recommendation.swift": [9223372036854775807, 0]
+  "/Users/yujin/projects/movie_recommendations/ios_ui/MovieRec/MovieTableViewCell.swift": [9223372036854775807, 0]
+  "/Users/yujin/projects/movie_recommendations/ios_ui/MovieRec/Rating.swift": [9223372036854775807, 0]
+  "/Users/yujin/projects/movie_recommendations/ios_ui/MovieRec/RateViewController.swift": [9223372036854775807, 0]
+  "/Users/yujin/projects/movie_recommendations/ios_ui/MovieRec/AppDelegate.swift": [9223372036854775807, 0]
+  "/Users/yujin/projects/movie_recommendations/ios_ui/MovieRec/Movie.swift": [9223372036854775807, 0]
+  "/Users/yujin/projects/movie_recommendations/ios_ui/MovieRec/RecommendationsTableViewController.swift": [9223372036854775807, 0]
