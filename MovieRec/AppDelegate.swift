@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if UserDefaults.standard.string(forKey: "userID") != nil {
+            print("iCloudID already stored")
+        } else {
+            iCloudUserIDAsync() {
+                recordID, error in
+                if let userID = recordID?.recordName {
+                    UserDefaults.standard.set(userID, forKey: "userID")
+                } else {
+                    print("Fetched iCloudID was nil")
+                }
+            }
+        }
+        
         return true
     }
 
@@ -40,6 +55,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func iCloudUserIDAsync(complete: @escaping (CKRecordID?, NSError?) -> ()) {
+        let container = CKContainer.default()
+        container.fetchUserRecordID() {
+            recordID, error in
+            if error != nil {
+                print(error!.localizedDescription)
+                complete(nil, error! as NSError)
+            } else {
+                complete(recordID, nil)
+            }
+        }
+    }
+    
 
 }
 

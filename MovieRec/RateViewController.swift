@@ -8,13 +8,14 @@
 
 import os.log
 import UIKit
+import CloudKit
 
 class RateViewController: UIViewController, Delegate {
 
     //MARK: Properties
     var ratings = [Rating]()
     var movies = [Movie]()
-    var userId = "test_user_03"
+    var userId: String?
     let reloadThreshold = 25
     
     @IBOutlet weak var titleNameLabel: UILabel!
@@ -28,6 +29,15 @@ class RateViewController: UIViewController, Delegate {
     
     @IBAction func rateSkipButton(_ sender: UIButton) {
         processRating(ratingType: "0")
+        
+        iCloudUserIDAsync() {
+            recordID, error in
+            if let userID = recordID?.recordName {
+                print("received iCloudID \(userID)")
+            } else {
+                print("Fetched iCloudID was nil")
+            }
+        }
     }
     
     @IBAction func rateDislikeButton(_ sender: UIButton) {
@@ -36,9 +46,24 @@ class RateViewController: UIViewController, Delegate {
         print("ratings count: \(ratings.count)")
     }
     
+    func iCloudUserIDAsync(complete: @escaping (CKRecordID?, NSError?) -> ()) {
+        let container = CKContainer.default()
+        container.fetchUserRecordID() {
+            recordID, error in
+            if error != nil {
+                print(error!.localizedDescription)
+                complete(nil, error! as NSError)
+            } else {
+                print("fetched ID \(String(describing: recordID?.recordName))")
+                complete(recordID, nil)
+            }
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkFirstLaunch()        
+        checkFirstLaunch()
     }
     
     
@@ -98,8 +123,14 @@ class RateViewController: UIViewController, Delegate {
             movie.value(forKey: "movieId") as! String
         })
         
-        let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings, "not_rated_movies": unratedMovies]
-        NetworkController.postRequest(endPoint: "api/refresh", postData: postData, completionHandler: updateMovies)
+        if let userId = userId {
+            let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings, "not_rated_movies": unratedMovies]
+            NetworkController.postRequest(endPoint: "api/refresh", postData: postData, completionHandler: updateMovies)
+            print("Post: \(postData)")
+        } else {
+            print("userId is not set")
+        }
+        
     }
     
     private func updateMovies(data: Data) -> Void {
@@ -118,12 +149,19 @@ class RateViewController: UIViewController, Delegate {
     }
 
     private func checkFirstLaunch() {
-        UserDefaults.standard.set(false, forKey: "launchedBefore")
+        // UserDefaults.standard.set(false, forKey: "launchedBefore")
+        let retrievedID = UserDefaults.standard.string(forKey: "userID")
+        if let retrievedID = retrievedID {
+            userId = retrievedID
+            print("User is set to \(userId!)")
+        }
 
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         
         if launchedBefore  {
             print("Not first launch.")
+            
+            
             if let savedMovies = loadMovies() {
                 movies += savedMovies
             }
@@ -132,10 +170,14 @@ class RateViewController: UIViewController, Delegate {
         } else {
             print("First launch, setting UserDefault.")
             UserDefaults.standard.set(true, forKey: "launchedBefore")
+            
+            
             loadFirstMoviesToRate()
         }
 
     }
+    
+
     
     func changeTitle(title: String){
         titleNameLabel.text = title
