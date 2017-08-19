@@ -6,6 +6,7 @@
 //  Copyright © 2017 Yujin Cho. All rights reserved.
 //
 
+import os.log
 import UIKit
 import SwiftyJSON
 
@@ -18,7 +19,7 @@ class RecommendationsTableViewController: UITableViewController {
     //MARK: Properties 
     var ratings = [Rating]()
     var recommendations = [Recommendation]()
-    var userId = "test_user_03"
+    var userId: String?
     weak var delegate: Delegate?
     var timer: DispatchSourceTimer?
     
@@ -28,16 +29,24 @@ class RecommendationsTableViewController: UITableViewController {
 
 
     @IBAction func refreshBarButton(_ sender: Any) {
-        updateRecommendations()
+        startLoadingOverlay()
+        uploadAndUpdateRecommendations()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let retrievedID = UserDefaults.standard.string(forKey: "userID")
+        if let retrievedID = retrievedID {
+            userId = retrievedID
+            print("User is set to \(userId!)")
+        }
+        if let savedRecommendations = loadRecommendations() {
+            recommendations += savedRecommendations
+        }
     }
 
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -62,10 +71,17 @@ class RecommendationsTableViewController: UITableViewController {
     
     
     //MARK: Private Methods
+    private func saveRecommendations() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(recommendations, toFile: Recommendation.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Recommendations successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save recommendations...", log: OSLog.default, type: .error)
+        }
+    }
     
-
-    private func updateRecommendations() {
-        uploadAndUpdateRecommendations()
+    private func loadRecommendations() -> [Recommendation]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Recommendation.ArchiveURL.path) as? [Recommendation]
     }
     
     private func uploadAndUpdateRecommendations() {
@@ -73,9 +89,11 @@ class RecommendationsTableViewController: UITableViewController {
     }
     
     private func refreshMovies(data: JSON) -> Void {
+        recommendations.removeAll()
         for recommendation in data.arrayValue {
             recommendations += [Recommendation(title: recommendation.stringValue)]
         }
+        saveRecommendations()
 
         DispatchQueue.main.async {
             [unowned self] in
@@ -104,6 +122,7 @@ class RecommendationsTableViewController: UITableViewController {
                 refreshMovies(data: results)
             }
             stopTimer()
+            endLoadingOverlay()
         } else {
             print("job not completed")
         }
@@ -122,8 +141,6 @@ class RecommendationsTableViewController: UITableViewController {
         timer.setEventHandler { [weak self] in
             let url = "api/job_poll/" + job_id
             NetworkController.getRequest(endPoint: url, completionHandler: self!.checkJobStatus, user: nil)
-
-            // figure out how to keep running even if move out of view controller
             
         }
         timer.resume()
@@ -132,6 +149,22 @@ class RecommendationsTableViewController: UITableViewController {
     func stopTimer() {
         timer?.cancel()
         timer = nil
+    }
+    
+    private func startLoadingOverlay() {
+        let alert = UIAlertController(title: nil, message: "Calculating Recommendations...", preferredStyle: .alert)
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func endLoadingOverlay() {
+        dismiss(animated: false, completion: nil)
     }
     
     private func makeAPICall() {
@@ -143,10 +176,12 @@ class RecommendationsTableViewController: UITableViewController {
             ]
         })
         
-        let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings]
-        NetworkController.postRequest(endPoint: "api/recommendations", postData: postData,
-                                      completionHandler: startJobPolling)
-
+        if let userId = userId {
+            let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings]
+            NetworkController.postRequest(endPoint: "api/recommendations", postData: postData,
+                                          completionHandler: startJobPolling)
+        }
+        
     }
 
 

@@ -30,15 +30,10 @@ class RateViewController: UIViewController, Delegate {
     @IBAction func rateSkipButton(_ sender: UIButton) {
         processRating(ratingType: "0")
         
-        iCloudUserIDAsync() {
-            recordID, error in
-            if let userID = recordID?.recordName {
-                print("received iCloudID \(userID)")
-            } else {
-                print("Fetched iCloudID was nil")
-            }
-        }
+
     }
+    
+    
     
     @IBAction func rateDislikeButton(_ sender: UIButton) {
         processRating(ratingType: "-1")
@@ -160,8 +155,6 @@ class RateViewController: UIViewController, Delegate {
         
         if launchedBefore  {
             print("Not first launch.")
-            
-            
             if let savedMovies = loadMovies() {
                 movies += savedMovies
             }
@@ -170,14 +163,11 @@ class RateViewController: UIViewController, Delegate {
         } else {
             print("First launch, setting UserDefault.")
             UserDefaults.standard.set(true, forKey: "launchedBefore")
-            
-            
             loadFirstMoviesToRate()
         }
 
     }
     
-
     
     func changeTitle(title: String){
         titleNameLabel.text = title
@@ -195,6 +185,8 @@ class RateViewController: UIViewController, Delegate {
     private func loadMovies() -> [Movie]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Movie.ArchiveURL.path) as? [Movie]
     }
+    
+
 
 }
 

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MovieRec/RateViewController.swift"
-            timestampString = "524544916.762773"
+            timestampString = "524718606.836342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
             landmarkName = "rateSkipButton(_:)"
             landmarkType = "7">
          </BreakpointContent>
