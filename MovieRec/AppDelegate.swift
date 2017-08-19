@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     UserDefaults.standard.set(userID, forKey: "userID")
                 } else {
                     print("Fetched iCloudID was nil")
+                    UserDefaults.standard.set("test_user_03", forKey: "userID")
                 }
             }
         }
