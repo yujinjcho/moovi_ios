@@ -53,7 +53,8 @@ class RateViewController: UIViewController, Delegate {
     //MARK: Private Methods
     private func loadNextMovieToRate() {
         let currentMovie = movies.currentMovie()
-        titleImage.downloadedFrom(link: currentMovie.photoUrl, title: currentMovie.title, completion: changeTitle)
+        let url = URL(string: currentMovie.photoUrl)
+        titleImage.kf.setImage(with: url, completionHandler: {(_, _, _, _) in self.changeTitle()})
     }
     
     private func addRating(rating: String) {
@@ -69,12 +70,13 @@ class RateViewController: UIViewController, Delegate {
         if (movies.count() == reloadThreshold) {
             movies.downloadMoviesToRate(ratings: ratings)
         }
-        //print("Movie Count: \(movies.count())")
+        print("Movie Count: \(movies.count())")
         print("Rating Count: \(ratings.count)")
     }
     
-    func changeTitle(title: String){
-        titleNameLabel.text = title
+    func changeTitle(){
+        let currentMovie = movies.currentMovie()
+        titleNameLabel.text = currentMovie.title
     }
 }
 

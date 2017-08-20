@@ -22,6 +22,7 @@ class Movie: NSObject, NSCoding {
     var photoUrl: String
     var movieId: String
     
+    
     init(title: String, movieId: String, photoUrl: String) {
         self.title = title
         self.photoUrl = photoUrl

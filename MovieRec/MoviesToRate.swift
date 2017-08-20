@@ -13,12 +13,12 @@ class MoviesToRate {
     
     var userId: String?
     var movies = [Movie]()
+    var images: MovieImages?
     
     init() {
         setUserID()
         loadMovies()
-        //print(movies.map {(movie:Movie) -> String in movie.title})
-        print("Movie Count: \(movies.count)")
+        images = MovieImages(urls: movies.map { (movie: Movie) in movie.photoUrl })
     }
     
     func count() -> Int {
@@ -89,7 +89,7 @@ class MoviesToRate {
                 return Movie(title: movieTitle, movieId: movieId, photoUrl: photoUrl)
             }
             movies += newMovies
-            
+            images?.startPrefetcher(urls: newMovies.map { (movie:Movie) in movie.photoUrl })
             saveMovies()
         }
     }

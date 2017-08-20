@@ -18,8 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        if UserDefaults.standard.string(forKey: "userID") != nil {
+        if let userId = UserDefaults.standard.string(forKey: "userID") {
             print("iCloudID already stored")
+            print("UserId: \(userId)")
         } else {
             iCloudUserIDAsync() {
                 recordID, error in
