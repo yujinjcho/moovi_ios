@@ -14,37 +14,24 @@ protocol Delegate: class {
     func clearRatings()
 }
 
-class RecommendationsTableViewController: UITableViewController {
+class RecommendationsTableViewController: UITableViewController, RecTableDelegate {
 
     //MARK: Properties 
     var ratings = [Rating]()
-    var recommendations = [Recommendation]()
+    var recommendations = Recommendations()
     var userId: String?
     weak var delegate: Delegate?
-    var timer: DispatchSourceTimer?
-    
-    enum TrainingStatus: String {
-        case completed = "completed"
-    }
-
 
     @IBAction func refreshBarButton(_ sender: Any) {
         startLoadingOverlay()
-        uploadAndUpdateRecommendations()
+        startRecommendationsCalculation()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let retrievedID = UserDefaults.standard.string(forKey: "userID")
-        if let retrievedID = retrievedID {
-            userId = retrievedID
-            print("User is set to \(userId!)")
-        }
-        if let savedRecommendations = loadRecommendations() {
-            recommendations += savedRecommendations
-        }
+        setUserID()
+        recommendations.delegate = self
     }
-
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,40 +48,13 @@ class RecommendationsTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MovieTableViewCell  else {
             fatalError("The dequeued cell is not an instance of MovieTableViewCell.")
         }
-        let movie = recommendations[indexPath.row]
-
-        cell.titleLabel.text = movie.title
-
+        
+        let title = recommendations.titleAtIndex(index: indexPath.row)
+        cell.titleLabel.text = title
         return cell
     }
-
     
-    
-    //MARK: Private Methods
-    private func saveRecommendations() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(recommendations, toFile: Recommendation.ArchiveURL.path)
-        if isSuccessfulSave {
-            os_log("Recommendations successfully saved.", log: OSLog.default, type: .debug)
-        } else {
-            os_log("Failed to save recommendations...", log: OSLog.default, type: .error)
-        }
-    }
-    
-    private func loadRecommendations() -> [Recommendation]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Recommendation.ArchiveURL.path) as? [Recommendation]
-    }
-    
-    private func uploadAndUpdateRecommendations() {
-        makeAPICall()
-    }
-    
-    private func refreshMovies(data: JSON) -> Void {
-        recommendations.removeAll()
-        for recommendation in data.arrayValue {
-            recommendations += [Recommendation(title: recommendation.stringValue)]
-        }
-        saveRecommendations()
-
+    func refreshTable() {
         DispatchQueue.main.async {
             [unowned self] in
             self.tableView.reloadData()
@@ -104,53 +64,12 @@ class RecommendationsTableViewController: UITableViewController {
         delegate?.clearRatings()
         print(ratings.count)
     }
-    
-    private func startJobPolling(data: Data) -> Void {
-        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-        if let responseJSON = responseJSON as? [String: String] {
-            print(responseJSON["job_id"]!)
-            startTimer(job_id: responseJSON["job_id"]!)
-        }
-    }
-    
-    private func checkJobStatus(data: Data) -> Void {
-        let json = JSON(data: data)
-        if json["status"].stringValue == TrainingStatus.completed.rawValue {
-            print("job IS completed")
-            if let dataFromString = json["results"].stringValue.data(using: .utf8, allowLossyConversion: false) {
-                let results = JSON(data: dataFromString)
-                refreshMovies(data: results)
-            }
-            stopTimer()
-            endLoadingOverlay()
-        } else {
-            print("job not completed")
-        }
-    }
-    
-    
-    func startTimer(job_id: String) {
-        let queue = DispatchQueue(label: "com.domain.app.timer")
-        
-        timer = DispatchSource.makeTimerSource(queue: queue)
-        guard let timer = timer else {
-            print("Timer couldn't be created")
-            return
-        }
-        timer.scheduleRepeating(deadline: .now(), interval: .seconds(5))
-        timer.setEventHandler { [weak self] in
-            let url = "api/job_poll/" + job_id
-            NetworkController.getRequest(endPoint: url, completionHandler: self!.checkJobStatus, user: nil)
-            
-        }
-        timer.resume()
-    }
 
-    func stopTimer() {
-        timer?.cancel()
-        timer = nil
+    func endLoadingOverlay() {
+        dismiss(animated: false, completion: nil)
     }
     
+    //MARK: Private Methods
     private func startLoadingOverlay() {
         let alert = UIAlertController(title: nil, message: "Calculating Recommendations...", preferredStyle: .alert)
         
@@ -163,15 +82,11 @@ class RecommendationsTableViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func endLoadingOverlay() {
-        dismiss(animated: false, completion: nil)
-    }
-    
-    private func makeAPICall() {
+    private func startRecommendationsCalculation() {
         let uploadRatings = ratings.map({
             (rating:Rating) -> [String:String] in
             [
-                "movie_id": rating.value(forKey: "movieId") as! String,
+                "movie_id": rating.movieId,
                 "rating": rating.value(forKey: "rating") as! String
             ]
         })
@@ -179,11 +94,14 @@ class RecommendationsTableViewController: UITableViewController {
         if let userId = userId {
             let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings]
             NetworkController.postRequest(endPoint: "api/recommendations", postData: postData,
-                                          completionHandler: startJobPolling)
+                                          completionHandler: recommendations.startJobPolling)
         }
-        
     }
 
-
-    
+    private func setUserID() {
+        let retrievedID = UserDefaults.standard.string(forKey: "userID")
+        if let retrievedID = retrievedID {
+            userId = retrievedID
+        }
+    }
 }

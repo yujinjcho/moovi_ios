@@ -34,6 +34,7 @@ class RateViewController: UIViewController, Delegate {
     }
     
     override func viewDidLoad() {
+        titleImage.clipsToBounds = true
         super.viewDidLoad()
         loadNextMovieToRate()
     }
@@ -52,13 +53,12 @@ class RateViewController: UIViewController, Delegate {
     //MARK: Private Methods
     private func loadNextMovieToRate() {
         let currentMovie = movies.currentMovie()
-        titleImage.clipsToBounds = true
         titleImage.downloadedFrom(link: currentMovie.photoUrl, title: currentMovie.title, completion: changeTitle)
     }
     
     private func addRating(rating: String) {
         let currentMovie = movies.currentMovie()
-        let rating = Rating(movieId: currentMovie.movieId, rating: rating)
+        let rating = Rating(movie: currentMovie, rating: rating)
         ratings += [rating]
         movies.removeCurrentMovie()
     }
@@ -69,7 +69,8 @@ class RateViewController: UIViewController, Delegate {
         if (movies.count() == reloadThreshold) {
             movies.downloadMoviesToRate(ratings: ratings)
         }
-        print("Movie Count: \(movies.count())")
+        //print("Movie Count: \(movies.count())")
+        //print("Rating Count: \(ratings.count)")
     }
     
     func changeTitle(title: String){

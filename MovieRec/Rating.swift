@@ -12,11 +12,14 @@ class Rating: NSObject {
     
     //MARK: Properties
 
-    var movieId: String
+    var movie: Movie
     var rating: String
+    var movieId: String {
+        get { return movie.movieId }
+    }
     
-    init(movieId: String, rating: String) {
-        self.movieId = movieId
+    init(movie: Movie, rating: String) {
+        self.movie = movie
         self.rating = rating
     }
     

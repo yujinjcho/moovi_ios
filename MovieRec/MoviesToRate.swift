@@ -63,10 +63,12 @@ class MoviesToRate {
         // UserDefaults.standard.set(false, forKey: "launchedBefore")
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if launchedBefore  {
+            print("Launch Status: First")
             if let savedMovies = loadMoviesFromDisk() {
                 movies += savedMovies
             }
         } else {
+            print("First Status: Not First")
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             loadFirstMoviesToRate()
         }
