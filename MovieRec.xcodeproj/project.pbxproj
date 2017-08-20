@@ -22,6 +22,8 @@
 		6A8A434A1F47DDF000285165 /* MoviesToRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A43491F47DDF000285165 /* MoviesToRate.swift */; };
 		6A9355661EF77BA800662520 /* Pods_MovieRec.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F27CFDABED99D878B631E69D /* Pods_MovieRec.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAE03111F410C1300AFF7D8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAE03101F410C1300AFF7D8 /* CloudKit.framework */; };
+		6ABEA8E11F4902F8006ACBC0 /* Recommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABEA8E01F4902F8006ACBC0 /* Recommendations.swift */; };
+		6ABEA8E31F491B7B006ACBC0 /* Ratings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABEA8E21F491B7B006ACBC0 /* Ratings.swift */; };
 		846F32DEB1EEA10CD230E819 /* Pods_MovieRecTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141D1F78AAEB7E5DAC76AC72 /* Pods_MovieRecTests.framework */; };
 		B15D7A6A07A75F4279BDED03 /* Pods_MovieRec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F27CFDABED99D878B631E69D /* Pods_MovieRec.framework */; };
 /* End PBXBuildFile section */
@@ -73,6 +75,8 @@
 		6A8A43491F47DDF000285165 /* MoviesToRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesToRate.swift; sourceTree = "<group>"; };
 		6AAE030F1F410C0F00AFF7D8 /* MovieRec.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MovieRec.entitlements; sourceTree = "<group>"; };
 		6AAE03101F410C1300AFF7D8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		6ABEA8E01F4902F8006ACBC0 /* Recommendations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommendations.swift; sourceTree = "<group>"; };
+		6ABEA8E21F491B7B006ACBC0 /* Ratings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ratings.swift; sourceTree = "<group>"; };
 		90D7BA21F92772578386DFF3 /* Pods-MovieRecTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieRecTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieRecTests/Pods-MovieRecTests.release.xcconfig"; sourceTree = "<group>"; };
 		C4788D0476B5067042FC1A83 /* Pods-MovieRec.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieRec.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieRec/Pods-MovieRec.release.xcconfig"; sourceTree = "<group>"; };
 		F27CFDABED99D878B631E69D /* Pods_MovieRec.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieRec.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,10 +141,12 @@
 				6A6B02CC1F0F41410071C1CF /* NetworkController.swift */,
 				6A3483C11EDA48C900852249 /* MovieTableViewCell.swift */,
 				6A34839F1EDA291F00852249 /* RateViewController.swift */,
-				6A8A43491F47DDF000285165 /* MoviesToRate.swift */,
 				6A3483BD1EDA444000852249 /* Movie.swift */,
+				6A8A43491F47DDF000285165 /* MoviesToRate.swift */,
 				6A3483BF1EDA453C00852249 /* Rating.swift */,
+				6ABEA8E21F491B7B006ACBC0 /* Ratings.swift */,
 				6A3483C31EDA4C7C00852249 /* Recommendation.swift */,
+				6ABEA8E01F4902F8006ACBC0 /* Recommendations.swift */,
 				6A3483C51EDA4DD700852249 /* RecommendationsTableViewController.swift */,
 				6A3483A11EDA291F00852249 /* Main.storyboard */,
 				6A3483A41EDA291F00852249 /* Assets.xcassets */,
@@ -386,7 +392,9 @@
 				6A8A434A1F47DDF000285165 /* MoviesToRate.swift in Sources */,
 				6A3483C41EDA4C7C00852249 /* Recommendation.swift in Sources */,
 				6A3483C21EDA48C900852249 /* MovieTableViewCell.swift in Sources */,
+				6ABEA8E11F4902F8006ACBC0 /* Recommendations.swift in Sources */,
 				6A3483C01EDA453C00852249 /* Rating.swift in Sources */,
+				6ABEA8E31F491B7B006ACBC0 /* Ratings.swift in Sources */,
 				6A3483A01EDA291F00852249 /* RateViewController.swift in Sources */,
 				6A34839E1EDA291F00852249 /* AppDelegate.swift in Sources */,
 				6A3483BE1EDA444000852249 /* Movie.swift in Sources */,

@@ -13,7 +13,7 @@ import CloudKit
 class RateViewController: UIViewController, Delegate {
 
     //MARK: Properties
-    var ratings = [Rating]()
+    var ratings = Ratings()
     var movies = MoviesToRate()
     var userId: String?
     let reloadThreshold = 25
@@ -59,7 +59,7 @@ class RateViewController: UIViewController, Delegate {
     private func addRating(rating: String) {
         let currentMovie = movies.currentMovie()
         let rating = Rating(movie: currentMovie, rating: rating)
-        ratings += [rating]
+        ratings.add(rating: rating)
         movies.removeCurrentMovie()
     }
     
@@ -70,7 +70,7 @@ class RateViewController: UIViewController, Delegate {
             movies.downloadMoviesToRate(ratings: ratings)
         }
         //print("Movie Count: \(movies.count())")
-        //print("Rating Count: \(ratings.count)")
+        print("Rating Count: \(ratings.count)")
     }
     
     func changeTitle(title: String){

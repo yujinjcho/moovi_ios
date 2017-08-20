@@ -17,21 +17,16 @@ class MoviesToRate {
     init() {
         setUserID()
         loadMovies()
+        //print(movies.map {(movie:Movie) -> String in movie.title})
+        print("Movie Count: \(movies.count)")
     }
     
     func count() -> Int {
         return movies.count
     }
     
-    func downloadMoviesToRate(ratings: [Rating]) {
-        let uploadRatings = ratings.map({
-            (rating:Rating) -> [String:String] in
-            [
-                "movie_id": rating.value(forKey: "movieId") as! String,
-                "rating": rating.value(forKey: "rating") as! String
-            ]
-        })
-        
+    func downloadMoviesToRate(ratings: Ratings) {
+        let uploadRatings = ratings.uploadFormat()
         let unratedMovies = movies.map({
             (movie:Movie) -> String in
             movie.value(forKey: "movieId") as! String
@@ -50,6 +45,7 @@ class MoviesToRate {
     
     func removeCurrentMovie() {
         movies.remove(at: 0)
+        saveMovies()
     }
     
     private func setUserID() {
@@ -63,12 +59,12 @@ class MoviesToRate {
         // UserDefaults.standard.set(false, forKey: "launchedBefore")
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if launchedBefore  {
-            print("Launch Status: First")
+            print("Launch Status: Not First")
             if let savedMovies = loadMoviesFromDisk() {
                 movies += savedMovies
             }
         } else {
-            print("First Status: Not First")
+            print("First Status: First")
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             loadFirstMoviesToRate()
         }
@@ -85,13 +81,16 @@ class MoviesToRate {
     private func updateMovies(data: Data) -> Void {
         let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
         if let responseJSON = responseJSON as? [[String: String]] {
-            for movieToRate in responseJSON {
+            let newMovies = responseJSON.map {
+                (movieToRate: [String: String]) -> Movie in
                 let movieTitle = movieToRate["title"]!
                 let movieId = movieToRate["movieId"]!
                 let photoUrl = movieToRate["photoUrl"]!
-                self.movies += [Movie(title: movieTitle, movieId: movieId, photoUrl: photoUrl)]
+                return Movie(title: movieTitle, movieId: movieId, photoUrl: photoUrl)
             }
-            self.saveMovies()
+            movies += newMovies
+            
+            saveMovies()
         }
     }
     

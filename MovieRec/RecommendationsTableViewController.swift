@@ -17,7 +17,7 @@ protocol Delegate: class {
 class RecommendationsTableViewController: UITableViewController, RecTableDelegate {
 
     //MARK: Properties 
-    var ratings = [Rating]()
+    var ratings: Ratings?
     var recommendations = Recommendations()
     var userId: String?
     weak var delegate: Delegate?
@@ -60,9 +60,12 @@ class RecommendationsTableViewController: UITableViewController, RecTableDelegat
             self.tableView.reloadData()
         }
         
-        self.ratings.removeAll()
+        //self.ratings.removeAll()
         delegate?.clearRatings()
-        print(ratings.count)
+        
+        if let ratings = ratings {
+            print(ratings.count)
+        }
     }
 
     func endLoadingOverlay() {
@@ -83,15 +86,8 @@ class RecommendationsTableViewController: UITableViewController, RecTableDelegat
     }
     
     private func startRecommendationsCalculation() {
-        let uploadRatings = ratings.map({
-            (rating:Rating) -> [String:String] in
-            [
-                "movie_id": rating.movieId,
-                "rating": rating.value(forKey: "rating") as! String
-            ]
-        })
-        
-        if let userId = userId {
+        if let ratings = ratings, let userId = userId {
+            let uploadRatings = ratings.uploadFormat()
             let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings]
             NetworkController.postRequest(endPoint: "api/recommendations", postData: postData,
                                           completionHandler: recommendations.startJobPolling)
