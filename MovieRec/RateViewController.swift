@@ -10,8 +10,10 @@ import os.log
 import UIKit
 import CloudKit
 
-class RateViewController: UIViewController, Delegate {
+class RateViewController: UIViewController, RateViewInterface, Delegate {
 
+    var eventHandler : RateModuleInterface?
+    
     //MARK: Properties
     var ratings = Ratings()
     var movies = MoviesToRate()
@@ -36,7 +38,7 @@ class RateViewController: UIViewController, Delegate {
     override func viewDidLoad() {
         titleImage.clipsToBounds = true
         super.viewDidLoad()
-        loadNextMovieToRate()
+        //loadNextMovieToRate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

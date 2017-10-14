@@ -56,7 +56,7 @@ class MoviesToRate {
     }
     
     private func loadMovies() {
-        // UserDefaults.standard.set(false, forKey: "launchedBefore")
+        UserDefaults.standard.set(false, forKey: "launchedBefore")
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if launchedBefore  {
             print("Launch Status: Not First")

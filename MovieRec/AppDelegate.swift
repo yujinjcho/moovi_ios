@@ -13,10 +13,13 @@ import CloudKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    let appDependencies = AppDependencies()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        //appDependencies.installRootViewControllerIntoWindow(window!)
+        appDependencies.installRootViewControllerIntoWindow(window!)
         
         if let userId = UserDefaults.standard.string(forKey: "userID") {
             print("iCloudID already stored")
@@ -35,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

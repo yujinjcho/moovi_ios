@@ -16,6 +16,8 @@ protocol Delegate: class {
 
 class RecommendationsTableViewController: UITableViewController, RecTableDelegate {
 
+    
+    
     //MARK: Properties 
     var ratings: Ratings?
     var recommendations = Recommendations()
@@ -74,7 +76,7 @@ class RecommendationsTableViewController: UITableViewController, RecTableDelegat
     
     //MARK: Private Methods
     private func startLoadingOverlay() {
-        let alert = UIAlertController(title: nil, message: "Calculating Recommendations...", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
         
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
