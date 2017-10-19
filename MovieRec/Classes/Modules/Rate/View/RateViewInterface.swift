@@ -9,5 +9,5 @@
 import Foundation
 
 protocol RateViewInterface {
-    
+    func showCurrentMovie(title: String, photoUrl: String)
 }

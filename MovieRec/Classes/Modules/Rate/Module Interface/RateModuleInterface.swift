@@ -9,5 +9,6 @@
 import Foundation
 
 protocol RateModuleInterface {
-    
+    func loadedView()
+    func processRating(ratingType: String)
 }

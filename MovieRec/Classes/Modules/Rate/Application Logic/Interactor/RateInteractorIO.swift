@@ -9,9 +9,10 @@
 import Foundation
 
 protocol RateInteractorInput {
-    
+    func initializeMovies()
+    func storeRating(ratingType: String)
 }
 
 protocol RateInteractorOutput {
-    
+    func presentCurrentMovie(currentMovie: MovieModel)
 }

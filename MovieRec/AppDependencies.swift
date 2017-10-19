@@ -15,11 +15,9 @@ class AppDependencies {
     
     init() {
         configureDependencies()
-        print("configured dependencies")
     }
     
     func installRootViewControllerIntoWindow(_ window: UIWindow) {
-        print("calling presentRateInterfaceFromWindow")
         rateWireframe.presentRateInterfaceFromWindow(window)
     }
     
