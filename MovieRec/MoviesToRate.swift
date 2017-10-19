@@ -34,7 +34,7 @@ class MoviesToRate {
         
         if let userId = userId {
             let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings, "not_rated_movies": unratedMovies]
-            print("Sending POST Request")
+            //print("Sending POST Request")
             NetworkController.postRequest(endPoint: "api/refresh", postData: postData, completionHandler: updateMovies)
         }
     }
@@ -56,15 +56,15 @@ class MoviesToRate {
     }
     
     private func loadMovies() {
-        UserDefaults.standard.set(false, forKey: "launchedBefore")
+        //UserDefaults.standard.set(false, forKey: "launchedBefore")
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if launchedBefore  {
-            print("Launch Status: Not First")
+            //print("Launch Status: Not First")
             if let savedMovies = loadMoviesFromDisk() {
                 movies += savedMovies
             }
         } else {
-            print("First Status: First")
+            //print("First Status: First")
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             loadFirstMoviesToRate()
         }

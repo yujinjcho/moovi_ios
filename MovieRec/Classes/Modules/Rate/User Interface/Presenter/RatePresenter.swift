@@ -26,15 +26,4 @@ class RatePresenter : NSObject, RateModuleInterface, RateInteractorOutput,
     func processRating(ratingType: String) {
         rateInteractor?.storeRating(ratingType: ratingType)
     }
-    
-    
-//    private func processRating(ratingType: String) {
-//        addRating(rating: ratingType)
-//        loadNextMovieToRate()
-//        if (movies.count() == reloadThreshold) {
-//            movies.downloadMoviesToRate(ratings: ratings)
-//        }
-//        print("Movie Count: \(movies.count())")
-//        print("Rating Count: \(ratings.count)")
-//    }
 }

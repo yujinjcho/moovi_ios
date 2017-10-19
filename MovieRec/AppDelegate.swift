@@ -25,15 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func initUser() {
         if let userId = UserDefaults.standard.string(forKey: "userID") {
-            print("iCloudID already stored")
-            print("UserId: \(userId)")
+            print("UserID already set to \(userId)")
         } else {
             iCloudUserIDAsync() {
                 recordID, error in
                 if let userID = recordID?.recordName {
                     UserDefaults.standard.set(userID, forKey: "userID")
                 } else {
-                    print("Fetched iCloudID was nil")
+                    print("Could not fetch iCloudID setting default")
                     UserDefaults.standard.set("test_user_03", forKey: "userID")
                 }
             }

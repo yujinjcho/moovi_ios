@@ -89,7 +89,7 @@ class RateViewController: UIViewController, RateViewInterface, Delegate {
     // VIPER PART
     //
     @IBAction func rateLikeButton(_ sender: UIButton) {
-        print("Should call new process on the presenter")
+        print("Pressed like button")
         eventHandler?.processRating(ratingType: "1")
     }
 

@@ -28,7 +28,7 @@ class RatingStore: NSObject, NSCoding {
     }
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("movieStore")
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("ratingStore")
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(movieID, forKey: PropertyKey.movieID)

@@ -19,31 +19,21 @@ class RateInteractor : NSObject, RateInteractorInput {
     
     func initializeMovies() {
         dataManager.loadMovies(completion: { (currentMovie: MovieModel) -> Void in
-            if let output = self.output {
-                output.presentCurrentMovie(currentMovie: currentMovie)
-            }
+            self.showCurrentMovie(currentMovie: currentMovie)
         })
     }
     
     func storeRating(ratingType: String) {
         dataManager.storeRating(rating: ratingType)
-        
-        
-        //let rating = RatingModel(movieID: currentMovie?.movieId, rating: ratingType, userID: currentUser)
-        
-        //let rating = RatingModel(movieID: currentMovie?.movieId, rating: ratingType, userID: currentUser!)
-        
-        
+        dataManager.removeFirstMovie()
+        if let currentMovie = dataManager.loadCurrentMovie() {
+            showCurrentMovie(currentMovie: currentMovie)
+        }
     }
     
-    
-//    private func processRating(ratingType: String) {
-//        addRating(rating: ratingType)
-//        loadNextMovieToRate()
-//        if (movies.count() == reloadThreshold) {
-//            movies.downloadMoviesToRate(ratings: ratings)
-//        }
-//        print("Movie Count: \(movies.count())")
-//        print("Rating Count: \(ratings.count)")
-//    }
+    func showCurrentMovie(currentMovie: MovieModel) {
+        if let output = output {
+            output.presentCurrentMovie(currentMovie: currentMovie)
+        }
+    }
 }
