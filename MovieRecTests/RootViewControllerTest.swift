@@ -53,7 +53,7 @@ class RootViewControllerTest: XCTestCase {
     
     func testNavigationControllerFromWindow() {
         let navigationController = rootWireframe.navigationControllerFromWindow(window)
-        XCTAssertNotNil(navigationController as? UINavigationController, "navigationControllerFromWindow should return UINavigationController")
+        XCTAssertNotNil(navigationController, "navigationControllerFromWindow should return UINavigationController")
     }
     
 }

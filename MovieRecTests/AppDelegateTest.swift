@@ -38,15 +38,13 @@ class AppDelegateTest: XCTestCase {
             if let window = mainAppDelegate.window {
                 if let window = window {
                     XCTAssertTrue(window.isKeyWindow, "app delegate's window should be key");
-                }
-                else {
+                } else {
                     XCTFail("app delegate window should not be nil")
                 }
             } else {
                 XCTFail("app delegate window should not be nil")
             }
-        }
-        else {
+        } else {
             XCTFail("shared application should have a delegate")
         }
     }

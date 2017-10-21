@@ -31,12 +31,12 @@ class RateWireFrameTest: XCTestCase {
     
     func testmainStoryboard() {
         let storyboard = rateWireframe.mainStoryboard()
-        XCTAssertNotNil(storyboard as? UIStoryboard, "mainStoryboard should return UIStoryboard")
+        XCTAssertNotNil(storyboard, "mainStoryboard should return UIStoryboard")
     }
     
     func testRateViewControllerFromStoryboard() {
         let viewController = rateWireframe.rateViewControllerFromStoryboard()
-        XCTAssertNotNil(viewController as? RateViewController, "rateViewControllerFromStoryboard should return a RateViewController")
+        XCTAssertNotNil(viewController, "rateViewControllerFromStoryboard should return a RateViewController")
     }
     
     func testPresentRateInterfaceFromWindow() {
