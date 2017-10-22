@@ -10,11 +10,11 @@ import Foundation
 @testable import MovieRec
 
 class MockRateInteractor : RateInteractor {
-    var initializeMovieCalled : Bool = false
+    var initializeDataManagerCalled : Bool = false
     var processRatingCalled : Bool = false
     
-    override func initializeMovies() {
-        initializeMovieCalled = true
+    override func initializeDataManager() {
+        initializeDataManagerCalled = true
     }
     
     override func storeRating(ratingType: String) {

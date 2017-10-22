@@ -26,10 +26,10 @@ class RatePresenterTest: XCTestCase {
         super.tearDown()
     }
 
-    func testLoadedViewCallsInitializeMovie() {
+    func testLoadedViewCallsInitializeDataManager() {
         presenter.loadedView()
         if let interactor = interactor {
-            XCTAssertTrue(interactor.initializeMovieCalled)
+            XCTAssertTrue(interactor.initializeDataManagerCalled)
         } else {
             XCTFail("interactor should be initialized")
         }
