@@ -14,21 +14,23 @@ import Kingfisher
 class RateDataManager : NSObject {
     var moviesToRate = [MovieModel]()
     var ratings = [RatingModel]()
+    var moviesStorePath = MovieStore.ArchiveURL.path
+    var ratingsStorePath = RatingStore.ArchiveURL.path
     var prefetcher: ImagePrefetcher?
     let host = "https://movie-rec-project.herokuapp.com"
     let defaultUser = "test_user_03"
     
+    //var movieCounts: Int { return moviesToRate.count }
+    
     override init() {
         super.init()
-        loadRatings()
     }
     
-    func loadMovies(completion: @escaping (MovieModel) -> Void) {        
-//        print("making api call to get movies")
-//        let url = "\(host)/api/start"
-//        NetworkManager.getRequest(endPoint: url, completionHandler: storeFetchedMovies(completion: completion))
+    // fetch new movies
+    
+    func loadMovies(completion: @escaping (MovieModel) -> Void) {
         
-        let moviesFromDisk = loadMoviesFromDisk()
+        let moviesFromDisk = loadMoviesFromDisk(path: moviesStorePath)
         if let moviesFromDisk = moviesFromDisk, moviesFromDisk.count > 0 {
             moviesToRate = moviesFromDisk.map { MovieModel(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
             print("Loaded \(moviesToRate.count) movie from disk")
@@ -40,15 +42,6 @@ class RateDataManager : NSObject {
         }
     }
     
-    func loadRatings() {
-        if let ratingsFromDisk = loadRatingsFromDisk() {
-            ratings = ratingsFromDisk.map { RatingModel(movieID: $0.movieID, rating: $0.rating, userID: $0.userID) }
-            print("loaded \(ratings.count) from disk")
-        } else {
-            print("Could not unpack ratings from disk")
-        }
-    }
-    
     func storeRating(rating: String) {
         let currentMovie = loadCurrentMovie()
         let currentUser = loadCurrentUser()
@@ -57,7 +50,7 @@ class RateDataManager : NSObject {
             ratings.append(rating)
             print("Ratings size is now \(ratings.count)")
             
-            saveCurrentRatingsToDisk()
+            saveCurrentRatingsToDisk(path: ratingsStorePath)
         }
     }
     
@@ -84,6 +77,16 @@ class RateDataManager : NSObject {
         }
     }
     
+    func loadRatings() {
+        if let ratingsFromDisk = loadRatingsFromDisk(path: ratingsStorePath) {
+            ratings = ratingsFromDisk.map { RatingModel(movieID: $0.movieID, rating: $0.rating, userID: $0.userID) }
+            print("loaded \(ratings.count) from disk")
+        } else {
+            print("Could not unpack ratings from disk")
+            return
+        }
+    }
+    
     private func startImagePrefetcher(urls: [String]) {
         let urls = urls.map { URL(string: $0)! }
         prefetcher = ImagePrefetcher(urls: urls) {
@@ -95,27 +98,15 @@ class RateDataManager : NSObject {
         }
     }
 
-    func storeFetchedMovies(completion: @escaping (MovieModel) -> Void) -> ((Data) -> Void) {
+    // define callback that will append new movies
+    
+    private func storeFetchedMovies(completion: @escaping (MovieModel) -> Void) -> ((Data) -> Void) {
         func storeFetchedMoviesHelper(data: Data) -> Void {
             if let newMovies = convertJSONtoMovies(data: data) {
                 NSKeyedArchiver.archiveRootObject(newMovies, toFile: MovieStore.ArchiveURL.path)
                 moviesToRate = newMovies.map { MovieModel(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
                 completion(loadCurrentMovie()!)
-                //loadMovies(completion: completion)
             }
-            
-//            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-//            if let responseJSON = responseJSON as? [[String: String]] {
-//                let newMovies = responseJSON.map {
-//                    (movieToRate: [String: String]) -> MovieStore in
-//                    let movieTitle = movieToRate["title"]!
-//                    let movieId = movieToRate["movieId"]!
-//                    let photoUrl = movieToRate["photoUrl"]!
-//                    return MovieStore(title: movieTitle, movieId: movieId, photoUrl: photoUrl)
-//                }
-//                NSKeyedArchiver.archiveRootObject(newMovies, toFile: MovieStore.ArchiveURL.path)
-//                loadMovies(completion: completion)
-//            }
         }
         return storeFetchedMoviesHelper
     }
@@ -135,17 +126,17 @@ class RateDataManager : NSObject {
         return nil
     }
     
-    private func loadRatingsFromDisk() -> [RatingStore]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: RatingStore.ArchiveURL.path) as? [RatingStore]
+    private func loadRatingsFromDisk(path: String) -> [RatingStore]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: path) as? [RatingStore]
     }
     
-    private func loadMoviesFromDisk() -> [MovieStore]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: MovieStore.ArchiveURL.path) as? [MovieStore]
+    private func loadMoviesFromDisk(path: String) -> [MovieStore]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: path) as? [MovieStore]
     }
     
-    private func saveCurrentRatingsToDisk() {
+    private func saveCurrentRatingsToDisk(path: String) {
         let ratingsStore = ratings.map { RatingStore(movieID: $0.movieID, rating: $0.rating, userID: $0.userID) }
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(ratingsStore, toFile: RatingStore.ArchiveURL.path)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(ratingsStore, toFile: path)
         if isSuccessfulSave {
             os_log("Ratings successfully saved.", log: OSLog.default, type: .debug)
         } else {
@@ -158,5 +149,4 @@ class RateDataManager : NSObject {
         NSKeyedArchiver.archiveRootObject(moviesStore, toFile: MovieStore.ArchiveURL.path)
         print("successfully saved movies")
     }
-    
 }

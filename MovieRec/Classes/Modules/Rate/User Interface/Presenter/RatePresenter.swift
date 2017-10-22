@@ -16,14 +16,14 @@ class RatePresenter : NSObject, RateModuleInterface, RateInteractorOutput,
     var userInterface : RateViewInterface?
     
     func loadedView() {
-        rateInteractor?.initializeMovies()
+        rateInteractor?.initializeDataManager()
+    }
+
+    func processRating(ratingType: String) {
+        rateInteractor?.storeRating(ratingType: ratingType)
     }
     
     func presentCurrentMovie(currentMovie: MovieModel) {
         userInterface?.showCurrentMovie(title: currentMovie.title, photoUrl: currentMovie.photoUrl)
-    }
-    
-    func processRating(ratingType: String) {
-        rateInteractor?.storeRating(ratingType: ratingType)
     }
 }

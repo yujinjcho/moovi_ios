@@ -9,7 +9,7 @@
 import Foundation
 
 protocol RateInteractorInput {
-    func initializeMovies()
+    func initializeDataManager()
     func storeRating(ratingType: String)
 }
 
