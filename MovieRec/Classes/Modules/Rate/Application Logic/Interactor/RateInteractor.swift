@@ -23,17 +23,16 @@ class RateInteractor : NSObject, RateInteractorInput {
         dataManager.loadMovies(completion: { (currentMovie: MovieModel) -> Void in
             self.showCurrentMovie(currentMovie: currentMovie)
         })
-        
     }
     
     func storeRating(ratingType: String) {
         dataManager.storeRating(rating: ratingType)
         dataManager.removeFirstMovie()
+        if dataManager.movieCounts == movieThreshold {
+            fetchNewMovies()
+        }
         
-        // if meets threshold
-        // make dataManager fetch move movies
-        
-        if let currentMovie = dataManager.loadCurrentMovie() {
+        if let currentMovie = dataManager.currentMovie {
             showCurrentMovie(currentMovie: currentMovie)
         }
     }
@@ -44,6 +43,7 @@ class RateInteractor : NSObject, RateInteractorInput {
         }
     }
     
-    // function to make dataManager fetch move movies
-    
+    func fetchNewMovies() {
+        dataManager.getNewMoviesToRate()
+    }
 }

@@ -39,17 +39,19 @@ class RateViewController: UIViewController, RateViewInterface, Delegate {
     override func viewDidLoad() {
         titleImage.clipsToBounds = true
         super.viewDidLoad()
+        configureView()
         //loadNextMovieToRate()
         
         eventHandler?.loadedView()
+        
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let recommendationsTableViewController = segue.destination as? RecommendationsTableViewController {
-            recommendationsTableViewController.ratings = ratings
-            recommendationsTableViewController.delegate = self
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let recommendationsTableViewController = segue.destination as? RecommendationsTableViewController {
+//            recommendationsTableViewController.ratings = ratings
+//            recommendationsTableViewController.delegate = self
+//        }
+//    }
     
     
     func clearRatings() {
@@ -97,6 +99,16 @@ class RateViewController: UIViewController, RateViewInterface, Delegate {
     func showCurrentMovie(title:String, photoUrl: String) {
         let url = URL(string: photoUrl)
         titleImage.kf.setImage(with: url, completionHandler: {(_, _, _, _) in self.titleNameLabel.text = title})
+    }
+    
+    func configureView() {
+        navigationItem.title = "Rate"
+        let navigateToRecommendItem = UIBarButtonItem(title: "Movie List", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RateViewController.didTapNavigateToRecommendItem))
+        navigationItem.rightBarButtonItem = navigateToRecommendItem
+    }
+    
+    func didTapNavigateToRecommendItem(){
+        print("pressed the nav button")
     }
 }
 

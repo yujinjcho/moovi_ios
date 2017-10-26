@@ -11,6 +11,7 @@ import Foundation
 protocol RateInteractorInput {
     func initializeDataManager()
     func storeRating(ratingType: String)
+    func fetchNewMovies()
 }
 
 protocol RateInteractorOutput {

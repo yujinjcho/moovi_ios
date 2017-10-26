@@ -17,7 +17,7 @@ class RecommendPresenter : NSObject, RecommendModuleInterface {
         
     }
     
-//    func configureUserInterfaceForPresentation(_ recommendViewUserInterface: RecommendViewInterface) {
-//
-//    }
+    func configureUserInterfaceForPresentation(_ recommendViewUserInterface: RecommendViewInterface) {
+
+    }
 }

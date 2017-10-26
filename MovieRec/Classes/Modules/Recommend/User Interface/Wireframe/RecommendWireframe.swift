@@ -17,7 +17,7 @@ class RecommendWireframe : NSObject {
     
     func presentRecommendInterfaceFromViewController(_ viewController: UIViewController) {
         let newViewController = recommendViewController()
-        //newViewController.eventHandler = recommendPresenter
+        newViewController.eventHandler = recommendPresenter
         
         
         //recommendPresenter?.configureUserInterfaceForPresentation(newViewController)
