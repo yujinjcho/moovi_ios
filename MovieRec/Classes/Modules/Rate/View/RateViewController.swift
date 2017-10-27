@@ -109,6 +109,9 @@ class RateViewController: UIViewController, RateViewInterface, Delegate {
     
     func didTapNavigateToRecommendItem(){
         print("pressed the nav button")
+        
+        eventHandler?.presentRecommendView(navigationController: self.navigationController!)
+        //eventHandler?.presentRecommendView()
     }
 }
 

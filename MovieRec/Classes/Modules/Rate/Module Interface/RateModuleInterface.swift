@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 protocol RateModuleInterface {
     func loadedView()
     func processRating(ratingType: String)
+    func presentRecommendView(navigationController: UINavigationController)
 }

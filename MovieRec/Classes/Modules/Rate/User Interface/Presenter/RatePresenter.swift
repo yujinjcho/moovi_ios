@@ -26,4 +26,8 @@ class RatePresenter : NSObject, RateModuleInterface, RateInteractorOutput,
     func presentCurrentMovie(currentMovie: MovieModel) {
         userInterface?.showCurrentMovie(title: currentMovie.title, photoUrl: currentMovie.photoUrl)
     }
+    
+    func presentRecommendView(navigationController: UINavigationController) {
+        rateWireframe?.presentRecommendInterface(navigationController: navigationController)
+    }
 }
