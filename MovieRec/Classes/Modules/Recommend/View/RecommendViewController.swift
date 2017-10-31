@@ -110,6 +110,7 @@ class RecommendViewController: UITableViewController, RecTableDelegate, Recommen
         print("Did tap refresh button")
         //startLoadingOverlay()
         //startRecommendationsCalculation()
+        eventHandler?.updateView()
     }
     
     private func configureView() {

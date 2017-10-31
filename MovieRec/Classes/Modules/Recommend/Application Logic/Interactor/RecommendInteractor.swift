@@ -11,4 +11,7 @@ import Foundation
 class RecommendInteractor : NSObject {
     var recommendDataManager : RecommendDataManager?
     
+    func refreshRecommendations() {
+        
+    }
 }

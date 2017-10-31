@@ -9,5 +9,5 @@
 import Foundation
 
 protocol RecommendModuleInterface {
-    func foo()
+    func updateView()
 }

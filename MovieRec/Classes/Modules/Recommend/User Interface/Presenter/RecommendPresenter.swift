@@ -13,11 +13,10 @@ class RecommendPresenter : NSObject, RecommendModuleInterface {
     var recommendWireframe : RecommendWireframe?
     var recommendModuleDelegate : RecommendModuleDelegate?
     
-    func foo() {
-        
+    func updateView() {
+        recommendInteractor?.refreshRecommendations()
     }
     
     func configureUserInterfaceForPresentation(_ recommendViewUserInterface: RecommendViewInterface) {
-
     }
 }
