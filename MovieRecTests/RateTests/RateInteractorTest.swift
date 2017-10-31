@@ -30,13 +30,11 @@ class RateInteractorTest: XCTestCase {
         super.tearDown()
     }
     
-    
     func testStoreRating() {
         if let interactor = interactor {
             interactor.storeRating(ratingType: "1")
             XCTAssertTrue(dataManager.storeRatingCalled, "should call storeRating")
             XCTAssertTrue(dataManager.removeFirstMovieCalled, "should call removeFirstMovie")
-            XCTAssertTrue(dataManager.loadCurrentMovieCalled, "should call loadCurrentMovie")
             XCTAssertTrue(output.presentCurrentMovieCalled, "should call presentCurrentMovie")
             
         } else {
@@ -60,6 +58,15 @@ class RateInteractorTest: XCTestCase {
             XCTAssertTrue(dataManager.loadRatingsCalled, "should call loadRatings")
             XCTAssertTrue(dataManager.loadMoviesCalled, "should call loadMovies")
             XCTAssertTrue(output.presentCurrentMovieCalled, "should call presentCurrentMovie")
+        } else {
+            XCTFail("interactor should be initialized")
+        }
+    }
+    
+    func testFetchNewMovies() {
+        if let interactor = interactor {
+            interactor.fetchNewMovies()
+            XCTAssertTrue(dataManager.getNewMoviesToRateCalled)
         } else {
             XCTFail("interactor should be initialized")
         }

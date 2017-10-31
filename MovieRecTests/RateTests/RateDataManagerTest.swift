@@ -53,8 +53,7 @@ class RateDataManagerTest: XCTestCase {
         let movie = MovieModel(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
         dataManager.moviesToRate = [movie]
     
-        let currentMovie = dataManager.loadCurrentMovie()
-        if let currentMovie = currentMovie {
+        if let currentMovie = dataManager.currentMovie {
             XCTAssertEqual(currentMovie.title, movie.title, "titles should be equal")
             XCTAssertEqual(currentMovie.photoUrl, movie.photoUrl, "photoUrls should be equal")
             XCTAssertEqual(currentMovie.movieId, movie.movieId, "movieIds should be equal")
@@ -64,7 +63,7 @@ class RateDataManagerTest: XCTestCase {
     }
     
     func testLoadCurrentUser() {
-        XCTAssertNotNil(dataManager.loadCurrentUser(), "should have a user")
+        XCTAssertNotNil(dataManager.currentUser, "should have a user")
     }
     
     func testStoreRating() {
@@ -82,5 +81,14 @@ class RateDataManagerTest: XCTestCase {
         }
         dataManager.loadRatings()
         XCTAssertEqual(dataManager.ratings.count, 1, "should have 1 rating")
+    }
+    
+    func testGetNewMoviesToRate() {
+        XCTAssertEqual(dataManager.ratings.count, 0, "should not have any ratings initially")
+        dataManager.getNewMoviesToRate(completion: {
+            () -> Void in
+            XCTAssertEqual(self.dataManager.moviesToRate.count, 25, "should fetch 25 movies")
+        })
+        
     }
 }
