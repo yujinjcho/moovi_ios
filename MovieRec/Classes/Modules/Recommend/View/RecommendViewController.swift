@@ -10,9 +10,9 @@ import os.log
 import UIKit
 import SwiftyJSON
 
-protocol Delegate: class {
-    func clearRatings()
-}
+//protocol Delegate: class {
+//    func clearRatings()
+//}
 
 class RecommendViewController: UITableViewController, RecTableDelegate, RecommendViewInterface {
 
@@ -22,15 +22,18 @@ class RecommendViewController: UITableViewController, RecTableDelegate, Recommen
     var ratings: Ratings?
     var recommendations = Recommendations()
     var userId: String?
-    weak var delegate: Delegate?
+    //weak var delegate: Delegate?
 
     @IBAction func refreshBarButton(_ sender: Any) {
         startLoadingOverlay()
         startRecommendationsCalculation()
     }
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureView()
         //setUserID()
         //recommendations.delegate = self
     }
@@ -63,7 +66,7 @@ class RecommendViewController: UITableViewController, RecTableDelegate, Recommen
         }
         
         //self.ratings.removeAll()
-        delegate?.clearRatings()
+        //delegate?.clearRatings()
         
         if let ratings = ratings {
             print(ratings.count)
@@ -101,5 +104,17 @@ class RecommendViewController: UITableViewController, RecTableDelegate, Recommen
         if let retrievedID = retrievedID {
             userId = retrievedID
         }
+    }
+    
+    func didTapRefreshButton() {
+        print("Did tap refresh button")
+        //startLoadingOverlay()
+        //startRecommendationsCalculation()
+    }
+    
+    private func configureView() {
+        navigationItem.title = "Recommend List"
+        let navigateToRecommendItem = UIBarButtonItem(title: "Refresh", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RecommendViewController.didTapRefreshButton))
+        navigationItem.rightBarButtonItem = navigateToRecommendItem
     }
 }
