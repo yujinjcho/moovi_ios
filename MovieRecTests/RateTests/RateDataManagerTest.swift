@@ -11,23 +11,14 @@ import XCTest
 
 class RateDataManagerTest: XCTestCase {
     var dataManager = RateDataManager()
+    var loadDataManager = RateDataManager()
     let fileManager = FileManager()
     var movieStoreURL : URL?
     var ratingStoreURL : URL?
     
     override func setUp() {
         super.setUp()
-        let DocumentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let movieArchiveURL = DocumentsDirectory.appendingPathComponent("testMovieStore")
-        let ratingArchiveURL = DocumentsDirectory.appendingPathComponent("testRatingStore")
-
-        movieStoreURL = movieArchiveURL
-        ratingStoreURL = ratingArchiveURL
-        
-        if let movieStoreURL = movieStoreURL, let ratingStoreURL = ratingStoreURL {
-            dataManager.moviesStorePath = movieStoreURL.path
-            dataManager.ratingsStorePath = ratingStoreURL.path
-        }
+        setStorePath(dataManager: dataManager, moviePath: "testMovieStore", ratingPath: "testRatingStore")
     }
     
     override func tearDown() {
@@ -36,9 +27,18 @@ class RateDataManagerTest: XCTestCase {
     
     func testLoadMovies() {
         XCTAssertEqual(dataManager.moviesToRate.count, 0, "should not have any to rate")
+        let expect = expectation(description: "fetch 50 movies")
+
         dataManager.loadMovies(completion: { (currentMovie: MovieModel) -> Void in
-            XCTAssertEqual(self.dataManager.moviesToRate.count, 50, "should load movies")
+            XCTAssert(self.dataManager.moviesToRate.count > 0, "should load movies")
+            expect.fulfill()
         })
+        
+        waitForExpectations(timeout: 3) { error in
+            if let error = error {
+                XCTFail("waitForExpectation timeout")
+            }
+        }
     }
     
     func testRemoveFirstMovie() {
@@ -85,10 +85,32 @@ class RateDataManagerTest: XCTestCase {
     
     func testGetNewMoviesToRate() {
         XCTAssertEqual(dataManager.ratings.count, 0, "should not have any ratings initially")
+
+        let expect = expectation(description: "fetch movies")
         dataManager.getNewMoviesToRate(completion: {
             () -> Void in
             XCTAssertEqual(self.dataManager.moviesToRate.count, 25, "should fetch 25 movies")
+            expect.fulfill()
         })
+
+        waitForExpectations(timeout: 10) { error in
+            if let error = error {
+                XCTFail("waitForExpectation timeout")
+            }
+        }
+    }
+    
+    private func setStorePath(dataManager: RateDataManager, moviePath: String, ratingPath: String) {
+        let DocumentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let movieArchiveURL = DocumentsDirectory.appendingPathComponent(moviePath)
+        let ratingArchiveURL = DocumentsDirectory.appendingPathComponent(ratingPath)
         
+        movieStoreURL = movieArchiveURL
+        ratingStoreURL = ratingArchiveURL
+        
+        if let movieStoreURL = movieStoreURL, let ratingStoreURL = ratingStoreURL {
+            dataManager.moviesStorePath = movieStoreURL.path
+            dataManager.ratingsStorePath = ratingStoreURL.path
+        }
     }
 }

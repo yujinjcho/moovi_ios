@@ -37,9 +37,15 @@ class RateViewController: UIViewController, RateViewInterface {
         eventHandler?.loadedView()
     }
 
-    func showCurrentMovie(title:String, photoUrl: String) {
+    func showCurrentMovie(title:String, photoUrl: String, completion: (() -> Void)? = nil) {
         let url = URL(string: photoUrl)
-        titleImage.kf.setImage(with: url, completionHandler: {(_, _, _, _) in self.titleNameLabel.text = title})
+        titleImage.kf.setImage(with: url, completionHandler: {
+            (_, _, _, _) in
+            self.titleNameLabel.text = title
+            if let completion = completion {
+                completion()
+            }
+        })
     }
     
     func configureView() {

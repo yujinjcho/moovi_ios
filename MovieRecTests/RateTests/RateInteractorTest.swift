@@ -13,8 +13,7 @@ class RateInteractorTest: XCTestCase {
     
     var dataManager = MockRateDataManager()
     var interactor : RateInteractor?
-    var output = MockRatePresenter()
-    
+    var output = MockRateInteractorOutput()
     
     override func setUp() {
         super.setUp()

@@ -9,7 +9,7 @@
 import Foundation
 @testable import MovieRec
 
-class MockRatePresenter : RateInteractorOutput {
+class MockRateInteractorOutput : RateInteractorOutput {
     var presentCurrentMovieCalled: Bool = false
     
     func presentCurrentMovie(currentMovie: MovieModel) {
