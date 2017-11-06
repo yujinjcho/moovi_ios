@@ -52,6 +52,7 @@ class RecommendInteractor : NSObject {
             
             timer?.cancel()
             timer = nil
+            print("job is completed")
             
         } else {
             print("job not completed")
