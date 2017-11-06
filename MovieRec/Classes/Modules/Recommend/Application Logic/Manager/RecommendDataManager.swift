@@ -30,7 +30,6 @@ class RecommendDataManager : NSObject {
     
     func fetchJobStatus(jobID: String, completion: @escaping (Data) -> Void) {
         let url = "\(host)/api/job_poll/\(jobID)"
-        //NetworkController.getRequest(endPoint: url, completionHandler: self!.checkJobStatus, user: nil)
         NetworkManager.getRequest(endPoint: url, completionHandler: completion)
     }
     
@@ -38,8 +37,6 @@ class RecommendDataManager : NSObject {
         let url = "\(host)/api/recommendations"
         
         let uploadData = formatPostData(ratings: ratings)
-        
-        completion("testJobID")
         
         NetworkManager.postRequest(endPoint: url, postData: uploadData) {
             (data : Data) in

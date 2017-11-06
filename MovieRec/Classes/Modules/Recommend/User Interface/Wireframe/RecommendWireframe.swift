@@ -20,6 +20,10 @@ class RecommendWireframe : NSObject, UIViewControllerTransitioningDelegate {
         let newViewController = recommendViewController()
         newViewController.eventHandler = recommendPresenter
         
+        if let recommendPresenter = recommendPresenter {
+            recommendPresenter.userInterface = newViewController
+        }
+
         //this might be optional. looks like setup/init code
         //recommendPresenter?.configureUserInterfaceForPresentation(newViewController)
         //newViewController.modalPresentationStyle = .custom

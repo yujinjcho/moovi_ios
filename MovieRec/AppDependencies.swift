@@ -35,7 +35,6 @@ class AppDependencies {
         let recommendDataManager = RecommendDataManager()
         
         rateInteractor.output = ratePresenter
-        
         ratePresenter.rateInteractor = rateInteractor
         ratePresenter.rateWireframe = rateWireframe
         
@@ -43,11 +42,15 @@ class AppDependencies {
         rateWireframe.ratePresenter = ratePresenter
         rateWireframe.rootWireframe = rootWireframe
         
+        recommendInteractor.output = recommendPresenter
+        recommendDataManager.rateDataManager = rateDataManager
         recommendInteractor.recommendDataManager = recommendDataManager
         recommendWireframe.recommendPresenter = recommendPresenter
         
+        //recommendPresenter.userInterface = recommend
         recommendPresenter.recommendWireframe = recommendWireframe
         recommendPresenter.recommendModuleDelegate = ratePresenter
         recommendPresenter.recommendInteractor = recommendInteractor
+        
     }
 }

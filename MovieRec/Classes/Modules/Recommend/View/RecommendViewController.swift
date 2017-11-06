@@ -10,35 +10,16 @@ import os.log
 import UIKit
 import SwiftyJSON
 
-//protocol Delegate: class {
-//    func clearRatings()
-//}
-
-//class RecommendViewController: UITableViewController, RecTableDelegate, RecommendViewInterface {
 class RecommendViewController: UITableViewController, RecommendViewInterface {
 
-
     var eventHandler : RecommendModuleInterface?
-    
-    //MARK: Properties 
-    //var ratings: Ratings?
-    //var recommendations = Recommendations()
     var userId: String?
-    var numberRows = 0
-    //weak var delegate: Delegate?
+    var recommendations = [String]()
+    var numberRows: Int { return recommendations.count }
 
-    @IBAction func refreshBarButton(_ sender: Any) {
-        startLoadingOverlay()
-        startRecommendationsCalculation()
-    }
-    
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        //setUserID()
-        //recommendations.delegate = self
     }
 
     // MARK: - Table view data source
@@ -48,7 +29,6 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberRows
-        //return recommendations.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,25 +38,20 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
             fatalError("The dequeued cell is not an instance of MovieTableViewCell.")
         }
         
-        //let title = recommendations.titleAtIndex(index: indexPath.row)
-        let title = "placeholder"
+        let title = recommendations[indexPath.row]
         cell.titleLabel.text = title
         return cell
     }
     
-//    func refreshTable() {
-//        DispatchQueue.main.async {
-//            [unowned self] in
-//            self.tableView.reloadData()
-//        }
-//
-//        //self.ratings.removeAll()
-//        //delegate?.clearRatings()
-//
-//        if let ratings = ratings {
-//            print(ratings.count)
-//        }
-//    }
+    
+    func refreshTable(newRecommendations: [String]) {
+        recommendations = newRecommendations
+        DispatchQueue.main.async {
+            [unowned self] in
+            self.tableView.reloadData()
+        }
+        endLoadingOverlay()
+    }
 
     func endLoadingOverlay() {
         dismiss(animated: false, completion: nil)
@@ -95,26 +70,8 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
         present(alert, animated: true, completion: nil)
     }
     
-//    private func startRecommendationsCalculation() {
-////        if let ratings = ratings, let userId = userId {
-////            let uploadRatings = ratings.uploadFormat()
-////            let postData : [String: Any] = ["user_id": userId, "ratings": uploadRatings]
-////            NetworkController.postRequest(endPoint: "api/recommendations", postData: postData,
-////                                          completionHandler: recommendations.startJobPolling)
-////        }
-//    }
-
-    private func setUserID() {
-        let retrievedID = UserDefaults.standard.string(forKey: "userID")
-        if let retrievedID = retrievedID {
-            userId = retrievedID
-        }
-    }
-    
     func didTapRefreshButton() {
-        print("Did tap refresh button")
         startLoadingOverlay()
-        //startRecommendationsCalculation()
         eventHandler?.updateView()
     }
     
