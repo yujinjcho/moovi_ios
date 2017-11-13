@@ -10,17 +10,18 @@ import Foundation
 import SwiftyJSON
 
 class RecommendPresenter : NSObject, RecommendModuleInterface, RecommendInteractorOutput {
+//class RecommendPresenter : NSObject, RecommendInteractorOutput {
     var recommendInteractor : RecommendInteractor?
     var recommendWireframe : RecommendWireframe?
-    var recommendModuleDelegate : RecommendModuleDelegate?
+    //var recommendModuleDelegate : RecommendModuleDelegate?
     var userInterface : RecommendViewInterface?
     
     func updateView() {
         recommendInteractor?.refreshRecommendations()
     }
     
-    func configureUserInterfaceForPresentation(_ recommendViewUserInterface: RecommendViewInterface) {
-    }
+//    func configureUserInterfaceForPresentation(_ recommendViewUserInterface: RecommendViewInterface) {
+//    }
     
     func showNewRecommendations(data: JSON) {
         if let userInterface = userInterface {

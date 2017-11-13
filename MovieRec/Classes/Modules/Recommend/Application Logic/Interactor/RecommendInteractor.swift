@@ -41,6 +41,10 @@ class RecommendInteractor : NSObject {
     
     func checkJobStatus(data: Data) -> Void {
         let json = JSON(data: data)
+        
+//        print("DEBUG")
+//        print(data)
+        
         if json["status"].stringValue == "completed" {
             if let dataFromString = json["results"].stringValue.data(using: .utf8, allowLossyConversion: false) {
                 let results = JSON(data: dataFromString)

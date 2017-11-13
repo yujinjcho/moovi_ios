@@ -34,7 +34,7 @@ class RateDataManagerTest: XCTestCase {
             expect.fulfill()
         })
         
-        waitForExpectations(timeout: 3) { error in
+        waitForExpectations(timeout: 20) { error in
             if let error = error {
                 XCTFail("waitForExpectation timeout")
             }
@@ -93,7 +93,7 @@ class RateDataManagerTest: XCTestCase {
             expect.fulfill()
         })
 
-        waitForExpectations(timeout: 10) { error in
+        waitForExpectations(timeout: 20) { error in
             if let error = error {
                 XCTFail("waitForExpectation timeout")
             }
