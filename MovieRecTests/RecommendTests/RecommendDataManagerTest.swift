@@ -33,20 +33,30 @@ class RecommendDataManagerTest: XCTestCase {
 
 
     
-    func testFetchJobStatus() {
-        XCTFail("test fetchJobStatus")
+    //func testFetchJobStatus() {
+        //XCTFail("test fetchJobStatus")
         //TODO: use network manager object instead of static class
         // then you can just check if methods have been called
         
         //TODO: refactor in other data manager
-    }
+    //}
 //
 //    func testUploadRatings() {
 //        XCTFail("test uploadRatings")
 //    }
 //    
-//    func testFormatPostData() {
-//        XCTFail("test formatPostData")
-//    }
+    func testFormatPostData() {
+        let testRatings = [RatingModel(movieID: "testUpload", rating: "1", userID: "testUser")]
+        let uploadData = recommendDataManager.formatPostData(ratings: testRatings)
+        XCTAssertNotNil(uploadData["user_id"], "result should have a user id")
+        XCTAssertNotNil(uploadData["ratings"], "result should have a ratings")
+        let uploadRatings = uploadData["ratings"] as? [[String: String]]
+        
+        if let uploadRatings = uploadRatings {
+            XCTAssertEqual(uploadRatings[0]["movie_id"]!, "testUpload", "movieID should be 'testUpload'")
+        } else {
+            XCTFail("should unpack ratings")
+        }
+    }
     
 }
