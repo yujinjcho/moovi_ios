@@ -23,6 +23,7 @@ class RecommendDataManagerTest: XCTestCase {
         super.tearDown()
     }
     
+    
     func testFetchRatings() {
         mockRateDataManager.ratings = [RatingModel(movieID: "testMovie", rating: "1", userID: "testUser")]
         

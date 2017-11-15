@@ -41,7 +41,7 @@ class MockRateDataManager: RateDataManager {
         }
     }
     
-    override func getNewMoviesToRate(completion: (() -> Void)? = nil) {
+    override func getNewMoviesToRate() {
         getNewMoviesToRateCalled = true
     }
 }

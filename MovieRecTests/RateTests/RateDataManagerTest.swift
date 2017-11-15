@@ -12,6 +12,7 @@ import XCTest
 class RateDataManagerTest: XCTestCase {
     var dataManager = RateDataManager()
     var loadDataManager = RateDataManager()
+    let networkManager = MockNetworkManager()
     let fileManager = FileManager()
     var movieStoreURL : URL?
     var ratingStoreURL : URL?
@@ -19,6 +20,7 @@ class RateDataManagerTest: XCTestCase {
     override func setUp() {
         super.setUp()
         setStorePath(dataManager: dataManager, moviePath: "testMovieStore", ratingPath: "testRatingStore")
+        dataManager.networkManager = networkManager
     }
     
     override func tearDown() {
@@ -26,19 +28,9 @@ class RateDataManagerTest: XCTestCase {
     }
     
     func testLoadMovies() {
-        XCTAssertEqual(dataManager.moviesToRate.count, 0, "should not have any to rate")
-        let expect = expectation(description: "fetch 50 movies")
-
-        dataManager.loadMovies(completion: { (currentMovie: MovieModel) -> Void in
-            XCTAssert(self.dataManager.moviesToRate.count > 0, "should load movies")
-            expect.fulfill()
-        })
-        
-        waitForExpectations(timeout: 20) { error in
-            if let error = error {
-                XCTFail("waitForExpectation timeout")
-            }
-        }
+        XCTAssertFalse(networkManager.getRequestCalled, "get request should not have been called")
+        dataManager.loadMovies(completion: { (currentMovie: MovieModel) -> Void in })
+        XCTAssertTrue(networkManager.getRequestCalled, "get request should have been called")
     }
     
     func testRemoveFirstMovie() {
@@ -84,20 +76,9 @@ class RateDataManagerTest: XCTestCase {
     }
     
     func testGetNewMoviesToRate() {
-        XCTAssertEqual(dataManager.ratings.count, 0, "should not have any ratings initially")
-
-        let expect = expectation(description: "fetch movies")
-        dataManager.getNewMoviesToRate(completion: {
-            () -> Void in
-            XCTAssertEqual(self.dataManager.moviesToRate.count, 25, "should fetch 25 movies")
-            expect.fulfill()
-        })
-
-        waitForExpectations(timeout: 20) { error in
-            if let error = error {
-                XCTFail("waitForExpectation timeout")
-            }
-        }
+        XCTAssertFalse(networkManager.postRequestCalled, "postRequest should not have been called")
+        dataManager.getNewMoviesToRate()
+        XCTAssertTrue(networkManager.postRequestCalled, "postRequest should have been called")
     }
     
     private func setStorePath(dataManager: RateDataManager, moviePath: String, ratingPath: String) {

@@ -10,6 +10,8 @@ import Foundation
 
 class RecommendDataManager : NSObject {
     var rateDataManager : RateDataManager?
+    //var networkManager : NetworkManagerFactory?
+    
     let host = "https://movie-rec-project.herokuapp.com"
     let defaultUser = "test_user_03"
     var currentUser: String {

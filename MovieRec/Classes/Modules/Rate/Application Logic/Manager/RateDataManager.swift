@@ -12,6 +12,7 @@ import CloudKit
 import Kingfisher
 
 class RateDataManager : NSObject {
+    var networkManager : NetworkManagerFactory?
     var moviesToRate = [MovieModel]()
     var ratings = [RatingModel]()
     var moviesStorePath = MovieStore.ArchiveURL.path
@@ -50,12 +51,14 @@ class RateDataManager : NSObject {
         } else {
             print("Making API Call")
             let url = "\(host)/api/start"
-            NetworkManager.getRequest(endPoint: url) {
-                (data: Data) -> Void in
-                if let newMovies = self.convertJSONtoMovies(data: data) {
-                    self.moviesToRate = newMovies.map { MovieModel(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
-                    self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
-                    completion(self.currentMovie!)
+            if let networkManager = networkManager {
+                networkManager.getRequest(endPoint: url) {
+                    (data: Data) -> Void in
+                    if let newMovies = self.convertJSONtoMovies(data: data) {
+                        self.moviesToRate = newMovies.map { MovieModel(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+                        self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
+                        completion(self.currentMovie!)
+                    }
                 }
             }
         }
@@ -85,21 +88,21 @@ class RateDataManager : NSObject {
         }
     }
     
-    func getNewMoviesToRate(completion: (() -> Void)? = nil) {
+    func getNewMoviesToRate() {
         let url = "\(host)/api/refresh"
         let postData = formatUploadDataForMovieFetch()
-        NetworkManager.postRequest(endPoint: url, postData: postData, completionHandler: {
-            (data:Data)->Void in
-            if let newMovies = self.convertJSONtoMovies(data: data) {
-                let moviesToAdd = newMovies.map { MovieModel(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
-                self.moviesToRate += moviesToAdd
-                self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
-                self.startImagePrefetcher(urls: moviesToAdd.map { $0.photoUrl })
-            }
-            if let completion = completion {
-                completion()
-            }
-        })
+        
+        if let networkManager = networkManager {
+            networkManager.postRequest(endPoint: url, postData: postData, completionHandler: {
+                (data:Data)->Void in
+                if let newMovies = self.convertJSONtoMovies(data: data) {
+                    let moviesToAdd = newMovies.map { MovieModel(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+                    self.moviesToRate += moviesToAdd
+                    self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
+                    self.startImagePrefetcher(urls: moviesToAdd.map { $0.photoUrl })
+                }
+            })
+        }
     }
     
     private func startImagePrefetcher(urls: [String]) {
@@ -113,9 +116,7 @@ class RateDataManager : NSObject {
     }
     
     private func convertJSONtoMovies(data: Data) -> [MovieStore]? {
-        //print(String(data: data, encoding: String.Encoding.utf8) as String!)
         let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-        //print(responseJSON)
         if let responseJSON = responseJSON as? [[String: String]] {
             let newMovies = responseJSON.map {
                 (movieToRate: [String: String]) -> MovieStore in
