@@ -15,5 +15,5 @@ protocol RateInteractorInput {
 }
 
 protocol RateInteractorOutput {
-    func presentCurrentMovie(currentMovie: MovieModel)
+    func presentCurrentMovie(currentMovie: Movie)
 }

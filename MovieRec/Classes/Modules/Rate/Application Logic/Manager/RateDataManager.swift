@@ -12,9 +12,9 @@ import CloudKit
 import Kingfisher
 
 class RateDataManager : NSObject {
-    var networkManager : NetworkManagerFactory?
-    var moviesToRate = [MovieModel]()
-    var ratings = [RatingModel]()
+    var networkManager : NetworkManager?
+    var moviesToRate = [Movie]()
+    var ratings = [Rating]()
     var moviesStorePath = MovieStore.ArchiveURL.path
     var ratingsStorePath = RatingStore.ArchiveURL.path
     var prefetcher: ImagePrefetcher?
@@ -29,7 +29,7 @@ class RateDataManager : NSObject {
             return defaultUser
         }
     }
-    var currentMovie: MovieModel? {
+    var currentMovie: Movie? {
         if (moviesToRate.count > 0) {
             return moviesToRate.first
         }
@@ -42,11 +42,11 @@ class RateDataManager : NSObject {
         //saveCurrentMoviesStateToDisk(path: moviesStorePath)
     }
     
-    func loadMovies(completion: @escaping (MovieModel) -> Void) {
+    func loadMovies(completion: @escaping (Movie) -> Void) {
         
         let moviesFromDisk = loadMoviesFromDisk(path: moviesStorePath)
         if let moviesFromDisk = moviesFromDisk, moviesFromDisk.count > 0 {
-            moviesToRate = moviesFromDisk.map { MovieModel(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+            moviesToRate = moviesFromDisk.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
             completion(currentMovie!)
         } else {
             print("Making API Call")
@@ -55,7 +55,7 @@ class RateDataManager : NSObject {
                 networkManager.getRequest(endPoint: url) {
                     (data: Data) -> Void in
                     if let newMovies = self.convertJSONtoMovies(data: data) {
-                        self.moviesToRate = newMovies.map { MovieModel(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+                        self.moviesToRate = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
                         self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
                         completion(self.currentMovie!)
                     }
@@ -66,7 +66,7 @@ class RateDataManager : NSObject {
     
     func storeRating(rating: String) {
         if let currentMovie = currentMovie {
-            let rating = RatingModel(movieID: currentMovie.movieId, rating: rating, userID: currentUser)
+            let rating = Rating(movieID: currentMovie.movieId, rating: rating, userID: currentUser)
             ratings.append(rating)
             saveCurrentRatingsToDisk(path: ratingsStorePath)
         }
@@ -82,7 +82,7 @@ class RateDataManager : NSObject {
 
     func loadRatings() {
         if let ratingsFromDisk = loadRatingsFromDisk(path: ratingsStorePath) {
-            ratings = ratingsFromDisk.map { RatingModel(movieID: $0.movieID, rating: $0.rating, userID: $0.userID) }
+            ratings = ratingsFromDisk.map { Rating(movieID: $0.movieID, rating: $0.rating, userID: $0.userID) }
         } else {
             return
         }
@@ -96,7 +96,7 @@ class RateDataManager : NSObject {
             networkManager.postRequest(endPoint: url, postData: postData, completionHandler: {
                 (data:Data)->Void in
                 if let newMovies = self.convertJSONtoMovies(data: data) {
-                    let moviesToAdd = newMovies.map { MovieModel(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+                    let moviesToAdd = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
                     self.moviesToRate += moviesToAdd
                     self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
                     self.startImagePrefetcher(urls: moviesToAdd.map { $0.photoUrl })

@@ -46,7 +46,7 @@ class RatePresenterTest: XCTestCase {
     }
     
     func testThatPresentCurrentMovieCallsShowCurrentMovie() {
-        let movie = MovieModel(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
         presenter.presentCurrentMovie(currentMovie: movie)
         XCTAssertTrue(interface.presentCurrentMovieCalled, "should call presentCurrentMovie")
     }

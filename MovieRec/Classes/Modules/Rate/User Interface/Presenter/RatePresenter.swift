@@ -23,7 +23,7 @@ class RatePresenter : NSObject, RateModuleInterface, RateInteractorOutput,
         rateInteractor?.storeRating(ratingType: ratingType)
     }
     
-    func presentCurrentMovie(currentMovie: MovieModel) {
+    func presentCurrentMovie(currentMovie: Movie) {
         userInterface?.showCurrentMovie(title: currentMovie.title, photoUrl: currentMovie.photoUrl) {}
     }
     

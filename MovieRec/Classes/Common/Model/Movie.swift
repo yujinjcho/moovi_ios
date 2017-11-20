@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MovieModel {
+struct Movie {
     let title : String
     let photoUrl : String
     let movieId : String

@@ -17,8 +17,8 @@ class MockRateDataManager: RateDataManager {
     var loadMoviesCalled : Bool = false
     var getNewMoviesToRateCalled : Bool = false
     
-    override var currentMovie : MovieModel? {
-        return MovieModel(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+    override var currentMovie : Movie? {
+        return Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
     }
     
     override func storeRating(rating: String) {
@@ -34,7 +34,7 @@ class MockRateDataManager: RateDataManager {
         loadRatingsCalled = true
     }
     
-    override func loadMovies(completion: @escaping (MovieModel) -> Void) {
+    override func loadMovies(completion: @escaping (Movie) -> Void) {
         loadMoviesCalled = true
         if let movie = currentMovie {
             completion(movie)

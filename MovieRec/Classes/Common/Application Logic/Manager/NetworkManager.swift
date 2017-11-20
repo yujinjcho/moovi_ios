@@ -1,16 +1,16 @@
 //
-//  NetworkManager.swift
+//  NetworkManagerFactory.swift
 //  MovieRec
 //
-//  Created by Yujin Cho on 10/14/17.
+//  Created by Yujin Cho on 11/13/17.
 //  Copyright © 2017 Yujin Cho. All rights reserved.
 //
 
 import Foundation
 
-class NetworkManager {
+class NetworkManager : NSObject {
     
-    class func getRequest(endPoint: String, completionHandler: @escaping (Data)->Void) {
+    func getRequest(endPoint: String, completionHandler: @escaping (Data)->Void) {
         let url = URL(string: endPoint)
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
@@ -27,7 +27,7 @@ class NetworkManager {
         task.resume()
     }
     
-    class func postRequest(endPoint: String, postData: [String:Any], completionHandler: @escaping (Data)->Void) {
+    func postRequest(endPoint: String, postData: [String:Any], completionHandler: @escaping (Data)->Void) {
         let jsonData = try? JSONSerialization.data(withJSONObject: postData)
         let url = URL(string: endPoint)
         var request = URLRequest(url: url!)

@@ -25,7 +25,7 @@ class RecommendDataManagerTest: XCTestCase {
     }
     
     func testFetchRatings() {
-        mockRateDataManager.ratings = [RatingModel(movieID: "testMovie", rating: "1", userID: "testUser")]
+        mockRateDataManager.ratings = [Rating(movieID: "testMovie", rating: "1", userID: "testUser")]
         
         let ratings = recommendDataManager.fetchRatings()
         XCTAssertEqual(ratings.count, 1, "should return 1 rating")
@@ -41,13 +41,13 @@ class RecommendDataManagerTest: XCTestCase {
 
     func testUploadRatings() {
         XCTAssertFalse(mockNetworkManager.postRequestCalled, "should not have called postRequest yet")
-        let testRatings = [RatingModel(movieID: "testUpload", rating: "1", userID: "testUser")]
+        let testRatings = [Rating(movieID: "testUpload", rating: "1", userID: "testUser")]
         recommendDataManager.uploadRatings(ratings: testRatings, completion:{_ in})
         XCTAssertTrue(mockNetworkManager.postRequestCalled, "should have called postRequest")
     }
     
     func testFormatPostData() {
-        let testRatings = [RatingModel(movieID: "testUpload", rating: "1", userID: "testUser")]
+        let testRatings = [Rating(movieID: "testUpload", rating: "1", userID: "testUser")]
         let uploadData = recommendDataManager.formatPostData(ratings: testRatings)
         XCTAssertNotNil(uploadData["user_id"], "result should have a user id")
         XCTAssertNotNil(uploadData["ratings"], "result should have a ratings")

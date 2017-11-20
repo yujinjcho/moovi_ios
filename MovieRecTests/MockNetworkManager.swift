@@ -9,7 +9,7 @@
 import Foundation
 @testable import MovieRec
 
-class MockNetworkManager : NetworkManagerFactory {
+class MockNetworkManager : NetworkManager {
     var getRequestCalled : Bool = false
     var postRequestCalled : Bool = false
     

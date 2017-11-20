@@ -12,7 +12,7 @@ import Foundation
 class MockRateInteractorOutput : RateInteractorOutput {
     var presentCurrentMovieCalled: Bool = false
     
-    func presentCurrentMovie(currentMovie: MovieModel) {
+    func presentCurrentMovie(currentMovie: Movie) {
         presentCurrentMovieCalled = true
     }
 }

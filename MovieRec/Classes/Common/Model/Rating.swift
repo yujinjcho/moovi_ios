@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RatingModel {
+struct Rating {
     let movieID : String
     let rating : String
     let userID : String

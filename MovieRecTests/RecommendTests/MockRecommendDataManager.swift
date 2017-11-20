@@ -14,13 +14,13 @@ class MockRecommendDataManager: RecommendDataManager {
     var uploadRatingsCalled : Bool = false
     var fetchJobStatusCalled : Bool = false
 
-    override func fetchRatings() -> [RatingModel] {
+    override func fetchRatings() -> [Rating] {
         fetchRatingsCalled = true
-        let testRating = RatingModel(movieID: "test", rating: "1", userID: "testUser")
+        let testRating = Rating(movieID: "test", rating: "1", userID: "testUser")
         return [testRating]
     }
     
-    override func uploadRatings(ratings: [RatingModel], completion: @escaping (String) -> Void) {
+    override func uploadRatings(ratings: [Rating], completion: @escaping (String) -> Void) {
         uploadRatingsCalled = true
     }
     

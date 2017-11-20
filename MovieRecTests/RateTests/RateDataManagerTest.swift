@@ -29,12 +29,12 @@ class RateDataManagerTest: XCTestCase {
     
     func testLoadMovies() {
         XCTAssertFalse(networkManager.getRequestCalled, "get request should not have been called")
-        dataManager.loadMovies(completion: { (currentMovie: MovieModel) -> Void in })
+        dataManager.loadMovies(completion: { (currentMovie: Movie) -> Void in })
         XCTAssertTrue(networkManager.getRequestCalled, "get request should have been called")
     }
     
     func testRemoveFirstMovie() {
-        let movie = MovieModel(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
         dataManager.moviesToRate = [movie]
         XCTAssertEqual(dataManager.moviesToRate.count, 1)
         dataManager.removeFirstMovie()
@@ -42,7 +42,7 @@ class RateDataManagerTest: XCTestCase {
     }
     
     func testloadCurrentMovie() {
-        let movie = MovieModel(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
         dataManager.moviesToRate = [movie]
     
         if let currentMovie = dataManager.currentMovie {
@@ -59,7 +59,7 @@ class RateDataManagerTest: XCTestCase {
     }
     
     func testStoreRating() {
-        let movie = MovieModel(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
         dataManager.moviesToRate = [movie]
         dataManager.storeRating(rating: "1")
         XCTAssertEqual(dataManager.ratings.count, 1, "Should have one rating now")

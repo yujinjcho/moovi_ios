@@ -20,7 +20,7 @@ class RateInteractor : NSObject, RateInteractorInput {
     
     func initializeDataManager() {
         dataManager.loadRatings()
-        dataManager.loadMovies(completion: { (currentMovie: MovieModel) -> Void in
+        dataManager.loadMovies(completion: { (currentMovie: Movie) -> Void in
             self.showCurrentMovie(currentMovie: currentMovie)
         })
     }
@@ -37,7 +37,7 @@ class RateInteractor : NSObject, RateInteractorInput {
         }
     }
     
-    func showCurrentMovie(currentMovie: MovieModel) {
+    func showCurrentMovie(currentMovie: Movie) {
         if let output = output {
             output.presentCurrentMovie(currentMovie: currentMovie)
         }

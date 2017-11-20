@@ -10,7 +10,7 @@ import Foundation
 
 class RecommendDataManager : NSObject {
     var rateDataManager : RateDataManager?
-    var networkManager : NetworkManagerFactory?
+    var networkManager : NetworkManager?
     
     let host = "https://movie-rec-project.herokuapp.com"
     let defaultUser = "test_user_03"
@@ -22,7 +22,7 @@ class RecommendDataManager : NSObject {
         }
     }
 
-    func fetchRatings() -> [RatingModel] {
+    func fetchRatings() -> [Rating] {
         if let rateDataManager = rateDataManager {
             return rateDataManager.ratings
         } else {
@@ -39,7 +39,7 @@ class RecommendDataManager : NSObject {
         
     }
     
-    func uploadRatings(ratings: [RatingModel], completion: @escaping (String) -> Void) {
+    func uploadRatings(ratings: [Rating], completion: @escaping (String) -> Void) {
         let url = "\(host)/api/recommendations"
         let uploadData = formatPostData(ratings: ratings)
         if let networkManager = networkManager {
@@ -54,9 +54,9 @@ class RecommendDataManager : NSObject {
         }
     }
     
-    func formatPostData(ratings : [RatingModel]) -> [String : Any] {
+    func formatPostData(ratings : [Rating]) -> [String : Any] {
         let uploadRatings = ratings.map({
-            (rating:RatingModel) -> [String:String] in
+            (rating:Rating) -> [String:String] in
             [ "movie_id": rating.movieID, "rating": rating.rating]
         })
         let postData : [String: Any] = [
