@@ -34,7 +34,7 @@ class AppDependencies {
         let recommendPresenter = RecommendPresenter()
         let recommendDataManager = RecommendDataManager()
         
-        let networkManager = NetworkManagerFactory()
+        let networkManager = NetworkManager()
         
         rateInteractor.output = ratePresenter
         ratePresenter.rateInteractor = rateInteractor

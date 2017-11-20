@@ -24,9 +24,6 @@ class RecommendWireframe : NSObject, UIViewControllerTransitioningDelegate {
             recommendPresenter.userInterface = newViewController
         }
 
-        //this might be optional. looks like setup/init code
-        //recommendPresenter?.configureUserInterfaceForPresentation(newViewController)
-        //newViewController.modalPresentationStyle = .custom
         newViewController.transitioningDelegate = self
         navigationController.pushViewController(newViewController, animated: true)
     }

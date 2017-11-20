@@ -1,5 +1,5 @@
 //
-//  MovieModel.swift
+//  Movie.swift
 //  MovieRec
 //
 //  Created by Yujin Cho on 10/15/17.

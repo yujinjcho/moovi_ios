@@ -1,5 +1,5 @@
 //
-//  NetworkManagerFactory.swift
+//  NetworkManager.swift
 //  MovieRec
 //
 //  Created by Yujin Cho on 11/13/17.

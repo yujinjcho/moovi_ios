@@ -1,5 +1,5 @@
 //
-//  RatingModel.swift
+//  Rating.swift
 //  MovieRec
 //
 //  Created by Yujin Cho on 10/17/17.
