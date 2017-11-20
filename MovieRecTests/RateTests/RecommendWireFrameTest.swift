@@ -38,16 +38,6 @@ class RecommendWireFrameTest: XCTestCase {
             XCTFail("window must have a rootViewController that is a navigation controller")
         }
     }
-    
-    func testRecommendViewController() {
-        let viewController = recommendWireframe.recommendViewController()
-        XCTAssertNotNil(viewController, "recommendViewController should return a RecommendViewController")
-    }
-    
-    func testMainStoryboard() {
-        let storyboard = recommendWireframe.mainStoryboard()
-        XCTAssertNotNil(storyboard, "mainStoryboard should return UIStoryboard")
-    }
 }
 
 

@@ -31,18 +31,18 @@ class RecommendDataManager : NSObject {
     }
     
     func fetchJobStatus(jobID: String, completion: @escaping (Data) -> Void) {
-        
         let url = "\(host)/api/job_poll/\(jobID)"
         if let networkManager = networkManager {
             networkManager.getRequest(endPoint: url, completionHandler: completion)
         }
-        
     }
     
     func uploadRatings(ratings: [Rating], completion: @escaping (String) -> Void) {
         let url = "\(host)/api/recommendations"
         let uploadData = formatPostData(ratings: ratings)
+        
         if let networkManager = networkManager {
+            print("unpacked networkManager")
             networkManager.postRequest(endPoint: url, postData: uploadData) {
                 (data : Data) in
                 let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
@@ -54,7 +54,7 @@ class RecommendDataManager : NSObject {
         }
     }
     
-    func formatPostData(ratings : [Rating]) -> [String : Any] {
+    private func formatPostData(ratings : [Rating]) -> [String : Any] {
         let uploadRatings = ratings.map({
             (rating:Rating) -> [String:String] in
             [ "movie_id": rating.movieID, "rating": rating.rating]

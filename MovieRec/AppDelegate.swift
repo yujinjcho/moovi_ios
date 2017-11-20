@@ -27,8 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let userId = UserDefaults.standard.string(forKey: "userID") {
             print("UserID already set to \(userId)")
         } else {
-            iCloudUserIDAsync() {
-                recordID, error in
+            iCloudUserIDAsync() { recordID, error in
                 if let userID = recordID?.recordName {
                     UserDefaults.standard.set(userID, forKey: "userID")
                 } else {

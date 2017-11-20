@@ -1,15 +1,14 @@
 //
-//  MovieRecTests.swift
+//  NetworkManagerTest.swift
 //  MovieRecTests
 //
-//  Created by Yujin Cho on 5/27/17.
+//  Created by Yujin Cho on 11/19/17.
 //  Copyright © 2017 Yujin Cho. All rights reserved.
 //
 
 import XCTest
-@testable import MovieRec
 
-class MovieRecTests: XCTestCase {
+class NetworkManagerTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -19,10 +18,7 @@ class MovieRecTests: XCTestCase {
         super.tearDown()
     }
     
-    func testShouldPass() {
-        XCTAssert(true, "This should pass")
+    func testTODO() {
+        XCTFail("make some test network calls")
     }
-    
-
-    
 }

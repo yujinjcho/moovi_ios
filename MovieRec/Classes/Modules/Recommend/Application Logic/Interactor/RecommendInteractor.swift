@@ -41,7 +41,6 @@ class RecommendInteractor : NSObject {
     
     func checkJobStatus(data: Data) -> Void {
         let json = JSON(data: data)
-        
         if json["status"].stringValue == "completed" {
             if let dataFromString = json["results"].stringValue.data(using: .utf8, allowLossyConversion: false) {
                 let results = JSON(data: dataFromString)
@@ -51,12 +50,18 @@ class RecommendInteractor : NSObject {
                 }
             }
             
-            timer?.cancel()
-            timer = nil
+            deinitTimer()
             print("job is completed")
             
         } else {
             print("job not completed")
         }
+    }
+    
+    private func deinitTimer() {
+        if let timer = timer {
+            timer.cancel()
+        }
+        timer = nil
     }
 }

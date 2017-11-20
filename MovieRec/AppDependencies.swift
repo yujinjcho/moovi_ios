@@ -49,6 +49,7 @@ class AppDependencies {
         recommendDataManager.rateDataManager = rateDataManager
         recommendInteractor.recommendDataManager = recommendDataManager
         recommendWireframe.recommendPresenter = recommendPresenter
+        recommendDataManager.networkManager = networkManager
         
         recommendPresenter.recommendWireframe = recommendWireframe
         recommendPresenter.recommendInteractor = recommendInteractor        

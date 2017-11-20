@@ -48,13 +48,13 @@ class RateViewController: UIViewController, RateViewInterface {
         })
     }
     
-    func configureView() {
+    func didTapNavigateToRecommendItem(){
+        eventHandler?.presentRecommendView(navigationController: self.navigationController!)
+    }
+    
+    private func configureView() {
         navigationItem.title = "Rate"
         let navigateToRecommendItem = UIBarButtonItem(title: "Movie List", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RateViewController.didTapNavigateToRecommendItem))
         navigationItem.rightBarButtonItem = navigateToRecommendItem
-    }
-    
-    func didTapNavigateToRecommendItem(){
-        eventHandler?.presentRecommendView(navigationController: self.navigationController!)
     }
 }

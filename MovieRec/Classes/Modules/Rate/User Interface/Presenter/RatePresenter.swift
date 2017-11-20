@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-class RatePresenter : NSObject, RateModuleInterface, RateInteractorOutput,
-    RecommendModuleDelegate {
+class RatePresenter : NSObject, RateModuleInterface, RateInteractorOutput {
+
     var rateInteractor : RateInteractorInput?
     var rateWireframe : RateWireFrame?
     var userInterface : RateViewInterface?

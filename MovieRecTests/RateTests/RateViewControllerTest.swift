@@ -49,13 +49,6 @@ class RateViewControllerTest: XCTestCase {
         XCTAssertTrue(mockRateViewEventHandler.presentRecommendViewCalled)
         
     }
-    
-    func testConfigureView() {
-        rateViewController?.configureView()
-        XCTAssertEqual(rateViewController?.navigationItem.title, "Rate", "navigationItem title should be equal to Rate")
-        XCTAssertEqual(rateViewController?.navigationItem.rightBarButtonItem?.title, "Movie List", "navigation Item title should be equal to Movie List")
-        XCTAssertNotNil(rateViewController?.navigationItem.rightBarButtonItem, "navigationItem rightBarButtonItem should exist")
-    }
 
     func testTitleNameLabelOutlet() {
         XCTAssertNotNil(rateViewController?.titleNameLabel, "titleNameLabel should exist")

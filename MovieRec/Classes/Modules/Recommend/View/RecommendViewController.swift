@@ -53,11 +53,16 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
         endLoadingOverlay()
     }
 
-    func endLoadingOverlay() {
-        dismiss(animated: false, completion: nil)
+    func didTapRefreshButton() {
+        startLoadingOverlay()
+        eventHandler?.updateView()
     }
     
     //MARK: Private Methods
+    private func endLoadingOverlay() {
+        dismiss(animated: false, completion: nil)
+    }
+    
     private func startLoadingOverlay() {
         let alert = UIAlertController(title: nil, message: "Loading...", preferredStyle: .alert)
         
@@ -68,11 +73,6 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
         
         alert.view.addSubview(loadingIndicator)
         present(alert, animated: true, completion: nil)
-    }
-    
-    func didTapRefreshButton() {
-        startLoadingOverlay()
-        eventHandler?.updateView()
     }
     
     private func configureView() {

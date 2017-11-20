@@ -29,7 +29,6 @@ class MockRateDataManager: RateDataManager {
         removeFirstMovieCalled = true
     }
     
-
     override func loadRatings() {
         loadRatingsCalled = true
     }

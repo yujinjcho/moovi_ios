@@ -9,7 +9,7 @@
 import Foundation
 
 
-class RatingStore: NSObject, NSCoding {
+final class RatingStore: NSObject, NSCoding {
     
     struct PropertyKey {
         static let movieID = "movieID"

@@ -9,8 +9,5 @@
 import Foundation
 
 protocol RecommendViewInterface {
-    
     func refreshTable(newRecommendations: [String])
 }
-
-

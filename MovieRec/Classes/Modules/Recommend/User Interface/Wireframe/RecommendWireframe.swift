@@ -28,14 +28,13 @@ class RecommendWireframe : NSObject, UIViewControllerTransitioningDelegate {
         navigationController.pushViewController(newViewController, animated: true)
     }
     
-    
-    func recommendViewController() -> RecommendViewController {
+    private func recommendViewController() -> RecommendViewController {
         let storyboard = mainStoryboard()
         let recommendViewController: RecommendViewController = storyboard.instantiateViewController(withIdentifier: RecommendViewControllerIdentifier) as! RecommendViewController
         return recommendViewController
     }
     
-    func mainStoryboard() -> UIStoryboard {
+    private func mainStoryboard() -> UIStoryboard {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         return storyboard
     }

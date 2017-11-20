@@ -45,18 +45,4 @@ class RecommendDataManagerTest: XCTestCase {
         recommendDataManager.uploadRatings(ratings: testRatings, completion:{_ in})
         XCTAssertTrue(mockNetworkManager.postRequestCalled, "should have called postRequest")
     }
-    
-    func testFormatPostData() {
-        let testRatings = [Rating(movieID: "testUpload", rating: "1", userID: "testUser")]
-        let uploadData = recommendDataManager.formatPostData(ratings: testRatings)
-        XCTAssertNotNil(uploadData["user_id"], "result should have a user id")
-        XCTAssertNotNil(uploadData["ratings"], "result should have a ratings")
-        let uploadRatings = uploadData["ratings"] as? [[String: String]]
-        
-        if let uploadRatings = uploadRatings {
-            XCTAssertEqual(uploadRatings[0]["movie_id"]!, "testUpload", "movieID should be 'testUpload'")
-        } else {
-            XCTFail("should unpack ratings")
-        }
-    }
 }

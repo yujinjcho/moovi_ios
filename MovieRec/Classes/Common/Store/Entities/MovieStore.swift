@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MovieStore: NSObject, NSCoding {
+final class MovieStore: NSObject, NSCoding {
     
     struct PropertyKey {
         static let title = "title"

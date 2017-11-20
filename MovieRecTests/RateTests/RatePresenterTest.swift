@@ -26,7 +26,7 @@ class RatePresenterTest: XCTestCase {
         super.tearDown()
     }
 
-    func testLoadedViewCallsInitializeDataManager() {
+    func testloadedView() {
         presenter.loadedView()
         if let interactor = interactor {
             XCTAssertTrue(interactor.initializeDataManagerCalled)
@@ -49,5 +49,9 @@ class RatePresenterTest: XCTestCase {
         let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
         presenter.presentCurrentMovie(currentMovie: movie)
         XCTAssertTrue(interface.presentCurrentMovieCalled, "should call presentCurrentMovie")
+    }
+    
+    func testPresentRecommendView() {
+        XCTFail("test this")
     }
 }

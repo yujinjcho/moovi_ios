@@ -19,6 +19,7 @@ class RecommendPresenter : NSObject, RecommendModuleInterface, RecommendInteract
     }
     
 //    func configureUserInterfaceForPresentation(_ recommendViewUserInterface: RecommendViewInterface) {
+//        Load recommendations from store
 //    }
     
     func showNewRecommendations(data: JSON) {

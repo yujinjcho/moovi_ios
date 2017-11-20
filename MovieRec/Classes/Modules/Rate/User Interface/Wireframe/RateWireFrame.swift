@@ -25,18 +25,18 @@ class RateWireFrame: NSObject {
         rootWireframe?.showRootViewController(viewController, inWindow: window)
     }
     
-    func rateViewControllerFromStoryboard() -> RateViewController {
+    func presentRecommendInterface(navigationController: UINavigationController) {
+        recommendWireframe?.presentRecommendInterfaceFromViewController(navigationController)
+    }
+    
+    private func rateViewControllerFromStoryboard() -> RateViewController {
         let storyboard = mainStoryboard()
         let viewController = storyboard.instantiateViewController(withIdentifier: RateViewControllerIdentifier) as! RateViewController
         return viewController
     }
     
-    func mainStoryboard() -> UIStoryboard {
+    private func mainStoryboard() -> UIStoryboard {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         return storyboard
-    }
-    
-    func presentRecommendInterface(navigationController: UINavigationController) {
-        recommendWireframe?.presentRecommendInterfaceFromViewController(navigationController)
     }
 }

@@ -29,16 +29,6 @@ class RateWireFrameTest: XCTestCase {
         super.tearDown()
     }
     
-    func testmainStoryboard() {
-        let storyboard = rateWireframe.mainStoryboard()
-        XCTAssertNotNil(storyboard, "mainStoryboard should return UIStoryboard")
-    }
-    
-    func testRateViewControllerFromStoryboard() {
-        let viewController = rateWireframe.rateViewControllerFromStoryboard()
-        XCTAssertNotNil(viewController, "rateViewControllerFromStoryboard should return a RateViewController")
-    }
-    
     func testPresentRateInterfaceFromWindow() {
         let window = UIWindow()
         let navController = UINavigationController()
@@ -55,5 +45,9 @@ class RateWireFrameTest: XCTestCase {
         } else {
             XCTFail("window must have a rootViewController that is a navigation controller")
         }
+    }
+    
+    func testPresentRecommendInterface() {
+        XCTFail("test that this works")
     }
 }

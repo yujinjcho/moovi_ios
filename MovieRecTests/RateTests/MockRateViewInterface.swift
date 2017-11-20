@@ -11,7 +11,7 @@ import Foundation
 
 class MockRateViewInterface : RateViewInterface {
     var presentCurrentMovieCalled : Bool = false
-    var processRatingCalled : Bool = false
+    var didTapNavigateToRecommendItemCalled : Bool = false
     
     func showCurrentMovie(title: String, photoUrl: String, completion: (() -> Void)?) {
         presentCurrentMovieCalled = true
