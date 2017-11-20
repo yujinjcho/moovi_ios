@@ -20,9 +20,6 @@ class MockRecommendDataManager: RecommendDataManager {
         return [testRating]
     }
     
-//    override func uploadRatings(ratings: [RatingModel], @escaping completion: () -> Void) {
-//
-//    }
     override func uploadRatings(ratings: [RatingModel], completion: @escaping (String) -> Void) {
         uploadRatingsCalled = true
     }
@@ -30,32 +27,4 @@ class MockRecommendDataManager: RecommendDataManager {
     override func fetchJobStatus(jobID: String, completion: @escaping (Data) -> Void) {
         fetchJobStatusCalled = true
     }
-    
-//    override var currentMovie : MovieModel? {
-//        return MovieModel(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
-//    }
-//
-//    override func storeRating(rating: String) {
-//        storeRatingCalled = true
-//    }
-//
-//    override func removeFirstMovie() {
-//        removeFirstMovieCalled = true
-//    }
-//
-//
-//    override func loadRatings() {
-//        loadRatingsCalled = true
-//    }
-//
-//    override func loadMovies(completion: @escaping (MovieModel) -> Void) {
-//        loadMoviesCalled = true
-//        if let movie = currentMovie {
-//            completion(movie)
-//        }
-//    }
-//
-//    override func getNewMoviesToRate(completion: (() -> Void)? = nil) {
-//        getNewMoviesToRateCalled = true
-//    }
 }

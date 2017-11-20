@@ -34,9 +34,12 @@ class AppDependencies {
         let recommendPresenter = RecommendPresenter()
         let recommendDataManager = RecommendDataManager()
         
+        let networkManager = NetworkManagerFactory()
+        
         rateInteractor.output = ratePresenter
         ratePresenter.rateInteractor = rateInteractor
         ratePresenter.rateWireframe = rateWireframe
+        rateDataManager.networkManager = networkManager
         
         rateWireframe.recommendWireframe = recommendWireframe
         rateWireframe.ratePresenter = ratePresenter
@@ -47,10 +50,7 @@ class AppDependencies {
         recommendInteractor.recommendDataManager = recommendDataManager
         recommendWireframe.recommendPresenter = recommendPresenter
         
-        //recommendPresenter.userInterface = recommend
         recommendPresenter.recommendWireframe = recommendWireframe
-        recommendPresenter.recommendModuleDelegate = ratePresenter
-        recommendPresenter.recommendInteractor = recommendInteractor
-        
+        recommendPresenter.recommendInteractor = recommendInteractor        
     }
 }
