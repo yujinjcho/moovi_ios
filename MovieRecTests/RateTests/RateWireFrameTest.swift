@@ -12,10 +12,11 @@ import XCTest
 class RateWireFrameTest: XCTestCase {
     
     var rateWireframe = RateWireFrame()
-    var recommendWireframe = RecommendWireframe()
+    var recommendWireframe = MockRecommendWireframe()
     var ratePresenter = RatePresenter()
     var rootWireframe = RootWireframe()
     var rateViewController = RateViewController()
+    let navigationController = UINavigationController()
     
     override func setUp() {
         super.setUp()
@@ -47,7 +48,8 @@ class RateWireFrameTest: XCTestCase {
         }
     }
     
-    func testPresentRecommendInterface() {
-        XCTFail("test that this works")
+    func testPresentRecommendInterface() {        XCTAssertFalse(recommendWireframe.presentRecommendInterfaceFromViewControllerCalled, "presentRecommendInterfaceFromViewController should not be called")
+            rateWireframe.presentRecommendInterface(navigationController: navigationController)
+            XCTAssertTrue(recommendWireframe.presentRecommendInterfaceFromViewControllerCalled, "presentRecommendInterfaceFromViewController should be called")
     }
 }

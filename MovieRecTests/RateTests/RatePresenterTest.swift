@@ -13,6 +13,8 @@ class RatePresenterTest: XCTestCase {
     var presenter: RatePresenter = RatePresenter()
     var interactor: MockRateInteractor?
     var interface: MockRateViewInterface = MockRateViewInterface()
+    var rateWireframe: MockRateWireframe = MockRateWireframe()
+    let navigationController = UINavigationController()
     
     override func setUp() {
         super.setUp()
@@ -20,6 +22,7 @@ class RatePresenterTest: XCTestCase {
         interactor = MockRateInteractor(dataManager: dataManager)
         presenter.rateInteractor = interactor
         presenter.userInterface = interface
+        presenter.rateWireframe = rateWireframe
     }
     
     override func tearDown() {
@@ -52,6 +55,8 @@ class RatePresenterTest: XCTestCase {
     }
     
     func testPresentRecommendView() {
-        XCTFail("test this")
+        XCTAssertFalse(rateWireframe.presentRecommendInterfaceCalled, "presentRecommendInterface should not be called")
+        presenter.presentRecommendView(navigationController: navigationController)
+        XCTAssertTrue(rateWireframe.presentRecommendInterfaceCalled, "presentRecommendInterface should be called")
     }
 }
