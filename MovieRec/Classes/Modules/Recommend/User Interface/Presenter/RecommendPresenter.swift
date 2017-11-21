@@ -18,17 +18,37 @@ class RecommendPresenter : NSObject, RecommendModuleInterface, RecommendInteract
         recommendInteractor?.refreshRecommendations()
     }
     
-//    func configureUserInterfaceForPresentation(_ recommendViewUserInterface: RecommendViewInterface) {
-//        Load recommendations from store
+    func configureUserInterfaceForPresentation() {
+        //Load recommendations from store
+        //tell event handler view is loading
+        if let recommendInteractor = recommendInteractor {
+            recommendInteractor.loadRecommendations()
+        }
+    }
+    
+
+    
+    func navigateToRateView(navigationController: UINavigationController) {
+        if let recommendWireframe = recommendWireframe {
+            recommendWireframe.popRecommendInterfaceFromViewController(navigationController)
+        }
+    }
+    
+    func showRecommendations(recommendations: [Recommendation]) {
+        refreshView(recommendations: recommendations.map { $0.movieTitle })
+    }
+    
+//    func showNewRecommendations(data: JSON) {
+//        let newRecommendations = data.arrayValue.map({
+//            (recommendation:JSON) -> String in
+//            recommendation.stringValue
+//        })
+//        refreshView(recommendations: newRecommendations)
 //    }
     
-    func showNewRecommendations(data: JSON) {
+    func refreshView(recommendations: [String]) {
         if let userInterface = userInterface {
-            let newRecommendations = data.arrayValue.map({
-                (recommendation:JSON) -> String in
-                recommendation.stringValue
-            })
-            userInterface.refreshTable(newRecommendations: newRecommendations)
+            userInterface.refreshTable(recommendationsToShow: recommendations)
         }
     }
 }

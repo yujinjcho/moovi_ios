@@ -15,6 +15,16 @@ class RecommendInteractor : NSObject {
     var recommendDataManager : RecommendDataManager?
     var timer: DispatchSourceTimer?
     
+    func loadRecommendations() {
+        //load recommendations from DM
+        if let recommendDataManager = recommendDataManager, let output = output {
+            let recommendations = recommendDataManager.fetchRecommendations()
+            output.showRecommendations(recommendations: recommendations)
+        }
+        
+        //present recommendations
+    }
+    
     func refreshRecommendations() {
         if let recommendDataManager = recommendDataManager {
             let ratings = recommendDataManager.fetchRatings()
@@ -45,8 +55,18 @@ class RecommendInteractor : NSObject {
             if let dataFromString = json["results"].stringValue.data(using: .utf8, allowLossyConversion: false) {
                 let results = JSON(data: dataFromString)
                 
+                let newRecommendations = results.arrayValue.map({
+                    (recommendation:JSON) -> Recommendation in
+                    Recommendation(movieTitle: recommendation.stringValue)
+                })
+                
+                if let recommendDataManager = recommendDataManager {
+                    //recommendDataManager.saveCurrentRecommendationsStateToDisk(recommendations: newRecommendations, path: )
+                    recommendDataManager.storeRecommendations(recommendations: newRecommendations)
+                }
+                
                 if let output = output {
-                    output.showNewRecommendations(data: results)
+                    output.showRecommendations(recommendations: newRecommendations)
                 }
             }
             

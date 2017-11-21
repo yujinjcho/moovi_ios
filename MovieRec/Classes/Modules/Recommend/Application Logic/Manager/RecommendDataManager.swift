@@ -21,6 +21,7 @@ class RecommendDataManager : NSObject {
             return defaultUser
         }
     }
+    var recommendationStorePath = RecommendationStore.ArchiveURL.path
 
     func fetchRatings() -> [Rating] {
         if let rateDataManager = rateDataManager {
@@ -29,6 +30,28 @@ class RecommendDataManager : NSObject {
             return []
         }
     }
+    
+    func fetchRecommendations() -> [Recommendation] {
+        if let recommendationsFromDisk = loadRecommendationsFromDisk(path: recommendationStorePath) {
+            return recommendationsFromDisk.map { Recommendation(movieTitle: $0.movieTitle) }
+        } else {
+            return []
+        }
+    }
+    
+    private func loadRecommendationsFromDisk(path: String) -> [RecommendationStore]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: path) as? [RecommendationStore]
+    }
+    
+    
+//    func loadRatings() {
+//        if let ratingsFromDisk = loadRatingsFromDisk(path: ratingsStorePath) {
+//            ratings = ratingsFromDisk.map { Rating(movieID: $0.movieID, rating: $0.rating, userID: $0.userID) }
+//        } else {
+//            return
+//        }
+//    }
+    
     
     func fetchJobStatus(jobID: String, completion: @escaping (Data) -> Void) {
         let url = "\(host)/api/job_poll/\(jobID)"
@@ -52,6 +75,15 @@ class RecommendDataManager : NSObject {
                 }
             }
         }
+    }
+    
+    func storeRecommendations(recommendations: [Recommendation]) {
+        saveCurrentRecommendationsStateToDisk(recommendations: recommendations, path: recommendationStorePath)
+    }
+    
+    private func saveCurrentRecommendationsStateToDisk(recommendations: [Recommendation], path: String) {
+        let recommendationsToStore = recommendations.map { RecommendationStore(movieTitle: $0.movieTitle) }
+        NSKeyedArchiver.archiveRootObject(recommendationsToStore, toFile: path)
     }
     
     private func formatPostData(ratings : [Rating]) -> [String : Any] {

@@ -14,11 +14,17 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
 
     var eventHandler : RecommendModuleInterface?
     var userId: String?
+    
+    // probably make this an optional
+    // set the recommendations on viewcontroller init that first loads from memory
+    
     var recommendations = [String]()
     var numberRows: Int { return recommendations.count }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("view did load")
+        print(numberRows)
         configureView()
     }
 
@@ -44,18 +50,28 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
     }
     
     
-    func refreshTable(newRecommendations: [String]) {
-        recommendations = newRecommendations
+    func refreshTable(recommendationsToShow: [String]) {
+        recommendations = recommendationsToShow
         DispatchQueue.main.async {
             [unowned self] in
             self.tableView.reloadData()
         }
         endLoadingOverlay()
+        print(numberRows)
     }
 
     func didTapRefreshButton() {
         startLoadingOverlay()
-        eventHandler?.updateView()
+        if let eventHandler = eventHandler {
+            eventHandler.updateView()
+        }
+    }
+    
+    func didTapBackButton() {
+        if let eventHandler = eventHandler, let navigationController = self.navigationController {
+            eventHandler.navigateToRateView(navigationController: navigationController)
+            //eventHandler?.presentRecommendView(navigationController: self.navigationController!)
+        }
     }
     
     //MARK: Private Methods
@@ -78,6 +94,13 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
     private func configureView() {
         navigationItem.title = "Recommend List"
         let navigateToRecommendItem = UIBarButtonItem(title: "Refresh", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RecommendViewController.didTapRefreshButton))
+        let navigateToRateItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RecommendViewController.didTapBackButton))
         navigationItem.rightBarButtonItem = navigateToRecommendItem
+        navigationItem.leftBarButtonItem = navigateToRateItem
+        
+        // tell eventHandler view did load
+        if let eventHandler = eventHandler {
+            eventHandler.configureUserInterfaceForPresentation()
+        }
     }
 }

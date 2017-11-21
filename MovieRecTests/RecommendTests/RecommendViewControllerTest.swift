@@ -51,8 +51,6 @@ class RecommendViewControllerTest: XCTestCase {
         recommendViewController?.refreshTable(newRecommendations: testRecommendations)
         let title = recommendViewController?.recommendations[0]
         XCTAssertEqual(title, "Rec1", "titles should equal in table")
-        
-        // How do I test viewController.tableView.reloadData ? 
     }
 
     func testDidTapRefreshButton() {

@@ -7,7 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 protocol RecommendModuleInterface {
     func updateView()
+    func navigateToRateView(navigationController: UINavigationController)
+    func configureUserInterfaceForPresentation()
 }
