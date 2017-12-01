@@ -38,8 +38,8 @@ class RateDataManager : NSObject {
     
     override init() {
         super.init()
-        //saveCurrentRatingsToDisk(path: ratingsStorePath)
-        //saveCurrentMoviesStateToDisk(path: moviesStorePath)
+//        saveCurrentRatingsToDisk(path: ratingsStorePath)
+//        saveCurrentMoviesStateToDisk(path: moviesStorePath)
     }
     
     func loadMovies(completion: @escaping (Movie) -> Void) {
@@ -95,14 +95,23 @@ class RateDataManager : NSObject {
         if let networkManager = networkManager {
             networkManager.postRequest(endPoint: url, postData: postData, completionHandler: {
                 (data:Data)->Void in
-                if let newMovies = self.convertJSONtoMovies(data: data) {
-                    let moviesToAdd = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+                if let fetchedMovies = self.convertJSONtoMovies(data: data) {
+                    let moviesToAdd = self.selectMoviesToAdd(moviesToAdd:
+                        fetchedMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+                    )
+                    // filter movies already in there
+                    
                     self.moviesToRate += moviesToAdd
                     self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
                     self.startImagePrefetcher(urls: moviesToAdd.map { $0.photoUrl })
                 }
             })
         }
+    }
+    
+    private func selectMoviesToAdd(moviesToAdd: [Movie]) -> [Movie] {
+        let movieIds = Set(self.moviesToRate.map { $0.movieId })
+        return moviesToAdd.filter { !movieIds.contains($0.movieId) }
     }
     
     private func startImagePrefetcher(urls: [String]) {
