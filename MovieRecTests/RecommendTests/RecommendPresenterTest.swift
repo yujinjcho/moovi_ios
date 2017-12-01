@@ -31,8 +31,8 @@ class RecommendPresenterTest: XCTestCase {
     }
     
     func testShowNewRecommendations() {
-        let data = JSON(["status":"completed"])
-        presenter.showNewRecommendations(data: data)
+        //let data = JSON(["status":"completed"])
+        presenter.showRecommendations(recommendations: [])
         XCTAssertTrue(interface.refreshTableCalled, "should call refreshTable")
     }
 }

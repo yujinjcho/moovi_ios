@@ -48,7 +48,7 @@ class RecommendViewControllerTest: XCTestCase {
     func testRefreshTable() {
         let testRecommendations = ["Rec1", "Rec2"]
         
-        recommendViewController?.refreshTable(newRecommendations: testRecommendations)
+        recommendViewController?.refreshTable(recommendationsToShow: testRecommendations)
         let title = recommendViewController?.recommendations[0]
         XCTAssertEqual(title, "Rec1", "titles should equal in table")
     }

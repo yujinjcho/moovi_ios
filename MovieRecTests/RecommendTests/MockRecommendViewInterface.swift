@@ -12,7 +12,7 @@ import Foundation
 class MockRecommendViewInterface : RecommendViewInterface {
     var refreshTableCalled : Bool = false
     
-    func refreshTable(newRecommendations: [String]) {
+    func refreshTable(recommendationsToShow: [String]) {
         refreshTableCalled = true
     }
 }

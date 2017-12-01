@@ -48,6 +48,6 @@ class RecommendInteractorTest: XCTestCase {
             return
         }
         recommendInteractor.checkJobStatus(data: data)
-        XCTAssertTrue(recommendPresenter.showNewRecommendationsCalled, "showNewRecommendations should be called")
+        XCTAssertTrue(recommendPresenter.showRecommendationsCalled, "showNewRecommendations should be called")
     }
 }

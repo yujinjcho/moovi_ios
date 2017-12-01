@@ -11,9 +11,13 @@ import SwiftyJSON
 @testable import MovieRec
 
 class MockRecommendPresenter : RecommendInteractorOutput {
-
     var showNewRecommendationsCalled: Bool = false
+    var showRecommendationsCalled: Bool = false
     
+    func showRecommendations(recommendations: [Recommendation]) {
+        showRecommendationsCalled = true
+    }
+
     func showNewRecommendations(data: JSON) {
         showNewRecommendationsCalled = true
     }
