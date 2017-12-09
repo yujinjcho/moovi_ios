@@ -1,6 +1,6 @@
 PODS:
   - Kingfisher (3.10.3)
-  - Nimble (6.1.0)
+  - Nimble (7.0.2)
   - Quick (1.1.0)
   - RxBlocking (3.5.0):
     - RxSwift (~> 3.4)
@@ -13,7 +13,7 @@ PODS:
 
 DEPENDENCIES:
   - Kingfisher (~> 3.0)
-  - Nimble (~> 6.1)
+  - Nimble (~> 7.0)
   - Quick (~> 1.1)
   - RxBlocking (~> 3.0)
   - RxCocoa (~> 3.2)
@@ -23,7 +23,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Kingfisher: a0ac82dc5bcf0388dd74b294cf2cc13730c63436
-  Nimble: c53e6903fee94041b90ded74f135820437d8bf59
+  Nimble: bfe1f814edabba69ff145cb1283e04ed636a67f2
   Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
   RxBlocking: 471315e18b87c5ed4b9d0c69a57dfdbca5c01af1
   RxCocoa: a0a09f45d0e5b48ecb6a4a7b4b4c89c88d3f633f
@@ -31,6 +31,6 @@ SPEC CHECKSUMS:
   RxTest: 1763765fd0e2282b0eb44c9050effdd7fe7156d4
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 0e2d0655bf7589e2e0bcd7b0c9d6d9ab6fa5d64f
+PODFILE CHECKSUM: b6d2985edfaec406903935a6faf8c5e7743d6813
 
 COCOAPODS: 1.2.1

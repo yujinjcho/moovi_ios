@@ -7,24 +7,66 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A07019E1FC3FAF700B680BA /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07019D1FC3FAF700B680BA /* Recommendation.swift */; };
+		6A0701A01FC400BA00B680BA /* RecommendationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07019F1FC400BA00B680BA /* RecommendationStore.swift */; };
+		6A12428B1FC27B8C00CFD248 /* MockRateWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A12428A1FC27B8C00CFD248 /* MockRateWireframe.swift */; };
+		6A12428D1FC27CDC00CFD248 /* MockRecommendWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A12428C1FC27CDC00CFD248 /* MockRecommendWireframe.swift */; };
+		6A12428F1FC281B000CFD248 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A12428E1FC281B000CFD248 /* ToDoList.swift */; };
+		6A1B928B1F9EF96C00996648 /* RecommendWireFrameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1B928A1F9EF96C00996648 /* RecommendWireFrameTest.swift */; };
+		6A2320EF1FBAADF100D4ADEA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2320EE1FBAADF100D4ADEA /* NetworkManager.swift */; };
+		6A24D2EF1F95A81B0004F1E2 /* MovieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A24D2EE1F95A81B0004F1E2 /* MovieStore.swift */; };
+		6A24D2F11F9707A50004F1E2 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A24D2F01F9707A50004F1E2 /* Rating.swift */; };
+		6A24D2F31F970B250004F1E2 /* RatingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A24D2F21F970B250004F1E2 /* RatingStore.swift */; };
+		6A27E01B1FB91B8300BC9DC4 /* MockRecommendEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A27E01A1FB91B8300BC9DC4 /* MockRecommendEventHandler.swift */; };
+		6A27E01D1FB92EEA00BC9DC4 /* MockRateDataManagerForRecommendDM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A27E01C1FB92EEA00BC9DC4 /* MockRateDataManagerForRecommendDM.swift */; };
 		6A34839E1EDA291F00852249 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A34839D1EDA291F00852249 /* AppDelegate.swift */; };
 		6A3483A01EDA291F00852249 /* RateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A34839F1EDA291F00852249 /* RateViewController.swift */; };
 		6A3483A31EDA291F00852249 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A3483A11EDA291F00852249 /* Main.storyboard */; };
 		6A3483A51EDA291F00852249 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A3483A41EDA291F00852249 /* Assets.xcassets */; };
 		6A3483A81EDA291F00852249 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A3483A61EDA291F00852249 /* LaunchScreen.storyboard */; };
-		6A3483B31EDA291F00852249 /* MovieRecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3483B21EDA291F00852249 /* MovieRecTests.swift */; };
-		6A3483BE1EDA444000852249 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3483BD1EDA444000852249 /* Movie.swift */; };
-		6A3483C01EDA453C00852249 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3483BF1EDA453C00852249 /* Rating.swift */; };
 		6A3483C21EDA48C900852249 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3483C11EDA48C900852249 /* MovieTableViewCell.swift */; };
-		6A3483C41EDA4C7C00852249 /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3483C31EDA4C7C00852249 /* Recommendation.swift */; };
-		6A3483C61EDA4DD700852249 /* RecommendationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3483C51EDA4DD700852249 /* RecommendationsTableViewController.swift */; };
-		6A6B02CD1F0F41410071C1CF /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B02CC1F0F41410071C1CF /* NetworkController.swift */; };
-		6A824C831F4A29FB00CDCB71 /* MovieImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A824C821F4A29FB00CDCB71 /* MovieImages.swift */; };
-		6A8A434A1F47DDF000285165 /* MoviesToRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A43491F47DDF000285165 /* MoviesToRate.swift */; };
+		6A3483C61EDA4DD700852249 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3483C51EDA4DD700852249 /* RecommendViewController.swift */; };
+		6A3A11F11FB15E0F00389477 /* MockRecommendViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A11F01FB15E0F00389477 /* MockRecommendViewInterface.swift */; };
+		6A3A11F51FB161D700389477 /* RecommendViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A11F41FB161D700389477 /* RecommendViewControllerTest.swift */; };
+		6A3A11F71FB1625E00389477 /* RecommendDataManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A11F61FB1625E00389477 /* RecommendDataManagerTest.swift */; };
+		6A3A11F91FB162EB00389477 /* RecommendInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A11F81FB162EB00389477 /* RecommendInteractorTest.swift */; };
+		6A3A11FB1FB1672D00389477 /* MockRecommendDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A11FA1FB1672D00389477 /* MockRecommendDataManager.swift */; };
+		6A3A11FD1FB16E3B00389477 /* MockRecommendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3A11FC1FB16E3B00389477 /* MockRecommendPresenter.swift */; };
+		6A5E4AC21FB0081F0090A550 /* RecommendInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E4AC11FB0081F0090A550 /* RecommendInteractorIO.swift */; };
+		6A6AAB201FBC07FF00D20C0B /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AAB1F1FBC07FF00D20C0B /* MockNetworkManager.swift */; };
+		6A7D4E5C1F94336300B23846 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D4E5B1F94336300B23846 /* Movie.swift */; };
 		6A9355661EF77BA800662520 /* Pods_MovieRec.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F27CFDABED99D878B631E69D /* Pods_MovieRec.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A981EF61F89C2C500B24EE9 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A981EF51F89C2C500B24EE9 /* AppDependencies.swift */; };
+		6A981EFE1F89C52700B24EE9 /* RateWireFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A981EFD1F89C52700B24EE9 /* RateWireFrame.swift */; };
 		6AAE03111F410C1300AFF7D8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAE03101F410C1300AFF7D8 /* CloudKit.framework */; };
-		6ABEA8E11F4902F8006ACBC0 /* Recommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABEA8E01F4902F8006ACBC0 /* Recommendations.swift */; };
-		6ABEA8E31F491B7B006ACBC0 /* Ratings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABEA8E21F491B7B006ACBC0 /* Ratings.swift */; };
+		6AB08BD81FA17DC800640885 /* RecommendViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB08BD71FA17DC800640885 /* RecommendViewInterface.swift */; };
+		6AE3025A1F8B0E0300E829E0 /* RootWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE302591F8B0E0300E829E0 /* RootWireframe.swift */; };
+		6AE3025D1F8B0FF500E829E0 /* RatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3025C1F8B0FF500E829E0 /* RatePresenter.swift */; };
+		6AE302611F8B10CF00E829E0 /* RateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE302601F8B10CF00E829E0 /* RateInteractor.swift */; };
+		6AE302641F8B114B00E829E0 /* RateDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE302631F8B114B00E829E0 /* RateDataManager.swift */; };
+		6AE302681F8B130800E829E0 /* RecommendWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE302671F8B130800E829E0 /* RecommendWireframe.swift */; };
+		6AE3026B1F8B145000E829E0 /* RecommendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3026A1F8B145000E829E0 /* RecommendPresenter.swift */; };
+		6AE3026F1F8B14CC00E829E0 /* RecommendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3026E1F8B14CC00E829E0 /* RecommendInteractor.swift */; };
+		6AE302731F8B151100E829E0 /* RecommendDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE302721F8B151100E829E0 /* RecommendDataManager.swift */; };
+		6AE3027A1F8B17F200E829E0 /* RecommendModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE302791F8B17F200E829E0 /* RecommendModuleInterface.swift */; };
+		6AE3027D1F8B223400E829E0 /* RateModuleInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3027C1F8B223400E829E0 /* RateModuleInterface.swift */; };
+		6AE3027F1F8B229800E829E0 /* RateInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3027E1F8B229800E829E0 /* RateInteractorIO.swift */; };
+		6AE302821F8B23D100E829E0 /* RateViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE302811F8B23D100E829E0 /* RateViewInterface.swift */; };
+		6AE940311FA82FE50080433C /* RecommendPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE940301FA82FE50080433C /* RecommendPresenterTest.swift */; };
+		6AE940331FA836060080433C /* MockRecommendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE940321FA836060080433C /* MockRecommendInteractor.swift */; };
+		6AE940351FA839550080433C /* RateViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE940341FA839550080433C /* RateViewControllerTest.swift */; };
+		6AE940371FA83CEA0080433C /* MockRateViewEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE940361FA83CEA0080433C /* MockRateViewEventHandler.swift */; };
+		6AF3CC161F9AE30F00128FC5 /* RateWireFrameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3CC151F9AE30F00128FC5 /* RateWireFrameTest.swift */; };
+		6AF3CC181F9AE88100128FC5 /* RootViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3CC171F9AE88100128FC5 /* RootViewControllerTest.swift */; };
+		6AF3CC1A1F9BB07500128FC5 /* RatePresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3CC191F9BB07500128FC5 /* RatePresenterTest.swift */; };
+		6AF3CC1C1F9BB3AE00128FC5 /* MockRateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3CC1B1F9BB3AE00128FC5 /* MockRateInteractor.swift */; };
+		6AF3CC1E1F9BE14300128FC5 /* MockRateViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3CC1D1F9BE14300128FC5 /* MockRateViewInterface.swift */; };
+		6AF3CC201F9BEDB500128FC5 /* RateDataManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3CC1F1F9BEDB500128FC5 /* RateDataManagerTest.swift */; };
+		6AF3CC221F9C2ECB00128FC5 /* RateInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3CC211F9C2ECB00128FC5 /* RateInteractorTest.swift */; };
+		6AF3CC241F9C305400128FC5 /* MockRatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3CC231F9C305400128FC5 /* MockRatePresenter.swift */; };
+		6AF3CC261F9C317C00128FC5 /* MockRateDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3CC251F9C317C00128FC5 /* MockRateDataManager.swift */; };
+		6AF7D6E81F986F87006C6C59 /* AppDelegateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF7D6E71F986F87006C6C59 /* AppDelegateTest.swift */; };
+		6AF7D6EA1F9872DF006C6C59 /* AppDependenciesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF7D6E91F9872DF006C6C59 /* AppDependenciesTest.swift */; };
 		846F32DEB1EEA10CD230E819 /* Pods_MovieRecTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141D1F78AAEB7E5DAC76AC72 /* Pods_MovieRecTests.framework */; };
 		B15D7A6A07A75F4279BDED03 /* Pods_MovieRec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F27CFDABED99D878B631E69D /* Pods_MovieRec.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +99,18 @@
 		018B392B80A79EA4EFCBA976 /* Pods-MovieRec.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieRec.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieRec/Pods-MovieRec.debug.xcconfig"; sourceTree = "<group>"; };
 		141D1F78AAEB7E5DAC76AC72 /* Pods_MovieRecTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieRecTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A4B2C0BFFAE77133A2EA54F /* Pods-MovieRecTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieRecTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieRecTests/Pods-MovieRecTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6A07019D1FC3FAF700B680BA /* Recommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
+		6A07019F1FC400BA00B680BA /* RecommendationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationStore.swift; sourceTree = "<group>"; };
+		6A12428A1FC27B8C00CFD248 /* MockRateWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRateWireframe.swift; sourceTree = "<group>"; };
+		6A12428C1FC27CDC00CFD248 /* MockRecommendWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecommendWireframe.swift; sourceTree = "<group>"; };
+		6A12428E1FC281B000CFD248 /* ToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
+		6A1B928A1F9EF96C00996648 /* RecommendWireFrameTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RecommendWireFrameTest.swift; path = ../RateTests/RecommendWireFrameTest.swift; sourceTree = "<group>"; };
+		6A2320EE1FBAADF100D4ADEA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		6A24D2EE1F95A81B0004F1E2 /* MovieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieStore.swift; sourceTree = "<group>"; };
+		6A24D2F01F9707A50004F1E2 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		6A24D2F21F970B250004F1E2 /* RatingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingStore.swift; sourceTree = "<group>"; };
+		6A27E01A1FB91B8300BC9DC4 /* MockRecommendEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecommendEventHandler.swift; sourceTree = "<group>"; };
+		6A27E01C1FB92EEA00BC9DC4 /* MockRateDataManagerForRecommendDM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRateDataManagerForRecommendDM.swift; sourceTree = "<group>"; };
 		6A34839A1EDA291F00852249 /* MovieRec.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieRec.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A34839D1EDA291F00852249 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A34839F1EDA291F00852249 /* RateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewController.swift; sourceTree = "<group>"; };
@@ -65,20 +119,50 @@
 		6A3483A71EDA291F00852249 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A3483A91EDA291F00852249 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A3483AE1EDA291F00852249 /* MovieRecTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieRecTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A3483B21EDA291F00852249 /* MovieRecTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRecTests.swift; sourceTree = "<group>"; };
 		6A3483B41EDA291F00852249 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6A3483BD1EDA444000852249 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
-		6A3483BF1EDA453C00852249 /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		6A3483C11EDA48C900852249 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
-		6A3483C31EDA4C7C00852249 /* Recommendation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
-		6A3483C51EDA4DD700852249 /* RecommendationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationsTableViewController.swift; sourceTree = "<group>"; };
-		6A6B02CC1F0F41410071C1CF /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
-		6A824C821F4A29FB00CDCB71 /* MovieImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieImages.swift; sourceTree = "<group>"; };
-		6A8A43491F47DDF000285165 /* MoviesToRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesToRate.swift; sourceTree = "<group>"; };
+		6A3483C51EDA4DD700852249 /* RecommendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
+		6A3A11F01FB15E0F00389477 /* MockRecommendViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecommendViewInterface.swift; sourceTree = "<group>"; };
+		6A3A11F41FB161D700389477 /* RecommendViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewControllerTest.swift; sourceTree = "<group>"; };
+		6A3A11F61FB1625E00389477 /* RecommendDataManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataManagerTest.swift; sourceTree = "<group>"; };
+		6A3A11F81FB162EB00389477 /* RecommendInteractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendInteractorTest.swift; sourceTree = "<group>"; };
+		6A3A11FA1FB1672D00389477 /* MockRecommendDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecommendDataManager.swift; sourceTree = "<group>"; };
+		6A3A11FC1FB16E3B00389477 /* MockRecommendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecommendPresenter.swift; sourceTree = "<group>"; };
+		6A5E4AC11FB0081F0090A550 /* RecommendInteractorIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendInteractorIO.swift; sourceTree = "<group>"; };
+		6A6AAB1F1FBC07FF00D20C0B /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
+		6A7D4E5B1F94336300B23846 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		6A981EF51F89C2C500B24EE9 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		6A981EFD1F89C52700B24EE9 /* RateWireFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateWireFrame.swift; sourceTree = "<group>"; };
 		6AAE030F1F410C0F00AFF7D8 /* MovieRec.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MovieRec.entitlements; sourceTree = "<group>"; };
 		6AAE03101F410C1300AFF7D8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		6ABEA8E01F4902F8006ACBC0 /* Recommendations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommendations.swift; sourceTree = "<group>"; };
-		6ABEA8E21F491B7B006ACBC0 /* Ratings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ratings.swift; sourceTree = "<group>"; };
+		6AB08BD71FA17DC800640885 /* RecommendViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewInterface.swift; sourceTree = "<group>"; };
+		6AE302591F8B0E0300E829E0 /* RootWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootWireframe.swift; sourceTree = "<group>"; };
+		6AE3025C1F8B0FF500E829E0 /* RatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatePresenter.swift; sourceTree = "<group>"; };
+		6AE302601F8B10CF00E829E0 /* RateInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateInteractor.swift; sourceTree = "<group>"; };
+		6AE302631F8B114B00E829E0 /* RateDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateDataManager.swift; sourceTree = "<group>"; };
+		6AE302671F8B130800E829E0 /* RecommendWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendWireframe.swift; sourceTree = "<group>"; };
+		6AE3026A1F8B145000E829E0 /* RecommendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPresenter.swift; sourceTree = "<group>"; };
+		6AE3026E1F8B14CC00E829E0 /* RecommendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendInteractor.swift; sourceTree = "<group>"; };
+		6AE302721F8B151100E829E0 /* RecommendDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataManager.swift; sourceTree = "<group>"; };
+		6AE302791F8B17F200E829E0 /* RecommendModuleInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendModuleInterface.swift; sourceTree = "<group>"; };
+		6AE3027C1F8B223400E829E0 /* RateModuleInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateModuleInterface.swift; sourceTree = "<group>"; };
+		6AE3027E1F8B229800E829E0 /* RateInteractorIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateInteractorIO.swift; sourceTree = "<group>"; };
+		6AE302811F8B23D100E829E0 /* RateViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewInterface.swift; sourceTree = "<group>"; };
+		6AE940301FA82FE50080433C /* RecommendPresenterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPresenterTest.swift; sourceTree = "<group>"; };
+		6AE940321FA836060080433C /* MockRecommendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecommendInteractor.swift; sourceTree = "<group>"; };
+		6AE940341FA839550080433C /* RateViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewControllerTest.swift; sourceTree = "<group>"; };
+		6AE940361FA83CEA0080433C /* MockRateViewEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRateViewEventHandler.swift; sourceTree = "<group>"; };
+		6AF3CC151F9AE30F00128FC5 /* RateWireFrameTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateWireFrameTest.swift; sourceTree = "<group>"; };
+		6AF3CC171F9AE88100128FC5 /* RootViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewControllerTest.swift; sourceTree = "<group>"; };
+		6AF3CC191F9BB07500128FC5 /* RatePresenterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatePresenterTest.swift; sourceTree = "<group>"; };
+		6AF3CC1B1F9BB3AE00128FC5 /* MockRateInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRateInteractor.swift; sourceTree = "<group>"; };
+		6AF3CC1D1F9BE14300128FC5 /* MockRateViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRateViewInterface.swift; sourceTree = "<group>"; };
+		6AF3CC1F1F9BEDB500128FC5 /* RateDataManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RateDataManagerTest.swift; path = MovieRecTests/RateTests/RateDataManagerTest.swift; sourceTree = SOURCE_ROOT; };
+		6AF3CC211F9C2ECB00128FC5 /* RateInteractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RateInteractorTest.swift; path = MovieRecTests/RateTests/RateInteractorTest.swift; sourceTree = SOURCE_ROOT; };
+		6AF3CC231F9C305400128FC5 /* MockRatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRatePresenter.swift; sourceTree = "<group>"; };
+		6AF3CC251F9C317C00128FC5 /* MockRateDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRateDataManager.swift; sourceTree = "<group>"; };
+		6AF7D6E71F986F87006C6C59 /* AppDelegateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTest.swift; sourceTree = "<group>"; };
+		6AF7D6E91F9872DF006C6C59 /* AppDependenciesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependenciesTest.swift; sourceTree = "<group>"; };
 		90D7BA21F92772578386DFF3 /* Pods-MovieRecTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieRecTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieRecTests/Pods-MovieRecTests.release.xcconfig"; sourceTree = "<group>"; };
 		C4788D0476B5067042FC1A83 /* Pods-MovieRec.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieRec.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieRec/Pods-MovieRec.release.xcconfig"; sourceTree = "<group>"; };
 		F27CFDABED99D878B631E69D /* Pods_MovieRec.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieRec.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +199,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6A1242871FC2743000CFD248 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6A6AAB1F1FBC07FF00D20C0B /* MockNetworkManager.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		6A24D2EC1F95A7D20004F1E2 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				6A24D2ED1F95A7DD0004F1E2 /* Entities */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		6A24D2ED1F95A7DD0004F1E2 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				6A24D2EE1F95A81B0004F1E2 /* MovieStore.swift */,
+				6A24D2F21F970B250004F1E2 /* RatingStore.swift */,
+				6A07019F1FC400BA00B680BA /* RecommendationStore.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		6A3483911EDA291F00852249 = {
 			isa = PBXGroup;
 			children = (
@@ -138,19 +248,10 @@
 		6A34839C1EDA291F00852249 /* MovieRec */ = {
 			isa = PBXGroup;
 			children = (
+				6A981EF71F89C49B00B24EE9 /* Classes */,
 				6AAE030F1F410C0F00AFF7D8 /* MovieRec.entitlements */,
 				6A34839D1EDA291F00852249 /* AppDelegate.swift */,
-				6A6B02CC1F0F41410071C1CF /* NetworkController.swift */,
-				6A3483C11EDA48C900852249 /* MovieTableViewCell.swift */,
-				6A34839F1EDA291F00852249 /* RateViewController.swift */,
-				6A3483BD1EDA444000852249 /* Movie.swift */,
-				6A8A43491F47DDF000285165 /* MoviesToRate.swift */,
-				6A824C821F4A29FB00CDCB71 /* MovieImages.swift */,
-				6A3483BF1EDA453C00852249 /* Rating.swift */,
-				6ABEA8E21F491B7B006ACBC0 /* Ratings.swift */,
-				6A3483C31EDA4C7C00852249 /* Recommendation.swift */,
-				6ABEA8E01F4902F8006ACBC0 /* Recommendations.swift */,
-				6A3483C51EDA4DD700852249 /* RecommendationsTableViewController.swift */,
+				6A981EF51F89C2C500B24EE9 /* AppDependencies.swift */,
 				6A3483A11EDA291F00852249 /* Main.storyboard */,
 				6A3483A41EDA291F00852249 /* Assets.xcassets */,
 				6A3483A61EDA291F00852249 /* LaunchScreen.storyboard */,
@@ -162,10 +263,275 @@
 		6A3483B11EDA291F00852249 /* MovieRecTests */ = {
 			isa = PBXGroup;
 			children = (
-				6A3483B21EDA291F00852249 /* MovieRecTests.swift */,
+				6A8A8D351FA8275D007435F2 /* RateTests */,
+				6A8A8D361FA82825007435F2 /* RecommendTests */,
+				6A1242871FC2743000CFD248 /* Common */,
+				6AF7D6E71F986F87006C6C59 /* AppDelegateTest.swift */,
+				6AF7D6E91F9872DF006C6C59 /* AppDependenciesTest.swift */,
+				6AF3CC171F9AE88100128FC5 /* RootViewControllerTest.swift */,
+				6A12428E1FC281B000CFD248 /* ToDoList.swift */,
 				6A3483B41EDA291F00852249 /* Info.plist */,
 			);
 			path = MovieRecTests;
+			sourceTree = "<group>";
+		};
+		6A7D4E561F92788000B23846 /* Application Logic */ = {
+			isa = PBXGroup;
+			children = (
+				6A7D4E571F92788800B23846 /* Manager */,
+			);
+			path = "Application Logic";
+			sourceTree = "<group>";
+		};
+		6A7D4E571F92788800B23846 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				6A2320EE1FBAADF100D4ADEA /* NetworkManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		6A7D4E5A1F94335000B23846 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6A7D4E5B1F94336300B23846 /* Movie.swift */,
+				6A24D2F01F9707A50004F1E2 /* Rating.swift */,
+				6A07019D1FC3FAF700B680BA /* Recommendation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6A8A8D351FA8275D007435F2 /* RateTests */ = {
+			isa = PBXGroup;
+			children = (
+				6AF3CC151F9AE30F00128FC5 /* RateWireFrameTest.swift */,
+				6AF3CC191F9BB07500128FC5 /* RatePresenterTest.swift */,
+				6AF3CC1D1F9BE14300128FC5 /* MockRateViewInterface.swift */,
+				6AF3CC1B1F9BB3AE00128FC5 /* MockRateInteractor.swift */,
+				6AF3CC1F1F9BEDB500128FC5 /* RateDataManagerTest.swift */,
+				6AF3CC211F9C2ECB00128FC5 /* RateInteractorTest.swift */,
+				6AF3CC251F9C317C00128FC5 /* MockRateDataManager.swift */,
+				6AF3CC231F9C305400128FC5 /* MockRatePresenter.swift */,
+				6AE940341FA839550080433C /* RateViewControllerTest.swift */,
+				6AE940361FA83CEA0080433C /* MockRateViewEventHandler.swift */,
+				6A12428C1FC27CDC00CFD248 /* MockRecommendWireframe.swift */,
+			);
+			path = RateTests;
+			sourceTree = "<group>";
+		};
+		6A8A8D361FA82825007435F2 /* RecommendTests */ = {
+			isa = PBXGroup;
+			children = (
+				6A1B928A1F9EF96C00996648 /* RecommendWireFrameTest.swift */,
+				6AE940301FA82FE50080433C /* RecommendPresenterTest.swift */,
+				6A3A11F81FB162EB00389477 /* RecommendInteractorTest.swift */,
+				6A3A11FA1FB1672D00389477 /* MockRecommendDataManager.swift */,
+				6A3A11FC1FB16E3B00389477 /* MockRecommendPresenter.swift */,
+				6A3A11F01FB15E0F00389477 /* MockRecommendViewInterface.swift */,
+				6AE940321FA836060080433C /* MockRecommendInteractor.swift */,
+				6A3A11F41FB161D700389477 /* RecommendViewControllerTest.swift */,
+				6A3A11F61FB1625E00389477 /* RecommendDataManagerTest.swift */,
+				6A12428A1FC27B8C00CFD248 /* MockRateWireframe.swift */,
+				6A27E01A1FB91B8300BC9DC4 /* MockRecommendEventHandler.swift */,
+				6A27E01C1FB92EEA00BC9DC4 /* MockRateDataManagerForRecommendDM.swift */,
+			);
+			path = RecommendTests;
+			sourceTree = "<group>";
+		};
+		6A981EF71F89C49B00B24EE9 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302571F8B0D7600E829E0 /* Common */,
+				6A981EF81F89C4AC00B24EE9 /* Modules */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		6A981EF81F89C4AC00B24EE9 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				6A981EFA1F89C4CE00B24EE9 /* Recommend */,
+				6A981EF91F89C4BB00B24EE9 /* Rate */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		6A981EF91F89C4BB00B24EE9 /* Rate */ = {
+			isa = PBXGroup;
+			children = (
+				6AE3027B1F8B222400E829E0 /* Module Interface */,
+				6AE3025E1F8B108F00E829E0 /* Application Logic */,
+				6A981EFB1F89C4F100B24EE9 /* User Interface */,
+				6AE302801F8B23BA00E829E0 /* View */,
+			);
+			path = Rate;
+			sourceTree = "<group>";
+		};
+		6A981EFA1F89C4CE00B24EE9 /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302781F8B17DD00E829E0 /* Module Interface */,
+				6AE3026C1F8B14AA00E829E0 /* Application Logic */,
+				6AE302651F8B12D100E829E0 /* User Interface */,
+				6AE302741F8B15ED00E829E0 /* View */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		6A981EFB1F89C4F100B24EE9 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				6AE3025B1F8B0FE600E829E0 /* Presenter */,
+				6A981EFC1F89C51000B24EE9 /* Wireframe */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
+		6A981EFC1F89C51000B24EE9 /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+				6A981EFD1F89C52700B24EE9 /* RateWireFrame.swift */,
+			);
+			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		6AE302571F8B0D7600E829E0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6A7D4E5A1F94335000B23846 /* Model */,
+				6A7D4E561F92788000B23846 /* Application Logic */,
+				6AE302581F8B0D8300E829E0 /* View */,
+				6A24D2EC1F95A7D20004F1E2 /* Store */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		6AE302581F8B0D8300E829E0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302591F8B0E0300E829E0 /* RootWireframe.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6AE3025B1F8B0FE600E829E0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				6AE3025C1F8B0FF500E829E0 /* RatePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		6AE3025E1F8B108F00E829E0 /* Application Logic */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302621F8B113600E829E0 /* Manager */,
+				6AE3025F1F8B109E00E829E0 /* Interactor */,
+			);
+			path = "Application Logic";
+			sourceTree = "<group>";
+		};
+		6AE3025F1F8B109E00E829E0 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302601F8B10CF00E829E0 /* RateInteractor.swift */,
+				6AE3027E1F8B229800E829E0 /* RateInteractorIO.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		6AE302621F8B113600E829E0 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302631F8B114B00E829E0 /* RateDataManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		6AE302651F8B12D100E829E0 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302691F8B144200E829E0 /* Presenter */,
+				6AE302661F8B12D900E829E0 /* Wireframe */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
+		6AE302661F8B12D900E829E0 /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302671F8B130800E829E0 /* RecommendWireframe.swift */,
+			);
+			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		6AE302691F8B144200E829E0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				6AE3026A1F8B145000E829E0 /* RecommendPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		6AE3026C1F8B14AA00E829E0 /* Application Logic */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302701F8B14F500E829E0 /* Manager */,
+				6AE3026D1F8B14B600E829E0 /* Interactor */,
+			);
+			path = "Application Logic";
+			sourceTree = "<group>";
+		};
+		6AE3026D1F8B14B600E829E0 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				6AE3026E1F8B14CC00E829E0 /* RecommendInteractor.swift */,
+				6A5E4AC11FB0081F0090A550 /* RecommendInteractorIO.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		6AE302701F8B14F500E829E0 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302721F8B151100E829E0 /* RecommendDataManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		6AE302741F8B15ED00E829E0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6A3483C51EDA4DD700852249 /* RecommendViewController.swift */,
+				6AB08BD71FA17DC800640885 /* RecommendViewInterface.swift */,
+				6A3483C11EDA48C900852249 /* MovieTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6AE302781F8B17DD00E829E0 /* Module Interface */ = {
+			isa = PBXGroup;
+			children = (
+				6AE302791F8B17F200E829E0 /* RecommendModuleInterface.swift */,
+			);
+			path = "Module Interface";
+			sourceTree = "<group>";
+		};
+		6AE3027B1F8B222400E829E0 /* Module Interface */ = {
+			isa = PBXGroup;
+			children = (
+				6AE3027C1F8B223400E829E0 /* RateModuleInterface.swift */,
+			);
+			path = "Module Interface";
+			sourceTree = "<group>";
+		};
+		6AE302801F8B23BA00E829E0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6A34839F1EDA291F00852249 /* RateViewController.swift */,
+				6AE302811F8B23D100E829E0 /* RateViewInterface.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		ACA8CE07DF277713092EFBB6 /* Pods */ = {
@@ -391,18 +757,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A6B02CD1F0F41410071C1CF /* NetworkController.swift in Sources */,
-				6A8A434A1F47DDF000285165 /* MoviesToRate.swift in Sources */,
-				6A824C831F4A29FB00CDCB71 /* MovieImages.swift in Sources */,
-				6A3483C41EDA4C7C00852249 /* Recommendation.swift in Sources */,
+				6A07019E1FC3FAF700B680BA /* Recommendation.swift in Sources */,
+				6A24D2F11F9707A50004F1E2 /* Rating.swift in Sources */,
+				6AB08BD81FA17DC800640885 /* RecommendViewInterface.swift in Sources */,
+				6AE3025D1F8B0FF500E829E0 /* RatePresenter.swift in Sources */,
+				6A0701A01FC400BA00B680BA /* RecommendationStore.swift in Sources */,
+				6A2320EF1FBAADF100D4ADEA /* NetworkManager.swift in Sources */,
+				6A981EFE1F89C52700B24EE9 /* RateWireFrame.swift in Sources */,
+				6AE3025A1F8B0E0300E829E0 /* RootWireframe.swift in Sources */,
 				6A3483C21EDA48C900852249 /* MovieTableViewCell.swift in Sources */,
-				6ABEA8E11F4902F8006ACBC0 /* Recommendations.swift in Sources */,
-				6A3483C01EDA453C00852249 /* Rating.swift in Sources */,
-				6ABEA8E31F491B7B006ACBC0 /* Ratings.swift in Sources */,
+				6AE3026F1F8B14CC00E829E0 /* RecommendInteractor.swift in Sources */,
+				6AE3027A1F8B17F200E829E0 /* RecommendModuleInterface.swift in Sources */,
+				6A7D4E5C1F94336300B23846 /* Movie.swift in Sources */,
 				6A3483A01EDA291F00852249 /* RateViewController.swift in Sources */,
+				6AE3027F1F8B229800E829E0 /* RateInteractorIO.swift in Sources */,
 				6A34839E1EDA291F00852249 /* AppDelegate.swift in Sources */,
-				6A3483BE1EDA444000852249 /* Movie.swift in Sources */,
-				6A3483C61EDA4DD700852249 /* RecommendationsTableViewController.swift in Sources */,
+				6AE3026B1F8B145000E829E0 /* RecommendPresenter.swift in Sources */,
+				6AE302641F8B114B00E829E0 /* RateDataManager.swift in Sources */,
+				6AE302681F8B130800E829E0 /* RecommendWireframe.swift in Sources */,
+				6A981EF61F89C2C500B24EE9 /* AppDependencies.swift in Sources */,
+				6AE302731F8B151100E829E0 /* RecommendDataManager.swift in Sources */,
+				6AE302821F8B23D100E829E0 /* RateViewInterface.swift in Sources */,
+				6A5E4AC21FB0081F0090A550 /* RecommendInteractorIO.swift in Sources */,
+				6A24D2F31F970B250004F1E2 /* RatingStore.swift in Sources */,
+				6AE302611F8B10CF00E829E0 /* RateInteractor.swift in Sources */,
+				6AE3027D1F8B223400E829E0 /* RateModuleInterface.swift in Sources */,
+				6A24D2EF1F95A81B0004F1E2 /* MovieStore.swift in Sources */,
+				6A3483C61EDA4DD700852249 /* RecommendViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,7 +791,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A3483B31EDA291F00852249 /* MovieRecTests.swift in Sources */,
+				6A3A11FD1FB16E3B00389477 /* MockRecommendPresenter.swift in Sources */,
+				6AF3CC201F9BEDB500128FC5 /* RateDataManagerTest.swift in Sources */,
+				6A3A11F51FB161D700389477 /* RecommendViewControllerTest.swift in Sources */,
+				6A12428F1FC281B000CFD248 /* ToDoList.swift in Sources */,
+				6AE940311FA82FE50080433C /* RecommendPresenterTest.swift in Sources */,
+				6A3A11F11FB15E0F00389477 /* MockRecommendViewInterface.swift in Sources */,
+				6A3A11F71FB1625E00389477 /* RecommendDataManagerTest.swift in Sources */,
+				6A27E01D1FB92EEA00BC9DC4 /* MockRateDataManagerForRecommendDM.swift in Sources */,
+				6AE940351FA839550080433C /* RateViewControllerTest.swift in Sources */,
+				6AE940331FA836060080433C /* MockRecommendInteractor.swift in Sources */,
+				6AF3CC181F9AE88100128FC5 /* RootViewControllerTest.swift in Sources */,
+				6AF3CC161F9AE30F00128FC5 /* RateWireFrameTest.swift in Sources */,
+				6A12428B1FC27B8C00CFD248 /* MockRateWireframe.swift in Sources */,
+				6AF3CC261F9C317C00128FC5 /* MockRateDataManager.swift in Sources */,
+				6AF3CC1A1F9BB07500128FC5 /* RatePresenterTest.swift in Sources */,
+				6A3A11F91FB162EB00389477 /* RecommendInteractorTest.swift in Sources */,
+				6A6AAB201FBC07FF00D20C0B /* MockNetworkManager.swift in Sources */,
+				6A3A11FB1FB1672D00389477 /* MockRecommendDataManager.swift in Sources */,
+				6A27E01B1FB91B8300BC9DC4 /* MockRecommendEventHandler.swift in Sources */,
+				6AF3CC241F9C305400128FC5 /* MockRatePresenter.swift in Sources */,
+				6A1B928B1F9EF96C00996648 /* RecommendWireFrameTest.swift in Sources */,
+				6A12428D1FC27CDC00CFD248 /* MockRecommendWireframe.swift in Sources */,
+				6AF3CC1C1F9BB3AE00128FC5 /* MockRateInteractor.swift in Sources */,
+				6AF7D6EA1F9872DF006C6C59 /* AppDependenciesTest.swift in Sources */,
+				6AF3CC1E1F9BE14300128FC5 /* MockRateViewInterface.swift in Sources */,
+				6AF7D6E81F986F87006C6C59 /* AppDelegateTest.swift in Sources */,
+				6AE940371FA83CEA0080433C /* MockRateViewEventHandler.swift in Sources */,
+				6AF3CC221F9C2ECB00128FC5 /* RateInteractorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
