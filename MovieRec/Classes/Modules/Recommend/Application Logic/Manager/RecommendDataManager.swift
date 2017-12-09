@@ -42,16 +42,7 @@ class RecommendDataManager : NSObject {
     private func loadRecommendationsFromDisk(path: String) -> [RecommendationStore]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: path) as? [RecommendationStore]
     }
-    
-    
-//    func loadRatings() {
-//        if let ratingsFromDisk = loadRatingsFromDisk(path: ratingsStorePath) {
-//            ratings = ratingsFromDisk.map { Rating(movieID: $0.movieID, rating: $0.rating, userID: $0.userID) }
-//        } else {
-//            return
-//        }
-//    }
-    
+
     
     func fetchJobStatus(jobID: String, completion: @escaping (Data) -> Void) {
         let url = "\(host)/api/job_poll/\(jobID)"
@@ -65,12 +56,11 @@ class RecommendDataManager : NSObject {
         let uploadData = formatPostData(ratings: ratings)
         
         if let networkManager = networkManager {
-            print("unpacked networkManager")
             networkManager.postRequest(endPoint: url, postData: uploadData) {
                 (data : Data) in
                 let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
                 if let responseJSON = responseJSON as? [String: String] {
-                    print(responseJSON["job_id"]!)
+                    print("job id: \(responseJSON["job_id"]!)")
                     completion(responseJSON["job_id"]!)
                 }
             }

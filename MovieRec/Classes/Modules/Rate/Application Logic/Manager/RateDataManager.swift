@@ -46,16 +46,16 @@ class RateDataManager : NSObject {
         
         let moviesFromDisk = loadMoviesFromDisk(path: moviesStorePath)
         if let moviesFromDisk = moviesFromDisk, moviesFromDisk.count > 0 {
-            moviesToRate = moviesFromDisk.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+            moviesToRate = moviesFromDisk.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
             completion(currentMovie!)
         } else {
-            print("Making API Call")
+            os_log("Loading Movies via API call", log: OSLog.default, type: .debug)
             let url = "\(host)/api/start"
             if let networkManager = networkManager {
                 networkManager.getRequest(endPoint: url) {
                     (data: Data) -> Void in
                     if let newMovies = self.convertJSONtoMovies(data: data) {
-                        self.moviesToRate = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+                        self.moviesToRate = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
                         self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
                         completion(self.currentMovie!)
                     }
@@ -97,10 +97,8 @@ class RateDataManager : NSObject {
                 (data:Data)->Void in
                 if let fetchedMovies = self.convertJSONtoMovies(data: data) {
                     let moviesToAdd = self.selectMoviesToAdd(moviesToAdd:
-                        fetchedMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId) }
+                        fetchedMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
                     )
-                    // filter movies already in there
-                    
                     self.moviesToRate += moviesToAdd
                     self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
                     self.startImagePrefetcher(urls: moviesToAdd.map { $0.photoUrl })
@@ -132,7 +130,8 @@ class RateDataManager : NSObject {
                 let movieTitle = movieToRate["title"]!
                 let movieId = movieToRate["movieId"]!
                 let photoUrl = movieToRate["photoUrl"]!
-                return MovieStore(title: movieTitle, movieId: movieId, photoUrl: photoUrl)
+                let createdDate = Date()
+                return MovieStore(title: movieTitle, movieId: movieId, photoUrl: photoUrl, createdDate: createdDate)
             }
             return newMovies
         }
@@ -158,7 +157,7 @@ class RateDataManager : NSObject {
     }
     
     private func saveCurrentMoviesStateToDisk(path: String) {
-        let moviesStore = moviesToRate.map { MovieStore(title: $0.title, movieId: $0.movieId, photoUrl: $0.photoUrl) }
+        let moviesStore = moviesToRate.map { MovieStore(title: $0.title, movieId: $0.movieId, photoUrl: $0.photoUrl, createdDate: $0.createdDate) }
         NSKeyedArchiver.archiveRootObject(moviesStore, toFile: path)
     }
     

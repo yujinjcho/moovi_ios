@@ -9,10 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-protocol RecommendInteractorOutput {    
-    //func configureUserInterfaceForPresentation(_ recommendViewUserInterface: RecommendViewInterface)
-    
-    //func showNewRecommendations(data: JSON)
-    
+protocol RecommendInteractorOutput {
     func showRecommendations(recommendations: [Recommendation])
 }

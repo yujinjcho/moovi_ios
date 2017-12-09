@@ -12,4 +12,5 @@ struct Movie {
     let title : String
     let photoUrl : String
     let movieId : String
+    let createdDate : Date
 }

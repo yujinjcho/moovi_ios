@@ -16,13 +16,10 @@ class RecommendInteractor : NSObject {
     var timer: DispatchSourceTimer?
     
     func loadRecommendations() {
-        //load recommendations from DM
         if let recommendDataManager = recommendDataManager, let output = output {
             let recommendations = recommendDataManager.fetchRecommendations()
             output.showRecommendations(recommendations: recommendations)
         }
-        
-        //present recommendations
     }
     
     func refreshRecommendations() {
@@ -61,7 +58,6 @@ class RecommendInteractor : NSObject {
                 })
                 
                 if let recommendDataManager = recommendDataManager {
-                    //recommendDataManager.saveCurrentRecommendationsStateToDisk(recommendations: newRecommendations, path: )
                     recommendDataManager.storeRecommendations(recommendations: newRecommendations)
                 }
                 

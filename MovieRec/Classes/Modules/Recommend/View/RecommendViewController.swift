@@ -14,17 +14,11 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
 
     var eventHandler : RecommendModuleInterface?
     var userId: String?
-    
-    // probably make this an optional
-    // set the recommendations on viewcontroller init that first loads from memory
-    
     var recommendations = [String]()
     var numberRows: Int { return recommendations.count }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("view did load")
-        print(numberRows)
         configureView()
     }
 
@@ -57,7 +51,6 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
             self.tableView.reloadData()
         }
         endLoadingOverlay()
-        print(numberRows)
     }
 
     func didTapRefreshButton() {
@@ -70,7 +63,6 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
     func didTapBackButton() {
         if let eventHandler = eventHandler, let navigationController = self.navigationController {
             eventHandler.navigateToRateView(navigationController: navigationController)
-            //eventHandler?.presentRecommendView(navigationController: self.navigationController!)
         }
     }
     
@@ -98,7 +90,6 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
         navigationItem.rightBarButtonItem = navigateToRecommendItem
         navigationItem.leftBarButtonItem = navigateToRateItem
         
-        // tell eventHandler view did load
         if let eventHandler = eventHandler {
             eventHandler.configureUserInterfaceForPresentation()
         }

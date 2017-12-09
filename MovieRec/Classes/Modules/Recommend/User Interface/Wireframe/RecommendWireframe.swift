@@ -26,7 +26,6 @@ class RecommendWireframe : NSObject, UIViewControllerTransitioningDelegate {
 
         newViewController.transitioningDelegate = self
         navigationController.pushViewController(newViewController, animated: true)
-        //navigationController.popViewController(animated: <#T##Bool#>)
     }
     
     func popRecommendInterfaceFromViewController(_ navigationController: UINavigationController) {
