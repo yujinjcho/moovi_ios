@@ -11,7 +11,7 @@ target 'MovieRec' do
     
     target "MovieRecTests" do
         inherit! :search_paths
-        pod 'Nimble', '~> 6.1'
+        pod 'Nimble', '~> 7.0'
         pod 'Quick', '~> 1.1'
         pod 'RxBlocking', '~> 3.0'
         pod 'RxTest', '~> 3.0'

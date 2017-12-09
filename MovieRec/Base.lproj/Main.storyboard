@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DTl-TS-rNN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DTl-TS-rNN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -84,10 +84,10 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="g3f-Nj-t4b" secondAttribute="trailing" id="0gK-G6-sxR"/>
                             <constraint firstItem="g3f-Nj-t4b" firstAttribute="top" secondItem="rdV-Vh-O5m" secondAttribute="bottom" constant="10" id="16N-wv-mnj"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="g3f-Nj-t4b" secondAttribute="bottom" constant="10" id="3UT-0n-xi9"/>
                             <constraint firstItem="rdV-Vh-O5m" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="PcF-eH-TUV"/>
                             <constraint firstItem="uwg-SE-aND" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="cJR-YK-SqA"/>
                             <constraint firstItem="uwg-SE-aND" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="jH6-ju-aJ8"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="g3f-Nj-t4b" secondAttribute="bottom" constant="10" id="lIY-Yr-Dsb"/>
                             <constraint firstItem="g3f-Nj-t4b" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="thX-7w-OgZ"/>
                             <constraint firstItem="rdV-Vh-O5m" firstAttribute="top" secondItem="uwg-SE-aND" secondAttribute="bottom" constant="15" id="uGe-oq-jN3"/>
                             <constraint firstItem="rdV-Vh-O5m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="xB6-0K-PkO"/>
