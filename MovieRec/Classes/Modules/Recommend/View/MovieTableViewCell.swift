@@ -12,6 +12,8 @@ class MovieTableViewCell: UITableViewCell {
 
     //MARK: Properties
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var movieScore: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

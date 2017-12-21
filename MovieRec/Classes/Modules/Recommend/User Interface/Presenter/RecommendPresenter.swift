@@ -33,12 +33,18 @@ class RecommendPresenter : NSObject, RecommendModuleInterface, RecommendInteract
     }
     
     func showRecommendations(recommendations: [Recommendation]) {
-        refreshView(recommendations: recommendations.map { $0.movieTitle })
-    }
-    
-    func refreshView(recommendations: [String]) {
+        //refreshView(recommendations: recommendations.map { $0.movieTitle })
         if let userInterface = userInterface {
-            userInterface.refreshTable(recommendationsToShow: recommendations)
+            userInterface.refreshTable(recommendationsToShow: recommendations.map {
+                (recommendation) -> (String, Float) in
+                return (recommendation.movieTitle, recommendation.movieScore)
+            })
         }
     }
+    
+//    func refreshView(recommendations: [String]) {
+//        if let userInterface = userInterface {
+//            userInterface.refreshTable(recommendationsToShow: recommendations)
+//        }
+//    }
 }

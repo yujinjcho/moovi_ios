@@ -54,7 +54,13 @@ class RecommendInteractor : NSObject {
                 
                 let newRecommendations = results.arrayValue.map({
                     (recommendation:JSON) -> Recommendation in
-                    Recommendation(movieTitle: recommendation.stringValue)
+                    let movieTitle = recommendation.arrayValue[0]
+                    let movieScore = recommendation.arrayValue[1]
+                    
+//                    print(movieTitle)
+//                    print(movieScore)
+                    
+                    return Recommendation(movieTitle: movieTitle.stringValue, movieScore: movieScore.floatValue)
                 })
                 
                 if let recommendDataManager = recommendDataManager {

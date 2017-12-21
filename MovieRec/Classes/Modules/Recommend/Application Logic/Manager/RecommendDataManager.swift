@@ -12,7 +12,8 @@ class RecommendDataManager : NSObject {
     var rateDataManager : RateDataManager?
     var networkManager : NetworkManager?
     
-    let host = "https://movie-rec-project.herokuapp.com"
+    //let host = "https://movie-rec-project.herokuapp.com"
+    let host = "https://movie-rec-develop.herokuapp.com"
     let defaultUser = "test_user_03"
     var currentUser: String {
         if let userID = UserDefaults.standard.string(forKey: "userID") {
@@ -23,6 +24,13 @@ class RecommendDataManager : NSObject {
     }
     var recommendationStorePath = RecommendationStore.ArchiveURL.path
 
+    override init() {
+        super.init()
+        print("calling init")
+//        let recs = [Recommendation]()
+//        saveCurrentRecommendationsStateToDisk(recommendations:recs, path: recommendationStorePath)
+    }
+    
     func fetchRatings() -> [Rating] {
         if let rateDataManager = rateDataManager {
             return rateDataManager.ratings
@@ -33,7 +41,7 @@ class RecommendDataManager : NSObject {
     
     func fetchRecommendations() -> [Recommendation] {
         if let recommendationsFromDisk = loadRecommendationsFromDisk(path: recommendationStorePath) {
-            return recommendationsFromDisk.map { Recommendation(movieTitle: $0.movieTitle) }
+            return recommendationsFromDisk.map { Recommendation(movieTitle: $0.movieTitle, movieScore: $0.movieScore) }
         } else {
             return []
         }
@@ -72,7 +80,7 @@ class RecommendDataManager : NSObject {
     }
     
     private func saveCurrentRecommendationsStateToDisk(recommendations: [Recommendation], path: String) {
-        let recommendationsToStore = recommendations.map { RecommendationStore(movieTitle: $0.movieTitle) }
+        let recommendationsToStore = recommendations.map { RecommendationStore(movieTitle: $0.movieTitle, movieScore: $0.movieScore) }
         NSKeyedArchiver.archiveRootObject(recommendationsToStore, toFile: path)
     }
     

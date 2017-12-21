@@ -18,7 +18,8 @@ class RateDataManager : NSObject {
     var moviesStorePath = MovieStore.ArchiveURL.path
     var ratingsStorePath = RatingStore.ArchiveURL.path
     var prefetcher: ImagePrefetcher?
-    let host = "https://movie-rec-project.herokuapp.com"
+    //let host = "https://movie-rec-project.herokuapp.com"
+    let host = "https://movie-rec-develop.herokuapp.com"
     let defaultUser = "test_user_03"
     
     var movieCounts: Int { return moviesToRate.count }
@@ -47,6 +48,7 @@ class RateDataManager : NSObject {
         let moviesFromDisk = loadMoviesFromDisk(path: moviesStorePath)
         if let moviesFromDisk = moviesFromDisk, moviesFromDisk.count > 0 {
             moviesToRate = moviesFromDisk.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
+            //self.startImagePrefetcher(urls: moviesToRate.map { $0.photoUrl })
             completion(currentMovie!)
         } else {
             os_log("Loading Movies via API call", log: OSLog.default, type: .debug)
@@ -62,6 +64,7 @@ class RateDataManager : NSObject {
                 }
             }
         }
+        self.startImagePrefetcher(urls: moviesToRate.map { $0.photoUrl })
     }
     
     func storeRating(rating: String) {
@@ -101,7 +104,7 @@ class RateDataManager : NSObject {
                     )
                     self.moviesToRate += moviesToAdd
                     self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
-                    self.startImagePrefetcher(urls: moviesToAdd.map { $0.photoUrl })
+                    //self.startImagePrefetcher(urls: moviesToAdd.map { $0.photoUrl })
                 }
             })
         }
@@ -113,6 +116,7 @@ class RateDataManager : NSObject {
     }
     
     private func startImagePrefetcher(urls: [String]) {
+        print("CALLING PREFETCHER")
         let urls = urls.map { URL(string: $0)! }
         prefetcher = ImagePrefetcher(urls: urls) {
             skippedResources, failedResources, completedResources in
@@ -147,6 +151,9 @@ class RateDataManager : NSObject {
     }
     
     private func saveCurrentRatingsToDisk(path: String) {
+        
+        //print("number of ratings: \(ratings.count)")
+        
         let ratingsStore = ratings.map { RatingStore(movieID: $0.movieID, rating: $0.rating, userID: $0.userID) }
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(ratingsStore, toFile: path)
         if isSuccessfulSave {

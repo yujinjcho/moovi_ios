@@ -10,4 +10,5 @@ import Foundation
 
 struct Recommendation {
     let movieTitle : String
+    let movieScore : Float
 }

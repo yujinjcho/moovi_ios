@@ -14,6 +14,8 @@ class RateInteractor : NSObject, RateInteractorInput {
     let dataManager : RateDataManager
     let movieThreshold = 25
     
+    //var timer = Date()
+    
     init(dataManager: RateDataManager) {
         self.dataManager = dataManager
     }
@@ -26,15 +28,24 @@ class RateInteractor : NSObject, RateInteractorInput {
     }
     
     func storeRating(ratingType: String) {
+        //timer = Date()
+        //print("01_START: \(timer.timeIntervalSinceNow)")
+        
         dataManager.storeRating(rating: ratingType)
+        //print("02_STORE: \(timer.timeIntervalSinceNow)")
+        
         dataManager.removeFirstMovie()
+        //print("03_REMOVE: \(timer.timeIntervalSinceNow)")
+        
         if dataManager.movieCounts == movieThreshold || dataManager.movieCounts == 0 {
             fetchNewMovies()
         }
+        //print("04_FETCH: \(timer.timeIntervalSinceNow)")
         
         if let currentMovie = dataManager.currentMovie {
             showCurrentMovie(currentMovie: currentMovie)
         }
+        //print("05_SHOW: \(timer.timeIntervalSinceNow)")
     }
     
     func showCurrentMovie(currentMovie: Movie) {

@@ -14,7 +14,8 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
 
     var eventHandler : RecommendModuleInterface?
     var userId: String?
-    var recommendations = [String]()
+    var recommendations = [(String, Float)]()
+    //var recommendations = [(String, String)]()
     var numberRows: Int { return recommendations.count }
 
     override func viewDidLoad() {
@@ -38,13 +39,19 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
             fatalError("The dequeued cell is not an instance of MovieTableViewCell.")
         }
         
-        let title = recommendations[indexPath.row]
-        cell.titleLabel.text = title
+        let movie = recommendations[indexPath.row]
+        cell.titleLabel.text = movie.0
+        cell.movieScore.text = String(format: "%.0f", movie.1 * 100)
+        //cell.movieScore.text = movie.1
+        cell.movieScore.layer.cornerRadius = 10.0
+        ///cell.movieDescription.text = "Test blah Test blah Test blah Test blah Test blah Test blah Test blah Test blah Test blah Test blah Test blah Test blah Test blah Test blah Test blah Test blah"
+        
         return cell
     }
     
     
-    func refreshTable(recommendationsToShow: [String]) {
+    func refreshTable(recommendationsToShow: [(String,Float)]) {
+    //func refreshTable(recommendationsToShow: [(String,String)]) {
         recommendations = recommendationsToShow
         DispatchQueue.main.async {
             [unowned self] in

@@ -14,11 +14,14 @@ class RateViewController: UIViewController, RateViewInterface {
 
     var eventHandler : RateModuleInterface?
     var currentTitle : String?
+    //var timer = Date()
     
     @IBOutlet weak var titleNameLabel: UILabel!
     @IBOutlet weak var titleImage: UIImageView!
     
     @IBAction func rateLikeButton(_ sender: UIButton) {
+        
+        //timer = Date()
         eventHandler?.processRating(ratingType: "1")
     }
     
@@ -39,9 +42,15 @@ class RateViewController: UIViewController, RateViewInterface {
 
     func showCurrentMovie(title:String, photoUrl: String, completion: (() -> Void)? = nil) {
         let url = URL(string: photoUrl)
+        //timer = Date()
+        
+        
         titleImage.kf.setImage(with: url, completionHandler: {
             (_, _, _, _) in
             self.titleNameLabel.text = title
+            
+            //print("TIMER INTERVAL SINCE NOW \(self.timer.timeIntervalSinceNow)")
+            
             if let completion = completion {
                 completion()
             }
