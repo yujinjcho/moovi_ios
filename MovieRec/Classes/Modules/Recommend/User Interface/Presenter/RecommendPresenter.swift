@@ -33,7 +33,6 @@ class RecommendPresenter : NSObject, RecommendModuleInterface, RecommendInteract
     }
     
     func showRecommendations(recommendations: [Recommendation]) {
-        //refreshView(recommendations: recommendations.map { $0.movieTitle })
         if let userInterface = userInterface {
             userInterface.refreshTable(recommendationsToShow: recommendations.map {
                 (recommendation) -> (String, Float) in
@@ -41,10 +40,5 @@ class RecommendPresenter : NSObject, RecommendModuleInterface, RecommendInteract
             })
         }
     }
-    
-//    func refreshView(recommendations: [String]) {
-//        if let userInterface = userInterface {
-//            userInterface.refreshTable(recommendationsToShow: recommendations)
-//        }
-//    }
+
 }

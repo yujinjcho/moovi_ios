@@ -56,10 +56,6 @@ class RecommendInteractor : NSObject {
                     (recommendation:JSON) -> Recommendation in
                     let movieTitle = recommendation.arrayValue[0]
                     let movieScore = recommendation.arrayValue[1]
-                    
-//                    print(movieTitle)
-//                    print(movieScore)
-                    
                     return Recommendation(movieTitle: movieTitle.stringValue, movieScore: movieScore.floatValue)
                 })
                 

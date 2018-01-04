@@ -14,22 +14,22 @@ class RateViewController: UIViewController, RateViewInterface {
 
     var eventHandler : RateModuleInterface?
     var currentTitle : String?
-    //var timer = Date()
     
     @IBOutlet weak var titleNameLabel: UILabel!
     @IBOutlet weak var titleImage: UIImageView!
     
     @IBAction func rateLikeButton(_ sender: UIButton) {
-        
-        //timer = Date()
+        print("CALLING LIKE")
         eventHandler?.processRating(ratingType: "1")
     }
     
     @IBAction func rateSkipButton(_ sender: UIButton) {
+        print("CALLING SKIP")
         eventHandler?.processRating(ratingType: "0")
     }
     
     @IBAction func rateDislikeButton(_ sender: UIButton) {
+        print("CALLING DISLIKE")
         eventHandler?.processRating(ratingType: "-1")
     }
     
@@ -42,14 +42,10 @@ class RateViewController: UIViewController, RateViewInterface {
 
     func showCurrentMovie(title:String, photoUrl: String, completion: (() -> Void)? = nil) {
         let url = URL(string: photoUrl)
-        //timer = Date()
-        
-        
+                
         titleImage.kf.setImage(with: url, completionHandler: {
             (_, _, _, _) in
             self.titleNameLabel.text = title
-            
-            //print("TIMER INTERVAL SINCE NOW \(self.timer.timeIntervalSinceNow)")
             
             if let completion = completion {
                 completion()
@@ -62,8 +58,9 @@ class RateViewController: UIViewController, RateViewInterface {
     }
     
     private func configureView() {
-        navigationItem.title = "Rate"
-        let navigateToRecommendItem = UIBarButtonItem(title: "Movie List", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RateViewController.didTapNavigateToRecommendItem))
+        
+        let navigateToRecommendItem = UIBarButtonItem(title: "Recommendations", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RateViewController.didTapNavigateToRecommendItem))
+        
         navigationItem.rightBarButtonItem = navigateToRecommendItem
     }
 }

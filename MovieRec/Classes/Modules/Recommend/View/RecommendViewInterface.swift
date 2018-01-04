@@ -10,5 +10,4 @@ import Foundation
 
 protocol RecommendViewInterface {
     func refreshTable(recommendationsToShow: [(String, Float)])
-    //func refreshTable(recommendationsToShow: [(String, String)])
 }

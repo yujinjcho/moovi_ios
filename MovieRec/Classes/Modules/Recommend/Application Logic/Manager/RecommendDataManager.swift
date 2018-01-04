@@ -12,8 +12,7 @@ class RecommendDataManager : NSObject {
     var rateDataManager : RateDataManager?
     var networkManager : NetworkManager?
     
-    //let host = "https://movie-rec-project.herokuapp.com"
-    let host = "https://movie-rec-develop.herokuapp.com"
+    let host = "https://movie-rec.com"
     let defaultUser = "test_user_03"
     var currentUser: String {
         if let userID = UserDefaults.standard.string(forKey: "userID") {
@@ -26,7 +25,6 @@ class RecommendDataManager : NSObject {
 
     override init() {
         super.init()
-        print("calling init")
 //        let recs = [Recommendation]()
 //        saveCurrentRecommendationsStateToDisk(recommendations:recs, path: recommendationStorePath)
     }

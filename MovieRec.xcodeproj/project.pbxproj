@@ -12,6 +12,7 @@
 		6A0C601B1FE237DB00E26B32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A3483A11EDA291F00852249 /* Main.storyboard */; };
 		6A12428B1FC27B8C00CFD248 /* MockRateWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A12428A1FC27B8C00CFD248 /* MockRateWireframe.swift */; };
 		6A12428D1FC27CDC00CFD248 /* MockRecommendWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A12428C1FC27CDC00CFD248 /* MockRecommendWireframe.swift */; };
+		6A1A10F61FF9E4E80086F5C0 /* LaunchScreen2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A1A10F51FF9E4E80086F5C0 /* LaunchScreen2.storyboard */; };
 		6A1B928B1F9EF96C00996648 /* RecommendWireFrameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1B928A1F9EF96C00996648 /* RecommendWireFrameTest.swift */; };
 		6A2320EF1FBAADF100D4ADEA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2320EE1FBAADF100D4ADEA /* NetworkManager.swift */; };
 		6A24D2EF1F95A81B0004F1E2 /* MovieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A24D2EE1F95A81B0004F1E2 /* MovieStore.swift */; };
@@ -99,6 +100,7 @@
 		6A07019F1FC400BA00B680BA /* RecommendationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationStore.swift; sourceTree = "<group>"; };
 		6A12428A1FC27B8C00CFD248 /* MockRateWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRateWireframe.swift; sourceTree = "<group>"; };
 		6A12428C1FC27CDC00CFD248 /* MockRecommendWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecommendWireframe.swift; sourceTree = "<group>"; };
+		6A1A10F51FF9E4E80086F5C0 /* LaunchScreen2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen2.storyboard; sourceTree = "<group>"; };
 		6A1B928A1F9EF96C00996648 /* RecommendWireFrameTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RecommendWireFrameTest.swift; path = ../RateTests/RecommendWireFrameTest.swift; sourceTree = "<group>"; };
 		6A2320EE1FBAADF100D4ADEA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		6A24D2EE1F95A81B0004F1E2 /* MovieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieStore.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				6A3483A11EDA291F00852249 /* Main.storyboard */,
 				6A3483A41EDA291F00852249 /* Assets.xcassets */,
 				6A3483A61EDA291F00852249 /* LaunchScreen.storyboard */,
+				6A1A10F51FF9E4E80086F5C0 /* LaunchScreen2.storyboard */,
 				6A3483A91EDA291F00852249 /* Info.plist */,
 			);
 			path = MovieRec;
@@ -640,6 +643,7 @@
 			files = (
 				6A379C641FE384940082266E /* Assets.xcassets in Resources */,
 				6A0C601B1FE237DB00E26B32 /* Main.storyboard in Resources */,
+				6A1A10F61FF9E4E80086F5C0 /* LaunchScreen2.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,7 +947,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 018B392B80A79EA4EFCBA976 /* Pods-MovieRec.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CODE_SIGN_ENTITLEMENTS = MovieRec/MovieRec.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = S2W38DQ33W;
@@ -961,7 +965,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C4788D0476B5067042FC1A83 /* Pods-MovieRec.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CODE_SIGN_ENTITLEMENTS = MovieRec/MovieRec.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = S2W38DQ33W;
