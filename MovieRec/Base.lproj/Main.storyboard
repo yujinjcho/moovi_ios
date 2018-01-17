@@ -158,6 +158,33 @@
             </objects>
             <point key="canvasLocation" x="1948" y="138.98050974512745"/>
         </scene>
+        <!--Error Login View Controller-->
+        <scene sceneID="n1g-Ss-Vlz">
+            <objects>
+                <viewController storyboardIdentifier="ErrorLoginViewController" id="PAb-k8-kJh" customClass="ErrorLoginViewController" customModule="MovieRec" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Z5-tn-LKR"/>
+                        <viewControllerLayoutGuide type="bottom" id="qAH-Fv-9ZQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JFZ-vt-7Fb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="iCloud must be enabled. Please close the app and try again." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nV-1h-Zpi">
+                                <rect key="frame" x="16" y="288" width="343" height="91"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WRn-Ny-HXe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2932" y="138.98050974512745"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="EnG-3Y-F2d">
             <objects>

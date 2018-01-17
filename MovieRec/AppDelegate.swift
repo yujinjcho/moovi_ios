@@ -18,21 +18,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        initUser()
-        appDependencies.installRootViewControllerIntoWindow(window!)
+        initUser() {
+            self.appDependencies.installRootViewControllerIntoWindow(self.window!)
+        }
         return true
     }
     
-    func initUser() {
+    func initUser(complete: @escaping () -> Void) {
+        UserDefaults.standard.set(nil, forKey: "userID")
+        
         if let userId = UserDefaults.standard.string(forKey: "userID") {
             print("UserID already set to \(userId)")
+            complete()
         } else {
             iCloudUserIDAsync() { recordID, error in
                 if let userID = recordID?.recordName {
                     UserDefaults.standard.set(userID, forKey: "userID")
+                    complete()
                 } else {
                     print("Could not fetch iCloudID setting default")
-                    UserDefaults.standard.set("test_user_03", forKey: "userID")
+                    self.appDependencies.installErrorLoginView(self.window!)
+                    //UserDefaults.standard.set("test_user_03", forKey: "userID")
                 }
             }
         }

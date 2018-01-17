@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 let RateViewControllerIdentifier = "RateViewController"
+let ErrorLoginViewControllerIdentifier = "ErrorLoginViewController"
 
 class RateWireFrame: NSObject {
     var recommendWireframe : RecommendWireframe?
@@ -25,6 +26,11 @@ class RateWireFrame: NSObject {
         rootWireframe?.showRootViewController(viewController, inWindow: window)
     }
     
+    func presentErrorLoginFromWindow(_ window: UIWindow) {
+        let viewController = errorLoginViewControllerFromStoryboard()
+        rootWireframe?.showRootViewController(viewController, inWindow: window)
+    }
+    
     func presentRecommendInterface(navigationController: UINavigationController) {
         recommendWireframe?.presentRecommendInterfaceFromViewController(navigationController)
     }
@@ -32,6 +38,12 @@ class RateWireFrame: NSObject {
     private func rateViewControllerFromStoryboard() -> RateViewController {
         let storyboard = mainStoryboard()
         let viewController = storyboard.instantiateViewController(withIdentifier: RateViewControllerIdentifier) as! RateViewController
+        return viewController
+    }
+    
+    private func errorLoginViewControllerFromStoryboard() -> ErrorLoginViewController {
+        let storyboard = mainStoryboard()
+        let viewController = storyboard.instantiateViewController(withIdentifier: ErrorLoginViewControllerIdentifier) as! ErrorLoginViewController
         return viewController
     }
     
