@@ -16,7 +16,9 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
     var userId: String?
     var recommendations = [(String, Float)]()
     var numberRows: Int { return recommendations.count }
-
+    
+    var segmentControlOptions = ["In Theaters", "Netflix", "Amazon Prime"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -45,19 +47,9 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
         return cell
     }
 
-//    TODO: Potentially add in affiliate links
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let url = URL(string: "https://www.fandango.com/star-wars-the-last-jedi-2017-189929/movie-overview") else {
-//            return
-//        }
-//
-//        if #available(iOS 10.0, *) {
-//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//        } else {
-//            UIApplication.shared.openURL(url)
-//        }
-//    }
-    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
     
     func refreshTable(recommendationsToShow: [(String,Float)]) {
         recommendations = recommendationsToShow
@@ -99,15 +91,35 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
         present(alert, animated: true, completion: nil)
     }
     
+    func segmentedControlValueChanged(segment: UISegmentedControl) {
+        if let eventHandler = eventHandler {
+            eventHandler.providerPickerSelected(row: segment.selectedSegmentIndex)
+        }
+    }
+    
     private func configureView() {
         navigationItem.title = "Recommendations"
-        let navigateToRecommendItem = UIBarButtonItem(title: "Refresh", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RecommendViewController.didTapRefreshButton))
-        let navigateToRateItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RecommendViewController.didTapBackButton))
+        
+        let navigateToRecommendItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(RecommendViewController.didTapRefreshButton))
+        let navigateToRateItem = UIBarButtonItem(title: "\u{2190}", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RecommendViewController.didTapBackButton))
+        
+        let segment: UISegmentedControl = UISegmentedControl(items: ["Theaters", "Netflix", "Amazon P."])
+        segment.addTarget(self, action: #selector(RecommendViewController.segmentedControlValueChanged), for:.valueChanged)
+
+        if let eventHandler = eventHandler {
+            if let providerIndex = eventHandler.retrieveSelectedFilter() {
+                segment.selectedSegmentIndex = providerIndex
+                eventHandler.providerPickerSelected(row: providerIndex)
+            }
+        }
+
+        self.navigationItem.titleView = segment
         navigationItem.rightBarButtonItem = navigateToRecommendItem
         navigationItem.leftBarButtonItem = navigateToRateItem
         
         if let eventHandler = eventHandler {
             eventHandler.configureUserInterfaceForPresentation()
         }
+        
     }
 }

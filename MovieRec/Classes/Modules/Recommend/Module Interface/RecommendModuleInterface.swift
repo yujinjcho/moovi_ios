@@ -13,4 +13,6 @@ protocol RecommendModuleInterface {
     func updateView()
     func navigateToRateView(navigationController: UINavigationController)
     func configureUserInterfaceForPresentation()
+    func providerPickerSelected(row: Int)
+    func retrieveSelectedFilter() -> Int?
 }

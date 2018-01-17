@@ -24,11 +24,24 @@ class RecommendPresenter : NSObject, RecommendModuleInterface, RecommendInteract
         }
     }
     
-
+    func providerPickerSelected(row: Int) {
+        
+        if let recommendInteractor = recommendInteractor {
+            recommendInteractor.retrieveProviderRecommendations(row: row)
+        }
+    }
     
     func navigateToRateView(navigationController: UINavigationController) {
         if let recommendWireframe = recommendWireframe {
             recommendWireframe.popRecommendInterfaceFromViewController(navigationController)
+        }
+    }
+    
+    func retrieveSelectedFilter() -> Int? {
+        if let recommendInteractor = recommendInteractor {
+            return recommendInteractor.movieProviderIndex()
+        } else {
+            return nil
         }
     }
     

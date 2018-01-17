@@ -14,11 +14,24 @@ class RecommendInteractor : NSObject {
     
     var recommendDataManager : RecommendDataManager?
     var timer: DispatchSourceTimer?
+    var movieProviders = ["box_office", "netflix", "amazoninstant"]
+    //["In Theaters", "Netflix", "iTunes", "Amazon Prime"]
+    var selectedProvider = "box_office"
+    var recommendations = [Recommendation]()
+    //var defaultProvider = "netflix"
+    
+    func movieProviderIndex() -> Int {
+        if let index = movieProviders.index(of: selectedProvider) {
+            return index
+        } else {
+            return 0
+        }
+    }
     
     func loadRecommendations() {
         if let recommendDataManager = recommendDataManager, let output = output {
-            let recommendations = recommendDataManager.fetchRecommendations()
-            output.showRecommendations(recommendations: recommendations)
+            recommendations = recommendDataManager.fetchRecommendations()
+            output.showRecommendations(recommendations: recommendations.filter { $0.movieProvider == selectedProvider})
         }
     }
     
@@ -46,25 +59,41 @@ class RecommendInteractor : NSObject {
         timer.resume()
     }
     
+    func retrieveProviderRecommendations(row: Int) {
+        selectedProvider = movieProviders[row]
+        let recommendationsFromProvider = recommendations.filter { $0.movieProvider == selectedProvider}
+        if let output = output {
+            output.showRecommendations(recommendations: recommendationsFromProvider)
+        }
+    }
+    
+    
+    
     func checkJobStatus(data: Data) -> Void {
         let json = JSON(data: data)
         if json["status"].stringValue == "completed" {
             if let dataFromString = json["results"].stringValue.data(using: .utf8, allowLossyConversion: false) {
                 let results = JSON(data: dataFromString)
                 
-                let newRecommendations = results.arrayValue.map({
-                    (recommendation:JSON) -> Recommendation in
-                    let movieTitle = recommendation.arrayValue[0]
-                    let movieScore = recommendation.arrayValue[1]
-                    return Recommendation(movieTitle: movieTitle.stringValue, movieScore: movieScore.floatValue)
+                let newRecommendations = movieProviders.flatMap({
+                    (provider:String) -> [Recommendation] in
+                    results[provider].arrayValue.map({
+                        (recommendation:JSON) -> Recommendation in
+                        let movieTitle = recommendation.arrayValue[0]
+                        let movieScore = recommendation.arrayValue[1]
+                        let movieProvider = provider
+                        return Recommendation(movieTitle: movieTitle.stringValue, movieScore: movieScore.floatValue, movieProvider: movieProvider)
+                    })
                 })
+                recommendations = newRecommendations
                 
                 if let recommendDataManager = recommendDataManager {
                     recommendDataManager.storeRecommendations(recommendations: newRecommendations)
                 }
                 
+                let recommendationsFromProvider = newRecommendations.filter { $0.movieProvider == selectedProvider}
                 if let output = output {
-                    output.showRecommendations(recommendations: newRecommendations)
+                    output.showRecommendations(recommendations: recommendationsFromProvider)
                 }
             }
             

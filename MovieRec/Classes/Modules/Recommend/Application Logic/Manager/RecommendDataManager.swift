@@ -39,7 +39,7 @@ class RecommendDataManager : NSObject {
     
     func fetchRecommendations() -> [Recommendation] {
         if let recommendationsFromDisk = loadRecommendationsFromDisk(path: recommendationStorePath) {
-            return recommendationsFromDisk.map { Recommendation(movieTitle: $0.movieTitle, movieScore: $0.movieScore) }
+            return recommendationsFromDisk.map { Recommendation(movieTitle: $0.movieTitle, movieScore: $0.movieScore, movieProvider: $0.movieProvider) }
         } else {
             return []
         }
@@ -78,7 +78,7 @@ class RecommendDataManager : NSObject {
     }
     
     private func saveCurrentRecommendationsStateToDisk(recommendations: [Recommendation], path: String) {
-        let recommendationsToStore = recommendations.map { RecommendationStore(movieTitle: $0.movieTitle, movieScore: $0.movieScore) }
+        let recommendationsToStore = recommendations.map { RecommendationStore(movieTitle: $0.movieTitle, movieScore: $0.movieScore, movieProvider: $0.movieProvider) }
         NSKeyedArchiver.archiveRootObject(recommendationsToStore, toFile: path)
     }
     

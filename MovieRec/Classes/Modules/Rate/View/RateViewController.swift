@@ -10,6 +10,7 @@ import os.log
 import UIKit
 import CloudKit
 
+
 class RateViewController: UIViewController, RateViewInterface {
 
     var eventHandler : RateModuleInterface?
@@ -45,7 +46,9 @@ class RateViewController: UIViewController, RateViewInterface {
                 
         titleImage.kf.setImage(with: url, completionHandler: {
             (_, _, _, _) in
-            self.titleNameLabel.text = title
+            
+            self.navigationItem.title = title
+            
             
             if let completion = completion {
                 completion()
@@ -58,9 +61,7 @@ class RateViewController: UIViewController, RateViewInterface {
     }
     
     private func configureView() {
-        
-        let navigateToRecommendItem = UIBarButtonItem(title: "Recommendations", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RateViewController.didTapNavigateToRecommendItem))
-        
+        let navigateToRecommendItem = UIBarButtonItem(title: "\u{2192}", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RateViewController.didTapNavigateToRecommendItem))
         navigationItem.rightBarButtonItem = navigateToRecommendItem
     }
 }
