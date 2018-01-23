@@ -45,6 +45,13 @@ class RecommendPresenter : NSObject, RecommendModuleInterface, RecommendInteract
         }
     }
     
+    // need to define a function to notify request wasn't successful
+    func notifyError(title: String, message: String) -> Void {
+        if let userInterface = userInterface {
+            userInterface.showErrorMessage(title: title, message: message)
+        }
+    }
+    
     func showRecommendations(recommendations: [Recommendation]) {
         if let userInterface = userInterface {
             userInterface.refreshTable(recommendationsToShow: recommendations.map {

@@ -15,10 +15,12 @@ class RecommendInteractor : NSObject {
     var recommendDataManager : RecommendDataManager?
     var timer: DispatchSourceTimer?
     var movieProviders = ["box_office", "netflix", "amazoninstant"]
-    //["In Theaters", "Netflix", "iTunes", "Amazon Prime"]
     var selectedProvider = "box_office"
     var recommendations = [Recommendation]()
-    //var defaultProvider = "netflix"
+    
+    var pollingAttempts = 0
+    let pollingLimit = 8 // ~40 seconds is pretty painful
+    let pollingInterval = 5
     
     func movieProviderIndex() -> Int {
         if let index = movieProviders.index(of: selectedProvider) {
@@ -38,22 +40,44 @@ class RecommendInteractor : NSObject {
     func refreshRecommendations() {
         if let recommendDataManager = recommendDataManager {
             let ratings = recommendDataManager.fetchRatings()
-            recommendDataManager.uploadRatings(ratings: ratings, completion: startPolling)
+            
+            // DEFINE A FAILURE METHOD
+            recommendDataManager.uploadRatings(ratings: ratings, completion: startPolling, failureHandler: networkFailed)
         }
     }
     
+    func networkFailed() -> Void {
+        if let output = output {
+            let title = "Network Error"
+            let message = "There seems to be an issue with the network. Please try again at a later time."
+            output.notifyError(title: title, message: message)
+        }
+    }
+    
+    func serverTimeOut() -> Void {
+        if let output = output {
+            let title = "Server Error"
+            let message = "There seems to be an issue with our servers. We apologize for the inconvenience. Please try again at a later time."
+            output.notifyError(title: title, message: message)
+        }
+    }
+    
+//    func pollWithLimit() -> (String) -> Void {
+//        
+//    }
+    
     func startPolling(jobID: String) -> Void {
         print("starting polling with \(jobID)")
+        pollingAttempts = 0
         let queue = DispatchQueue(label: "com.domain.app.timer")
         timer = DispatchSource.makeTimerSource(queue: queue)
         guard let timer = timer else {
-            print("Timer couldn't be created")
             return
         }
-        timer.scheduleRepeating(deadline: .now(), interval: .seconds(5))
+        timer.scheduleRepeating(deadline: .now(), interval: .seconds(pollingInterval))
         timer.setEventHandler { [weak self] in
             if let recommendDataManager = self!.recommendDataManager {
-                recommendDataManager.fetchJobStatus(jobID: jobID, completion: self!.checkJobStatus)
+                recommendDataManager.fetchJobStatus(jobID: jobID, completion: self!.checkJobStatus, failureHandler: self!.networkFailed)
             }
         }
         timer.resume()
@@ -66,8 +90,6 @@ class RecommendInteractor : NSObject {
             output.showRecommendations(recommendations: recommendationsFromProvider)
         }
     }
-    
-    
     
     func checkJobStatus(data: Data) -> Void {
         let json = JSON(data: data)
@@ -102,6 +124,13 @@ class RecommendInteractor : NSObject {
             
         } else {
             print("job not completed")
+            pollingAttempts += 1
+            print("poll attempt \(pollingAttempts)")
+        }
+        
+        if pollingAttempts == pollingLimit {
+            serverTimeOut()
+            deinitTimer()
         }
     }
     

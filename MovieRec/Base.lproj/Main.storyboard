@@ -82,6 +82,9 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="MR3-cI-yVw"/>
+                                </constraints>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rdV-Vh-O5m">
                                 <rect key="frame" x="0.0" y="64" width="375" height="538"/>
@@ -94,7 +97,6 @@
                             <constraint firstItem="rdV-Vh-O5m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="OtL-MX-ydJ"/>
                             <constraint firstItem="g3f-Nj-t4b" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="WyV-cc-Bh5"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="g3f-Nj-t4b" secondAttribute="bottom" constant="10" id="eLZ-zw-DVR"/>
-                            <constraint firstItem="g3f-Nj-t4b" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="612" id="fN5-z1-8NQ"/>
                             <constraint firstItem="rdV-Vh-O5m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="g34-7d-GDJ"/>
                             <constraint firstAttribute="trailing" secondItem="rdV-Vh-O5m" secondAttribute="trailing" id="r4F-Z0-Ryg"/>
                         </constraints>

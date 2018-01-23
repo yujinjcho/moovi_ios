@@ -36,6 +36,7 @@ class RateViewController: UIViewController, RateViewInterface {
     
     override func viewDidLoad() {
         titleImage.clipsToBounds = true
+        titleImage.contentMode = .scaleAspectFill
         super.viewDidLoad()
         configureView()
         eventHandler?.loadedView()

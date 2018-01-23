@@ -44,6 +44,15 @@ class RateDataManager : NSObject {
     
     func loadMovies(completion: @escaping (Movie) -> Void) {
         
+        func requestMovies(data:Data) -> Void {
+            if let newMovies = self.convertJSONtoMovies(data: data) {
+                self.moviesToRate = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
+                self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
+                self.startImagePrefetcher(urls: self.moviesToRate.map { $0.photoUrl })
+                completion(self.currentMovie!)
+            }
+        }
+        
         let moviesFromDisk = loadMoviesFromDisk(path: moviesStorePath)
         if let moviesFromDisk = moviesFromDisk, moviesFromDisk.count > 0 {
             moviesToRate = moviesFromDisk.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
@@ -54,18 +63,21 @@ class RateDataManager : NSObject {
             let url = "\(host)/api/start"
             print(url)
             if let networkManager = networkManager {
-                networkManager.getRequest(endPoint: url) {
-                    (data: Data) -> Void in
-                    if let newMovies = self.convertJSONtoMovies(data: data) {
-                        self.moviesToRate = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
-                        self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
-                        self.startImagePrefetcher(urls: self.moviesToRate.map { $0.photoUrl })
-                        completion(self.currentMovie!)
-                    }
-                }
+                networkManager.getRequest(endPoint: url, completionHandler: requestMovies)
+                //networkManager.getRequest(endPoint: url) {
+//                    (data: Data) -> Void in
+//                    if let newMovies = self.convertJSONtoMovies(data: data) {
+//                        self.moviesToRate = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
+//                        self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
+//                        self.startImagePrefetcher(urls: self.moviesToRate.map { $0.photoUrl })
+//                        completion(self.currentMovie!)
+//                    }
+                //}
             }
         }
     }
+    
+    
     
     func storeRating(rating: String) {
         if let currentMovie = currentMovie {
@@ -117,7 +129,6 @@ class RateDataManager : NSObject {
     
     private func startImagePrefetcher(urls: [String]) {
         let urls = urls.map { URL(string: $0)! }
-        print(urls)
         prefetcher = ImagePrefetcher(urls: urls) {
             skippedResources, failedResources, completedResources in
         }

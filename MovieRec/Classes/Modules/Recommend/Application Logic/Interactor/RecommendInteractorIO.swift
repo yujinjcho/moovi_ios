@@ -11,4 +11,5 @@ import SwiftyJSON
 
 protocol RecommendInteractorOutput {
     func showRecommendations(recommendations: [Recommendation])
+    func notifyError(title: String, message: String) -> Void
 }

@@ -13,7 +13,6 @@ import CloudKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
     let appDependencies = AppDependencies()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -25,7 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func initUser(complete: @escaping () -> Void) {
-        UserDefaults.standard.set(nil, forKey: "userID")
+        // THIS IS JUST FOR TESTING
+        // UserDefaults.standard.set("test_user_03", forKey: "userID")
+        // UserDefaults.standard.set(nil, forKey: "userID")
         
         if let userId = UserDefaults.standard.string(forKey: "userID") {
             print("UserID already set to \(userId)")

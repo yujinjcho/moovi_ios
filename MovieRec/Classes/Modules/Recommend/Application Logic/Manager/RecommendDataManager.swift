@@ -50,26 +50,27 @@ class RecommendDataManager : NSObject {
     }
 
     
-    func fetchJobStatus(jobID: String, completion: @escaping (Data) -> Void) {
+    func fetchJobStatus(jobID: String, completion: @escaping (Data) -> Void, failureHandler: @escaping () -> Void) {
         let url = "\(host)/api/job_poll/\(jobID)"
         if let networkManager = networkManager {
-            networkManager.getRequest(endPoint: url, completionHandler: completion)
+            networkManager.getRequest(endPoint: url, completionHandler: completion, failureHandler: failureHandler)
         }
     }
     
-    func uploadRatings(ratings: [Rating], completion: @escaping (String) -> Void) {
+    func uploadRatings(ratings: [Rating], completion: @escaping (String) -> Void, failureHandler: @escaping () -> Void) {
         let url = "\(host)/api/recommendations"
         let uploadData = formatPostData(ratings: ratings)
         
-        if let networkManager = networkManager {
-            networkManager.postRequest(endPoint: url, postData: uploadData) {
-                (data : Data) in
-                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                if let responseJSON = responseJSON as? [String: String] {
-                    print("job id: \(responseJSON["job_id"]!)")
-                    completion(responseJSON["job_id"]!)
-                }
+        func uploadSuccess(data: Data) -> Void {
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: String] {
+                print("job id: \(responseJSON["job_id"]!)")
+                completion(responseJSON["job_id"]!)
             }
+        }
+        
+        if let networkManager = networkManager {
+            networkManager.postRequest(endPoint: url, postData: uploadData, completionHandler: uploadSuccess, failureHandler: failureHandler)
         }
     }
     
