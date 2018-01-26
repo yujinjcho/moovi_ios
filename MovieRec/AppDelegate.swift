@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func initUser(complete: @escaping () -> Void) {
-        // THIS IS JUST FOR TESTING
+        // FOR TESTING
         // UserDefaults.standard.set("test_user_03", forKey: "userID")
         // UserDefaults.standard.set(nil, forKey: "userID")
         
@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     print("Could not fetch iCloudID setting default")
                     self.appDependencies.installErrorLoginView(self.window!)
-                    //UserDefaults.standard.set("test_user_03", forKey: "userID")
                 }
             }
         }

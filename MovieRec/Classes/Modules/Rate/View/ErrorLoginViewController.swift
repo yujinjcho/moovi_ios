@@ -11,10 +11,7 @@ import UIKit
 
 class ErrorLoginViewController: UIViewController {
     
-    override func viewDidLoad() {
-        //titleImage.clipsToBounds = true
+    override func viewDidLoad() {   
         super.viewDidLoad()
-        //configureView()
-        //eventHandler?.loadedView()
     }
 }

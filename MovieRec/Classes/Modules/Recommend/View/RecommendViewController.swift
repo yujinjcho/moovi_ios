@@ -60,9 +60,6 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
         endLoadingOverlay()
     }
     
-    // func for stopping overlay and display a msg
-    // that something went wrong and try later
-
     func didTapRefreshButton() {
         startLoadingOverlay()
         if let eventHandler = eventHandler {
@@ -77,21 +74,13 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
     }
     
     func showErrorMessage(title: String, message: String) -> Void {
-        //dismiss(animated: false, completion: presentNetworkAlert)
         dismiss(animated: false) {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
-//    func showErrorMessage() {
-//        let alertTitle = "Network Error"
-//        let alertMessage = "There seems to be an issue with the network. Please try again at a later time."
-//        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-//        present(alert, animated: true, completion: nil)
-//    }
+
     
     //MARK: Private Methods
     private func endLoadingOverlay() {

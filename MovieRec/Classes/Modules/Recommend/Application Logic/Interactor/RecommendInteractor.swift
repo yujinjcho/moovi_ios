@@ -39,9 +39,7 @@ class RecommendInteractor : NSObject {
     
     func refreshRecommendations() {
         if let recommendDataManager = recommendDataManager {
-            let ratings = recommendDataManager.fetchRatings()
-            
-            // DEFINE A FAILURE METHOD
+            let ratings = recommendDataManager.fetchRatings()            
             recommendDataManager.uploadRatings(ratings: ratings, completion: startPolling, failureHandler: networkFailed)
         }
     }
@@ -61,10 +59,6 @@ class RecommendInteractor : NSObject {
             output.notifyError(title: title, message: message)
         }
     }
-    
-//    func pollWithLimit() -> (String) -> Void {
-//        
-//    }
     
     func startPolling(jobID: String) -> Void {
         print("starting polling with \(jobID)")

@@ -61,23 +61,11 @@ class RateDataManager : NSObject {
         } else {
             os_log("Loading Movies via API call", log: OSLog.default, type: .debug)
             let url = "\(host)/api/start"
-            print(url)
             if let networkManager = networkManager {
                 networkManager.getRequest(endPoint: url, completionHandler: requestMovies)
-                //networkManager.getRequest(endPoint: url) {
-//                    (data: Data) -> Void in
-//                    if let newMovies = self.convertJSONtoMovies(data: data) {
-//                        self.moviesToRate = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
-//                        self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
-//                        self.startImagePrefetcher(urls: self.moviesToRate.map { $0.photoUrl })
-//                        completion(self.currentMovie!)
-//                    }
-                //}
             }
         }
     }
-    
-    
     
     func storeRating(rating: String) {
         if let currentMovie = currentMovie {
@@ -162,8 +150,6 @@ class RateDataManager : NSObject {
     }
     
     private func saveCurrentRatingsToDisk(path: String) {
-        
-        
         let ratingsStore = ratings.map { RatingStore(movieID: $0.movieID, rating: $0.rating, userID: $0.userID) }
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(ratingsStore, toFile: path)
         if isSuccessfulSave {

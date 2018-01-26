@@ -10,7 +10,6 @@ import os.log
 import UIKit
 import CloudKit
 
-
 class RateViewController: UIViewController, RateViewInterface {
 
     var eventHandler : RateModuleInterface?
@@ -20,17 +19,14 @@ class RateViewController: UIViewController, RateViewInterface {
     @IBOutlet weak var titleImage: UIImageView!
     
     @IBAction func rateLikeButton(_ sender: UIButton) {
-        print("CALLING LIKE")
         eventHandler?.processRating(ratingType: "1")
     }
     
     @IBAction func rateSkipButton(_ sender: UIButton) {
-        print("CALLING SKIP")
         eventHandler?.processRating(ratingType: "0")
     }
     
     @IBAction func rateDislikeButton(_ sender: UIButton) {
-        print("CALLING DISLIKE")
         eventHandler?.processRating(ratingType: "-1")
     }
     
@@ -49,8 +45,6 @@ class RateViewController: UIViewController, RateViewInterface {
             (_, _, _, _) in
             
             self.navigationItem.title = title
-            
-            
             if let completion = completion {
                 completion()
             }
