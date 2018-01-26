@@ -12,7 +12,7 @@ class RecommendDataManager : NSObject {
     var rateDataManager : RateDataManager?
     var networkManager : NetworkManager?
     
-    let host = "https://movie-rec-project.herokuapp.com"
+    let host = "https://movie-rec.com"
     let defaultUser = "test_user_03"
     var currentUser: String {
         if let userID = UserDefaults.standard.string(forKey: "userID") {
@@ -23,6 +23,12 @@ class RecommendDataManager : NSObject {
     }
     var recommendationStorePath = RecommendationStore.ArchiveURL.path
 
+    override init() {
+        super.init()
+//        let recs = [Recommendation]()
+//        saveCurrentRecommendationsStateToDisk(recommendations:recs, path: recommendationStorePath)
+    }
+    
     func fetchRatings() -> [Rating] {
         if let rateDataManager = rateDataManager {
             return rateDataManager.ratings
@@ -33,7 +39,7 @@ class RecommendDataManager : NSObject {
     
     func fetchRecommendations() -> [Recommendation] {
         if let recommendationsFromDisk = loadRecommendationsFromDisk(path: recommendationStorePath) {
-            return recommendationsFromDisk.map { Recommendation(movieTitle: $0.movieTitle) }
+            return recommendationsFromDisk.map { Recommendation(movieTitle: $0.movieTitle, movieScore: $0.movieScore, movieProvider: $0.movieProvider) }
         } else {
             return []
         }
@@ -44,26 +50,27 @@ class RecommendDataManager : NSObject {
     }
 
     
-    func fetchJobStatus(jobID: String, completion: @escaping (Data) -> Void) {
+    func fetchJobStatus(jobID: String, completion: @escaping (Data) -> Void, failureHandler: @escaping () -> Void) {
         let url = "\(host)/api/job_poll/\(jobID)"
         if let networkManager = networkManager {
-            networkManager.getRequest(endPoint: url, completionHandler: completion)
+            networkManager.getRequest(endPoint: url, completionHandler: completion, failureHandler: failureHandler)
         }
     }
     
-    func uploadRatings(ratings: [Rating], completion: @escaping (String) -> Void) {
+    func uploadRatings(ratings: [Rating], completion: @escaping (String) -> Void, failureHandler: @escaping () -> Void) {
         let url = "\(host)/api/recommendations"
         let uploadData = formatPostData(ratings: ratings)
         
-        if let networkManager = networkManager {
-            networkManager.postRequest(endPoint: url, postData: uploadData) {
-                (data : Data) in
-                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                if let responseJSON = responseJSON as? [String: String] {
-                    print("job id: \(responseJSON["job_id"]!)")
-                    completion(responseJSON["job_id"]!)
-                }
+        func uploadSuccess(data: Data) -> Void {
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: String] {
+                print("job id: \(responseJSON["job_id"]!)")
+                completion(responseJSON["job_id"]!)
             }
+        }
+        
+        if let networkManager = networkManager {
+            networkManager.postRequest(endPoint: url, postData: uploadData, completionHandler: uploadSuccess, failureHandler: failureHandler)
         }
     }
     
@@ -72,7 +79,7 @@ class RecommendDataManager : NSObject {
     }
     
     private func saveCurrentRecommendationsStateToDisk(recommendations: [Recommendation], path: String) {
-        let recommendationsToStore = recommendations.map { RecommendationStore(movieTitle: $0.movieTitle) }
+        let recommendationsToStore = recommendations.map { RecommendationStore(movieTitle: $0.movieTitle, movieScore: $0.movieScore, movieProvider: $0.movieProvider) }
         NSKeyedArchiver.archiveRootObject(recommendationsToStore, toFile: path)
     }
     

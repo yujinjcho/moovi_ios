@@ -21,6 +21,10 @@ class AppDependencies {
         rateWireframe.presentRateInterfaceFromWindow(window)
     }
     
+    func installErrorLoginView(_ window: UIWindow) {
+        rateWireframe.presentErrorLoginFromWindow(window)
+    }
+    
     func configureDependencies() {
         
         let rootWireframe = RootWireframe()

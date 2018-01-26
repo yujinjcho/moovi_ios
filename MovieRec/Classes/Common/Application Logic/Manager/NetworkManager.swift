@@ -10,7 +10,7 @@ import Foundation
 
 class NetworkManager : NSObject {
     
-    func getRequest(endPoint: String, completionHandler: @escaping (Data)->Void) {
+    func getRequest(endPoint: String, completionHandler: @escaping (Data)->Void, failureHandler: (() -> Void)? = nil) {
         let url = URL(string: endPoint)
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
@@ -19,6 +19,11 @@ class NetworkManager : NSObject {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
+                
+                if let failureHandler = failureHandler {
+                    failureHandler()
+                }
+                
                 return
             }
             
@@ -26,8 +31,8 @@ class NetworkManager : NSObject {
         }
         task.resume()
     }
-    
-    func postRequest(endPoint: String, postData: [String:Any], completionHandler: @escaping (Data)->Void) {
+    //(() -> Void)?
+    func postRequest(endPoint: String, postData: [String:Any], completionHandler: @escaping (Data)->Void, failureHandler: (() -> Void)? = nil) {
         let jsonData = try? JSONSerialization.data(withJSONObject: postData)
         let url = URL(string: endPoint)
         var request = URLRequest(url: url!)
@@ -38,6 +43,9 @@ class NetworkManager : NSObject {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
+                if let failureHandler = failureHandler {
+                    failureHandler()
+                }
                 return
             }
             completionHandler(data)

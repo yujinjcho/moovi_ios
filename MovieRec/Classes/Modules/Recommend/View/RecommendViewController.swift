@@ -14,9 +14,11 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
 
     var eventHandler : RecommendModuleInterface?
     var userId: String?
-    var recommendations = [String]()
+    var recommendations = [(String, Float)]()
     var numberRows: Int { return recommendations.count }
-
+    
+    var segmentControlOptions = ["In Theaters", "Netflix", "Amazon Prime"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -38,13 +40,18 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
             fatalError("The dequeued cell is not an instance of MovieTableViewCell.")
         }
         
-        let title = recommendations[indexPath.row]
-        cell.titleLabel.text = title
+        let movie = recommendations[indexPath.row]
+        cell.titleLabel.text = movie.0
+        cell.movieScore.text = String(format: "%.0f", movie.1 * 100)
+        cell.movieScore.layer.cornerRadius = 10.0
         return cell
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
     
-    
-    func refreshTable(recommendationsToShow: [String]) {
+    func refreshTable(recommendationsToShow: [(String,Float)]) {
         recommendations = recommendationsToShow
         DispatchQueue.main.async {
             [unowned self] in
@@ -52,7 +59,7 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
         }
         endLoadingOverlay()
     }
-
+    
     func didTapRefreshButton() {
         startLoadingOverlay()
         if let eventHandler = eventHandler {
@@ -65,6 +72,15 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
             eventHandler.navigateToRateView(navigationController: navigationController)
         }
     }
+    
+    func showErrorMessage(title: String, message: String) -> Void {
+        dismiss(animated: false) {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
     
     //MARK: Private Methods
     private func endLoadingOverlay() {
@@ -83,15 +99,35 @@ class RecommendViewController: UITableViewController, RecommendViewInterface {
         present(alert, animated: true, completion: nil)
     }
     
+    func segmentedControlValueChanged(segment: UISegmentedControl) {
+        if let eventHandler = eventHandler {
+            eventHandler.providerPickerSelected(row: segment.selectedSegmentIndex)
+        }
+    }
+    
     private func configureView() {
-        navigationItem.title = "Recommend List"
-        let navigateToRecommendItem = UIBarButtonItem(title: "Refresh", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RecommendViewController.didTapRefreshButton))
-        let navigateToRateItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RecommendViewController.didTapBackButton))
+        navigationItem.title = "Recommendations"
+        
+        let navigateToRecommendItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(RecommendViewController.didTapRefreshButton))
+        let navigateToRateItem = UIBarButtonItem(title: "\u{2190}", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RecommendViewController.didTapBackButton))
+        
+        let segment: UISegmentedControl = UISegmentedControl(items: ["Theaters", "Netflix", "Amazon P."])
+        segment.addTarget(self, action: #selector(RecommendViewController.segmentedControlValueChanged), for:.valueChanged)
+
+        if let eventHandler = eventHandler {
+            if let providerIndex = eventHandler.retrieveSelectedFilter() {
+                segment.selectedSegmentIndex = providerIndex
+                eventHandler.providerPickerSelected(row: providerIndex)
+            }
+        }
+
+        self.navigationItem.titleView = segment
         navigationItem.rightBarButtonItem = navigateToRecommendItem
         navigationItem.leftBarButtonItem = navigateToRateItem
         
         if let eventHandler = eventHandler {
             eventHandler.configureUserInterfaceForPresentation()
         }
+        
     }
 }

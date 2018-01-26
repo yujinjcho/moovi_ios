@@ -34,7 +34,7 @@ class RateDataManagerTest: XCTestCase {
     }
     
     func testRemoveFirstMovie() {
-        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1", createdDate: Date())
         dataManager.moviesToRate = [movie]
         XCTAssertEqual(dataManager.moviesToRate.count, 1)
         dataManager.removeFirstMovie()
@@ -42,7 +42,7 @@ class RateDataManagerTest: XCTestCase {
     }
     
     func testloadCurrentMovie() {
-        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1", createdDate: Date())
         dataManager.moviesToRate = [movie]
     
         if let currentMovie = dataManager.currentMovie {
@@ -59,7 +59,7 @@ class RateDataManagerTest: XCTestCase {
     }
     
     func testStoreRating() {
-        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1", createdDate: Date())
         dataManager.moviesToRate = [movie]
         dataManager.storeRating(rating: "1")
         XCTAssertEqual(dataManager.ratings.count, 1, "Should have one rating now")

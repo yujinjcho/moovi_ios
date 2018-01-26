@@ -18,7 +18,7 @@ class MockRateDataManager: RateDataManager {
     var getNewMoviesToRateCalled : Bool = false
     
     override var currentMovie : Movie? {
-        return Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+        return Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1", createdDate: Date())
     }
     
     override func storeRating(rating: String) {

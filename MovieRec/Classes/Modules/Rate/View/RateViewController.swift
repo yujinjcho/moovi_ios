@@ -32,6 +32,7 @@ class RateViewController: UIViewController, RateViewInterface {
     
     override func viewDidLoad() {
         titleImage.clipsToBounds = true
+        titleImage.contentMode = .scaleAspectFill
         super.viewDidLoad()
         configureView()
         eventHandler?.loadedView()
@@ -39,9 +40,11 @@ class RateViewController: UIViewController, RateViewInterface {
 
     func showCurrentMovie(title:String, photoUrl: String, completion: (() -> Void)? = nil) {
         let url = URL(string: photoUrl)
+                
         titleImage.kf.setImage(with: url, completionHandler: {
             (_, _, _, _) in
-            self.titleNameLabel.text = title
+            
+            self.navigationItem.title = title
             if let completion = completion {
                 completion()
             }
@@ -53,8 +56,7 @@ class RateViewController: UIViewController, RateViewInterface {
     }
     
     private func configureView() {
-        navigationItem.title = "Rate"
-        let navigateToRecommendItem = UIBarButtonItem(title: "Movie List", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RateViewController.didTapNavigateToRecommendItem))
+        let navigateToRecommendItem = UIBarButtonItem(title: "\u{2192}", style: UIBarButtonItemStyle.plain, target: self, action: #selector(RateViewController.didTapNavigateToRecommendItem))
         navigationItem.rightBarButtonItem = navigateToRecommendItem
     }
 }

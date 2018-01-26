@@ -14,6 +14,7 @@ class RateInteractor : NSObject, RateInteractorInput {
     let dataManager : RateDataManager
     let movieThreshold = 25
     
+    
     init(dataManager: RateDataManager) {
         self.dataManager = dataManager
     }
@@ -28,6 +29,7 @@ class RateInteractor : NSObject, RateInteractorInput {
     func storeRating(ratingType: String) {
         dataManager.storeRating(rating: ratingType)
         dataManager.removeFirstMovie()
+        
         if dataManager.movieCounts == movieThreshold || dataManager.movieCounts == 0 {
             fetchNewMovies()
         }

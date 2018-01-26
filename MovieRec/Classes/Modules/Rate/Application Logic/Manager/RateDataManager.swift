@@ -18,7 +18,7 @@ class RateDataManager : NSObject {
     var moviesStorePath = MovieStore.ArchiveURL.path
     var ratingsStorePath = RatingStore.ArchiveURL.path
     var prefetcher: ImagePrefetcher?
-    let host = "https://movie-rec-project.herokuapp.com"
+    let host = "https://movie-rec.com"
     let defaultUser = "test_user_03"
     
     var movieCounts: Int { return moviesToRate.count }
@@ -44,22 +44,25 @@ class RateDataManager : NSObject {
     
     func loadMovies(completion: @escaping (Movie) -> Void) {
         
+        func requestMovies(data:Data) -> Void {
+            if let newMovies = self.convertJSONtoMovies(data: data) {
+                self.moviesToRate = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
+                self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
+                self.startImagePrefetcher(urls: self.moviesToRate.map { $0.photoUrl })
+                completion(self.currentMovie!)
+            }
+        }
+        
         let moviesFromDisk = loadMoviesFromDisk(path: moviesStorePath)
         if let moviesFromDisk = moviesFromDisk, moviesFromDisk.count > 0 {
             moviesToRate = moviesFromDisk.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
+            self.startImagePrefetcher(urls: moviesToRate.map { $0.photoUrl })
             completion(currentMovie!)
         } else {
             os_log("Loading Movies via API call", log: OSLog.default, type: .debug)
             let url = "\(host)/api/start"
             if let networkManager = networkManager {
-                networkManager.getRequest(endPoint: url) {
-                    (data: Data) -> Void in
-                    if let newMovies = self.convertJSONtoMovies(data: data) {
-                        self.moviesToRate = newMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
-                        self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
-                        completion(self.currentMovie!)
-                    }
-                }
+                networkManager.getRequest(endPoint: url, completionHandler: requestMovies)
             }
         }
     }
@@ -100,8 +103,8 @@ class RateDataManager : NSObject {
                         fetchedMovies.map { Movie(title:$0.title, photoUrl:$0.photoUrl, movieId:$0.movieId, createdDate: $0.createdDate) }
                     )
                     self.moviesToRate += moviesToAdd
+                    self.startImagePrefetcher(urls: self.moviesToRate.map { $0.photoUrl })
                     self.saveCurrentMoviesStateToDisk(path: self.moviesStorePath)
-                    self.startImagePrefetcher(urls: moviesToAdd.map { $0.photoUrl })
                 }
             })
         }
@@ -119,7 +122,7 @@ class RateDataManager : NSObject {
         }
         if let prefetcher = prefetcher {
             prefetcher.start()
-        }
+        } 
     }
     
     private func convertJSONtoMovies(data: Data) -> [MovieStore]? {

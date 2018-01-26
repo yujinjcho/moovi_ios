@@ -9,5 +9,6 @@
 import Foundation
 
 protocol RecommendViewInterface {
-    func refreshTable(recommendationsToShow: [String])
+    func refreshTable(recommendationsToShow: [(String, Float)])
+    func showErrorMessage(title: String, message: String) -> Void
 }

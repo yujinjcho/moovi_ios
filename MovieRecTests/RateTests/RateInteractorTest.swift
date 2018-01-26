@@ -42,7 +42,7 @@ class RateInteractorTest: XCTestCase {
     }
     
     func testShowCurrentMovie() {
-        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1")
+        let movie = Movie(title: "test_movie", photoUrl: "http://www.test.com", movieId: "1", createdDate: Date())
         if let interactor = interactor {
             interactor.showCurrentMovie(currentMovie: movie)
             XCTAssertTrue(output.presentCurrentMovieCalled, "should call presentCurrentMovie")
